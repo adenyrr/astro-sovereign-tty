@@ -83,24 +83,22 @@
      Base Okabe–Ito : le « succès » est un vert BLEUTÉ, distinguable du
      corail en deutéranopie/protanopie.
      ========================================================================== */
-  --accent-amber: light-dark(#945000, #e8a94c);
-  --accent-blue:  light-dark(#0969a9, #6fb4ea);
-  --accent-teal:  light-dark(#006b59, #34d1a6);
-  /* Le corail clair reste distinct de l'ambre et conserve 4.79:1 jusque
-     sur la surface surélevée, sans faire reposer l'état sur la couleur. */
-  --accent-coral: light-dark(#b03b20, #f08767);
-  --focus-ring:   light-dark(#0969a9, #6fb4ea);
+    --accent-amber: light-dark(#744200, #e8a94c);
+    --accent-blue:  light-dark(#0262ab, #6fb4ea);
+    --accent-teal:  light-dark(#006653, #34d1a6);
+    --accent-coral: light-dark(#b2392b, #f08767);
+    --focus-ring:   light-dark(#0262ab, #6fb4ea);
 
   /* ---- Fonds de page (§2.1 / §2.2) ---- */
-  --bg-0: light-dark(#f8f3e8, #0b0f14);
-  --bg-1: light-dark(#fffdf8, #121820);
+  --bg-0: light-dark(#f2ece3, #0b0f14);
+  --bg-1: light-dark(#fdfaf4, #121820);
 
   /* ---- Verre (§2.1 / §2.2) ---- */
-  --glass-bg:        light-dark(rgba(255,253,248,.68), rgba(255,255,255,.055));
-  --glass-bg-strong: light-dark(rgba(255,255,255,.88), rgba(255,255,255,.09));
-  --glass-border:    light-dark(rgba(29,64,82,.18),    rgba(255,255,255,.14));
+    --glass-bg:        light-dark(rgba(253,250,244,.70), rgba(255,255,255,.055));
+    --glass-bg-strong: light-dark(rgba(255,253,249,.90), rgba(255,255,255,.09));
+    --glass-border:    light-dark(rgba(31,26,18,.15),    rgba(255,255,255,.14));
   --glass-blur:      22px;
-  --glint:           light-dark(rgba(255,255,255,.85), rgba(255,255,255,.07));
+    --glint:           light-dark(transparent,            rgba(255,255,255,.07));
   /* Listes multi-ombres : light-dark() sépare ses deux arguments par une
      virgule, donc une liste d'ombres ne peut pas y tenir. Valeurs sombres
      ici (= :root de la référence §2.1), surchargées en clair plus bas. */
@@ -108,16 +106,14 @@
 
   /* ---- Halos ambiants (§2.1 / §2.2) — assez opaques pour que le
      backdrop-filter ait de la matière à flouter (§1.1) ---- */
-  --blob-amber: light-dark(rgba(var(--amber-rgb),.34), rgba(232,169,76,.20));
-  --blob-blue:  light-dark(rgba(var(--blue-rgb),.25),  rgba(111,180,234,.16));
-  --blob-teal:  light-dark(rgba(var(--teal-rgb),.18),  rgba(52,209,166,.12));
+  --blob-amber: light-dark(rgba(var(--amber-rgb),.10), rgba(232,169,76,.20));
+  --blob-blue:  light-dark(rgba(var(--blue-rgb),.18),  rgba(111,180,234,.16));
+  --blob-teal:  light-dark(rgba(var(--teal-rgb),.13),  rgba(52,209,166,.12));
 
   /* ---- Texte (§2.1 / §2.2) ---- */
-  --text-primary:   light-dark(#15202b, #eef2f6);
-  --text-secondary: light-dark(#344454, #a9b4c0);
-  /* L'encre secondaire la plus discrète reste à 4.71:1 sur la surface
-     claire la plus sombre ; la valeur du thème sombre est inchangée. */
-  --text-muted:     light-dark(#566675, #818c99);
+    --text-primary:   light-dark(#1f1a12, #eef2f6);
+    --text-secondary: light-dark(#4d473d, #a9b4c0);
+    --text-muted:     light-dark(#696257, #818c99);
 
   /* ==========================================================================
      ALIAS DE COMPATIBILITÉ — l'API de tokens consommée par les composants
@@ -125,18 +121,22 @@
      ========================================================================== */
   --bg:             var(--bg-0);
   --surface:        var(--bg-1);
-  --surface-raised: light-dark(#ebe5d9, #1a222c);
+  --surface-raised: light-dark(#eae4d8, #1a222c);
   --card-bg:        var(--glass-bg);
   --card-border:    var(--glass-border);
-  --card-border-hover: light-dark(rgba(29,64,82,.38), rgba(255,255,255,.30));
+  --card-border-hover: light-dark(rgba(31,26,18,.34), rgba(255,255,255,.30));
 
   --text:       var(--text-primary);
   --muted-text: var(--text-muted);
 
   /* L'ambre reste la teinte de marque ; les liens passent au bleu « info ». */
   --accent:           var(--accent-amber);
-  --accent-mid:       light-dark(#9f5900, #f5c47a);
-  --accent-secondary: light-dark(#7a4700, #c98a2e);
+  --brand-mark:     rgb(var(--amber-rgb));
+  --brand-mark-dim: #d9973a;
+  --brand-mark-lit: #f3c076;
+  --on-brand-mark:  #412402;
+  --accent-mid:       light-dark(#8a5000, #f5c47a);
+  --accent-secondary: light-dark(#5e3500, #c98a2e);
   --accent-warm:      var(--accent-amber);
   --link-color:       var(--accent-blue);
 
@@ -151,12 +151,12 @@
   --sem-warn:  var(--accent-amber);
   --sem-debug: var(--text-muted);
 
-  --gradient-start: light-dark(#7a4700, #c98a2e);
-  --gradient-mid:   var(--accent-amber);
-  --gradient-end:   light-dark(#9f5900, #f5c47a);
+  --gradient-start: var(--brand-mark-dim);
+  --gradient-mid:   var(--brand-mark);
+  --gradient-end:   var(--brand-mark-lit);
 
   /* ---- Code ---- */
-  --code-bg:   var(--bg-1);
+  --code-bg:   light-dark(var(--surface-raised), var(--bg-1));
   --code-text: var(--text-primary);
 
   --selection-bg: rgba(var(--amber-rgb), .30);
@@ -216,23 +216,22 @@
 
   /* ---- Décor non textuel (couche « vif ») ---- */
   --scan-color: rgba(var(--amber-rgb), .19);
-  --grid-line:  light-dark(rgba(29,64,82,.075), rgba(255,255,255,.05));
+  --grid-line:  light-dark(rgba(31,26,18,.07), rgba(255,255,255,.05));
 
   /* ---- Fond ambiant : nappes en dérive, volontairement plus faibles que
      les halos §3.2 posés sur <body> — elles s'y ajoutent sans saturer. ---- */
   --blob-drift-amber: rgba(var(--amber-rgb), .10);
   --blob-drift-blue:  rgba(var(--blue-rgb), .10);
-  --ambient-dot: light-dark(rgba(29,64,82,.085), rgba(255,255,255,.045));
+  --ambient-dot: light-dark(rgba(31,26,18,.08), rgba(255,255,255,.045));
 }
 
 /* Le choix explicite de thème (toggle) force le color-scheme : tous les
    tokens light-dark() basculent d'un coup, avant le premier paint. */
-:root[data-theme="light"] {
+:root[data-theme="light"],
+:root:not([data-theme]):where(.light) {
   color-scheme: light;
-  /* Ombres claires colorées : bleu ardoise pour le volume, ambre très
-     diffus pour relier les surfaces au fond ivoire sans effet gris sale. */
-  --shadow: 0 24px 64px -22px rgba(24,69,94,.28), 0 5px 18px rgba(120,76,18,.10);
-  --shadow-sm: 0 1px 3px rgba(24,69,94,.13), 0 3px 9px rgba(120,76,18,.07);
+  --shadow:    0 24px 60px -22px rgba(58,44,22,.20), 0 4px 14px rgba(58,44,22,.09);
+  --shadow-sm: 0 1px 2px rgba(58,44,22,.10), 0 3px 8px rgba(58,44,22,.06);
 }
 :root[data-theme="dark"],
 .dark { color-scheme: dark; }
@@ -241,8 +240,8 @@
    pilote seul les ombres, light-dark() gère déjà tout le reste. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --shadow: 0 24px 64px -22px rgba(24,69,94,.28), 0 5px 18px rgba(120,76,18,.10);
-    --shadow-sm: 0 1px 3px rgba(24,69,94,.13), 0 3px 9px rgba(120,76,18,.07);
+    --shadow:    0 24px 60px -22px rgba(58,44,22,.20), 0 4px 14px rgba(58,44,22,.09);
+    --shadow-sm: 0 1px 2px rgba(58,44,22,.10), 0 3px 8px rgba(58,44,22,.06);
   }
 }
 
@@ -423,7 +422,7 @@ a:hover {
   padding: 1.5rem;
   /* Le liseré interne simule un reflet en haut du panneau — discret en
      sombre, net en clair : c'est ce détail qui évite l'effet « plat ». */
-  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glint);
+  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glint), inset 0 -1px 0 var(--glint-under);
   position: relative;
   transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
               border-color 0.3s ease,
@@ -439,10 +438,10 @@ a:hover {
   border-radius: inherit;
   pointer-events: none;
   background-image:
-    linear-gradient(var(--accent), var(--accent)),
-    linear-gradient(var(--accent), var(--accent)),
-    linear-gradient(var(--accent), var(--accent)),
-    linear-gradient(var(--accent), var(--accent));
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark));
   background-position: 0 0, 0 0, 100% 100%, 100% 100%;
   background-size: 16px 1.5px, 1.5px 16px, 16px 1.5px, 1.5px 16px;
   background-repeat: no-repeat;
@@ -548,7 +547,7 @@ a:hover {
       oklch(100% 0 0 / 75%) 50%,
       var(--gradient-end) 65%,
       var(--gradient-start)) border-box;
-  color: var(--bg);
+  color: var(--on-brand-mark);
   box-shadow: 0 2px 12px var(--glow);
   animation: btn-border-spin 3.2s linear infinite;
 }
@@ -564,7 +563,7 @@ a:hover {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--glow-hover);
-  color: var(--bg);
+  color: var(--on-brand-mark);
 }
 
 .btn-outline {
@@ -683,8 +682,8 @@ a:hover {
 }
 
 .tab.active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--text-primary);
+  border-bottom-color: var(--brand-mark);
 }
 
 .tab.active::before {

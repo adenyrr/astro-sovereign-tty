@@ -51,6 +51,7 @@ function active(item: NavigationItem) {
       <ThemeToggle />
       <details class="mobile-menu">
         <summary aria-label="Ouvrir le menu"><Menu class="menu-open" size={19} /><X class="menu-close" size={19} /></summary>
+        <div class="mobile-backdrop" aria-hidden="true"></div>
         <div class="mobile-panel">
           <p><span aria-hidden="true">$</span> cd ~/navigation</p>
           <nav aria-label="Navigation mobile">
@@ -137,16 +138,18 @@ function active(item: NavigationItem) {
   .menu-close { display: none; }
   .mobile-menu[open] .menu-open { display: none; }
   .mobile-menu[open] .menu-close { display: block; }
-  .mobile-panel { position: fixed; top: 4.65rem; left: 1rem; right: 1rem; padding: 1.15rem; color: var(--text-primary); background: var(--bg-1); border: 1px solid var(--glass-border); border-radius: 14px; box-shadow: var(--shadow); }
+  .mobile-backdrop { display: none; position: fixed; inset: 0; z-index: 0; background: rgba(5, 8, 12, .54); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .mobile-menu[open] .mobile-backdrop { display: block; }
+  .mobile-panel { position: fixed; top: 4.25rem; left: .6rem; right: .6rem; bottom: .6rem; z-index: 1; display: flex; flex-direction: column; gap: .75rem; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom)); color: var(--text-primary); background: color-mix(in srgb, var(--glass-bg-strong) 94%, transparent); border: 1px solid var(--glass-border); border-radius: 18px; box-shadow: 0 24px 80px -28px rgba(0,0,0,.65), inset 0 1px 0 var(--glint); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
   .mobile-panel > p { margin: 0 0 .8rem; color: var(--text-muted); font: .7rem var(--font-code); }
   .mobile-panel > p span { color: var(--accent-teal); }
-  .mobile-panel nav { display: grid; gap: .3rem; }
-  .mobile-panel nav a { display: grid; grid-template-columns: 38px 1fr auto; align-items: center; min-height: 50px; padding: .5rem .7rem; color: var(--text-secondary); border: 1px solid transparent; border-radius: 9px; font: .82rem var(--font-code); text-decoration: none; }
-  .mobile-panel nav a small { color: var(--text-muted); font-size: .6rem; }
+  .mobile-panel nav { display: grid; gap: .35rem; }
+  .mobile-panel nav a { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; min-height: 56px; padding: .7rem .85rem; color: var(--text-secondary); border: 1px solid transparent; border-radius: 12px; font: .88rem var(--font-code); text-decoration: none; }
+  .mobile-panel nav a small { color: var(--text-muted); font-size: .64rem; }
   .mobile-panel nav a.active { color: var(--text-primary); border-color: rgba(var(--amber-rgb), .35); background: rgba(var(--amber-rgb), .08); }
   .mobile-panel nav a.active small { color: var(--accent-amber); }
-  .mobile-socials { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--glass-border); }
-  .mobile-socials a { color: var(--text-muted); font: .66rem var(--font-code); text-underline-offset: 3px; }
+  .mobile-socials { display: flex; flex-wrap: wrap; gap: .45rem .75rem; margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--glass-border); }
+  .mobile-socials a { color: var(--text-muted); font: .72rem var(--font-code); text-underline-offset: 3px; }
 
   @media (max-width: 820px) {
     #site-header { padding: .5rem .6rem; }
@@ -158,6 +161,8 @@ function active(item: NavigationItem) {
   @media (max-width: 380px) {
     .header-shell { padding-left: .45rem; }
     .brand > span:not(.brand-glyph) { display: none; }
+    .mobile-panel { left: .45rem; right: .45rem; top: 4rem; }
+    .mobile-panel nav a { min-height: 54px; padding-inline: .75rem; }
   }
   @media (prefers-reduced-transparency: reduce) {
     .header-shell { background: var(--bg-1); backdrop-filter: none; -webkit-backdrop-filter: none; }
