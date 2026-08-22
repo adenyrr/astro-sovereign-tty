@@ -51,7 +51,7 @@ function active(item: NavigationItem) {
       <ThemeToggle />
       <details class="mobile-menu">
         <summary aria-label="Ouvrir le menu"><Menu class="menu-open" size={19} /><X class="menu-close" size={19} /></summary>
-        <div class="mobile-backdrop" aria-hidden="true"></div>
+        <button type="button" class="mobile-backdrop" aria-label="Fermer le menu"></button>
         <div class="mobile-panel">
           <p><span aria-hidden="true">$</span> cd ~/navigation</p>
           <nav aria-label="Navigation mobile">
@@ -132,15 +132,16 @@ function active(item: NavigationItem) {
   .github-link { display: grid; place-items: center; width: 40px; height: 40px; color: var(--text-muted); border-radius: 8px; }
   .github-link:hover { color: var(--text-primary); background: var(--glass-bg); }
   .mobile-menu { display: none; position: relative; }
-  .mobile-menu summary { display: grid; place-items: center; width: 42px; height: 42px; color: var(--text-primary); border-radius: 8px; cursor: pointer; list-style: none; }
+  .mobile-menu summary { position: relative; z-index: 2; display: grid; place-items: center; width: 44px; height: 44px; color: var(--text-primary); border-radius: 8px; cursor: pointer; list-style: none; }
   .mobile-menu summary::-webkit-details-marker { display: none; }
   .mobile-menu summary:hover { background: var(--glass-bg); }
+  .mobile-menu[open] summary { background: var(--bg-1); box-shadow: inset 0 0 0 1px var(--glass-border); }
   .menu-close { display: none; }
   .mobile-menu[open] .menu-open { display: none; }
   .mobile-menu[open] .menu-close { display: block; }
-  .mobile-backdrop { display: none; position: fixed; inset: 0; z-index: 0; background: rgba(5, 8, 12, .54); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .mobile-backdrop { display: none; position: fixed; inset: 0; z-index: 0; width: 100%; height: 100%; padding: 0; border: 0; background: light-dark(rgba(31,26,18,.42), rgba(5,8,12,.76)); cursor: default; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
   .mobile-menu[open] .mobile-backdrop { display: block; }
-  .mobile-panel { position: fixed; top: 4.25rem; left: .6rem; right: .6rem; bottom: .6rem; z-index: 1; display: flex; flex-direction: column; gap: .75rem; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom)); color: var(--text-primary); background: color-mix(in srgb, var(--glass-bg-strong) 94%, transparent); border: 1px solid var(--glass-border); border-radius: 18px; box-shadow: 0 24px 80px -28px rgba(0,0,0,.65), inset 0 1px 0 var(--glint); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .mobile-panel { position: fixed; top: 4.25rem; left: .6rem; right: .6rem; bottom: .6rem; z-index: 1; display: flex; flex-direction: column; gap: .75rem; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom)); color: var(--text-primary); background: var(--bg-1); border: 1px solid var(--glass-border); border-radius: 18px; box-shadow: 0 24px 80px -28px rgba(0,0,0,.65), inset 0 1px 0 var(--glint); overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
   .mobile-panel > p { margin: 0 0 .8rem; color: var(--text-muted); font: .7rem var(--font-code); }
   .mobile-panel > p span { color: var(--accent-teal); }
   .mobile-panel nav { display: grid; gap: .35rem; }
@@ -166,15 +167,47 @@ function active(item: NavigationItem) {
   }
   @media (prefers-reduced-transparency: reduce) {
     .header-shell { background: var(--bg-1); backdrop-filter: none; -webkit-backdrop-filter: none; }
+    .mobile-backdrop { backdrop-filter: none; -webkit-backdrop-filter: none; }
   }
+
+  :global(body.mobile-menu-open) { overflow: hidden; }
 </style>
 
 <script>
+  let mobileMenuController: AbortController | undefined;
+
   function initMobileMenu() {
+    mobileMenuController?.abort();
     const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
     if (!menu) return;
-    menu.querySelectorAll('a').forEach((link) => { link.addEventListener('click', () => menu.removeAttribute('open'), { once: true }); });
+
+    const controller = new AbortController();
+    mobileMenuController = controller;
+    const { signal } = controller;
+    const summary = menu.querySelector<HTMLElement>('summary');
+    const backdrop = menu.querySelector<HTMLButtonElement>('.mobile-backdrop');
+
+    const syncState = () => {
+      const open = menu.open;
+      document.body.classList.toggle('mobile-menu-open', open);
+      summary?.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    };
+    const close = (restoreFocus = false) => {
+      if (!menu.open) return;
+      menu.open = false;
+      syncState();
+      if (restoreFocus) summary?.focus();
+    };
+
+    menu.addEventListener('toggle', syncState, { signal });
+    backdrop?.addEventListener('click', () => close(true), { signal });
+    menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => close(), { signal }));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && menu.open) close(true);
+    }, { signal });
+    syncState();
   }
   initMobileMenu();
   document.addEventListener('astro:page-load', initMobileMenu);
+  document.addEventListener('astro:before-swap', () => document.body.classList.remove('mobile-menu-open'));
 </script>
