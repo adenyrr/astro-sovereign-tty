@@ -1,0 +1,160 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="470" viewBox="0 0 1000 470" role="img" aria-label="Apercu de @adenyrr/astro-ui : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite.">
+  <title>@adenyrr/astro-ui — chrome workstation partage pour Astro</title>
+
+  <defs>
+    <clipPath id="round"><rect x="0" y="0" width="1000" height="470" rx="16"/></clipPath>
+    <clipPath id="halfL"><rect x="0" y="0" width="500" height="470"/></clipPath>
+    <clipPath id="halfD"><rect x="500" y="0" width="500" height="470"/></clipPath>
+    <clipPath id="stripL"><rect x="26" y="396" width="448" height="20" rx="5"/></clipPath>
+    <clipPath id="stripD"><rect x="526" y="396" width="448" height="20" rx="5"/></clipPath>
+
+    <radialGradient id="lAmber" gradientUnits="userSpaceOnUse" cx="60" cy="38" r="330">
+      <stop offset="0" stop-color="#e8a94c" stop-opacity=".34"/><stop offset="1" stop-color="#e8a94c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lBlue" gradientUnits="userSpaceOnUse" cx="460" cy="85" r="290">
+      <stop offset="0" stop-color="#6fb4ea" stop-opacity=".25"/><stop offset="1" stop-color="#6fb4ea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="lTeal" gradientUnits="userSpaceOnUse" cx="250" cy="470" r="300">
+      <stop offset="0" stop-color="#34d1a6" stop-opacity=".18"/><stop offset="1" stop-color="#34d1a6" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dAmber" gradientUnits="userSpaceOnUse" cx="560" cy="38" r="330">
+      <stop offset="0" stop-color="#e8a94c" stop-opacity=".20"/><stop offset="1" stop-color="#e8a94c" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dBlue" gradientUnits="userSpaceOnUse" cx="960" cy="85" r="290">
+      <stop offset="0" stop-color="#6fb4ea" stop-opacity=".16"/><stop offset="1" stop-color="#6fb4ea" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="dTeal" gradientUnits="userSpaceOnUse" cx="750" cy="470" r="300">
+      <stop offset="0" stop-color="#34d1a6" stop-opacity=".12"/><stop offset="1" stop-color="#34d1a6" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="lBtn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7a4700"/><stop offset="1" stop-color="#945000"/>
+    </linearGradient>
+    <linearGradient id="dBtn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c98a2e"/><stop offset="1" stop-color="#e8a94c"/>
+    </linearGradient>
+    <linearGradient id="lRule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7a4700"/><stop offset="1" stop-color="#9f5900"/>
+    </linearGradient>
+    <linearGradient id="dRule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#c98a2e"/><stop offset="1" stop-color="#f5c47a"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#round)">
+    <g clip-path="url(#halfL)">
+      <rect x="0" y="0" width="500" height="470" fill="#f8f3e8"/>
+      <circle cx="60" cy="38" r="330" fill="url(#lAmber)"/>
+      <circle cx="460" cy="85" r="290" fill="url(#lBlue)"/>
+      <circle cx="250" cy="470" r="300" fill="url(#lTeal)"/>
+
+      <rect x="26" y="24" width="448" height="44" rx="11" fill="#ffffff" fill-opacity=".792" stroke="#1d4052" stroke-opacity=".18"/>
+      <rect x="40" y="33" width="26" height="26" rx="7" fill="#945000"/>
+      <path d="M46 40 L52 46 L46 52" fill="none" stroke="#f8f3e8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="54" y="50" width="8" height="2" rx="1" fill="#f8f3e8"/>
+      <text x="78" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="13.5" fill="#15202b">adenyrr</text>
+      <text x="135" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="13.5" fill="#566675">@home</text>
+      <text x="330" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="12.5" fill="#566675">Aa</text>
+      <path d="M368 39.5a7.2 7.2 0 1 0 5.6 11.7 8.6 8.6 0 0 1-5.6-11.7z" fill="none" stroke="#566675" stroke-width="1.5" stroke-linejoin="round"/>
+      <rect x="388" y="35" width="70" height="22" rx="11" fill="#ffffff" fill-opacity=".792" stroke="#1d4052" stroke-opacity=".18"/>
+      <text x="423" y="50" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#15202b">~/docs</text>
+
+      <rect x="26" y="84" width="448" height="204" rx="12" fill="#fffdf8" fill-opacity=".68" stroke="#1d4052" stroke-opacity=".18"/>
+      <rect x="46" y="104" width="46" height="3" rx="1.5" fill="url(#lRule)"/>
+      <text x="46" y="134" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#15202b">@adenyrr/astro-ui</text>
+      <text x="46" y="160" font-family="ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="12.5" fill="#344454">Chrome workstation partage pour Astro. Header, footer,</text>
+      <text x="46" y="179" font-family="ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="12.5" fill="#344454">halos ambiants et tokens CSS pilotes par light-dark().</text>
+      <rect x="46" y="194" width="70" height="24" rx="12" fill="#e8a94c" fill-opacity=".16" stroke="#e8a94c" stroke-opacity=".40"/>
+      <text x="81" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#945000">astro 6</text>
+      <rect x="126" y="194" width="44" height="24" rx="12" fill="#34d1a6" fill-opacity=".16" stroke="#34d1a6" stroke-opacity=".40"/>
+      <text x="148" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#006b59">MIT</text>
+      <rect x="180" y="194" width="70" height="24" rx="12" fill="#6fb4ea" fill-opacity=".16" stroke="#6fb4ea" stroke-opacity=".40"/>
+      <text x="215" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#0969a9">WCAG AA</text>
+      <rect x="46" y="234" width="130" height="32" rx="8" fill="url(#lBtn)"/>
+      <text x="111" y="254" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="12" fill="#f8f3e8">npm install</text>
+
+      <rect x="26" y="300" width="448" height="38" rx="8" fill="#fffdf8" stroke="#1d4052" stroke-opacity=".18"/>
+      <text x="44" y="324" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11.5" fill="#15202b"><tspan fill="#0969a9">import</tspan> Header <tspan fill="#0969a9">from</tspan> '@adenyrr/astro-ui'</text>
+
+      <rect x="26" y="350" width="448" height="34" rx="10" fill="#fffdf8" fill-opacity=".68" stroke="#1d4052" stroke-opacity=".18"/>
+      <text x="44" y="371" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#344454"><tspan fill="#006b59">adenyrr</tspan>:~$</text>
+      <rect x="108" y="363" width="5" height="9" fill="#945000"/>
+      <text x="180" y="371" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#0969a9">main</text>
+      <circle cx="217" cy="367" r="3" fill="#006b59"/>
+      <text x="458" y="371" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#566675">Copyleft &#183; 2026</text>
+
+      <g clip-path="url(#stripL)">
+        <rect x="26" y="396" width="56" height="20" fill="#f8f3e8"/>
+        <rect x="82" y="396" width="56" height="20" fill="#fffdf8"/>
+        <rect x="138" y="396" width="56" height="20" fill="#ebe5d9"/>
+        <rect x="194" y="396" width="56" height="20" fill="#945000"/>
+        <rect x="250" y="396" width="56" height="20" fill="#0969a9"/>
+        <rect x="306" y="396" width="56" height="20" fill="#006b59"/>
+        <rect x="362" y="396" width="56" height="20" fill="#b03b20"/>
+        <rect x="418" y="396" width="56" height="20" fill="#15202b"/>
+      </g>
+      <rect x="26" y="396" width="448" height="20" rx="5" fill="none" stroke="#1d4052" stroke-opacity=".18"/>
+      <text x="492" y="438" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#566675">--bg-0: light-dark(#f8f3e8,</text>
+    </g>
+
+    <g clip-path="url(#halfD)">
+      <rect x="500" y="0" width="500" height="470" fill="#0b0f14"/>
+      <circle cx="560" cy="38" r="330" fill="url(#dAmber)"/>
+      <circle cx="960" cy="85" r="290" fill="url(#dBlue)"/>
+      <circle cx="750" cy="470" r="300" fill="url(#dTeal)"/>
+
+      <rect x="526" y="24" width="448" height="44" rx="11" fill="#ffffff" fill-opacity=".081" stroke="#ffffff" stroke-opacity=".14"/>
+      <rect x="540" y="33" width="26" height="26" rx="7" fill="#e8a94c"/>
+      <path d="M546 40 L552 46 L546 52" fill="none" stroke="#0b0f14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <rect x="554" y="50" width="8" height="2" rx="1" fill="#0b0f14"/>
+      <text x="578" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="13.5" fill="#eef2f6">adenyrr</text>
+      <text x="635" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="13.5" fill="#818c99">@docu</text>
+      <text x="830" y="51" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="12.5" fill="#818c99">Aa</text>
+      <circle cx="868" cy="46" r="4.6" fill="none" stroke="#818c99" stroke-width="1.5"/>
+      <g stroke="#818c99" stroke-width="1.5" stroke-linecap="round">
+        <path d="M868 37.4v1.6M868 53v1.6M859.4 46h1.6M875 46h1.6M861.9 39.9l1.1 1.1M873 51l1.1 1.1M874.1 39.9l-1.1 1.1M863 51l-1.1 1.1"/>
+      </g>
+      <rect x="888" y="35" width="70" height="22" rx="11" fill="#ffffff" fill-opacity=".081" stroke="#ffffff" stroke-opacity=".14"/>
+      <text x="923" y="50" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#eef2f6">~/docs</text>
+
+      <rect x="526" y="84" width="448" height="204" rx="12" fill="#ffffff" fill-opacity=".055" stroke="#ffffff" stroke-opacity=".14"/>
+      <rect x="546" y="104" width="46" height="3" rx="1.5" fill="url(#dRule)"/>
+      <text x="546" y="134" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="18" fill="#eef2f6">@adenyrr/astro-ui</text>
+      <text x="546" y="160" font-family="ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="12.5" fill="#a9b4c0">Chrome workstation partage pour Astro. Header, footer,</text>
+      <text x="546" y="179" font-family="ui-sans-serif,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="12.5" fill="#a9b4c0">halos ambiants et tokens CSS pilotes par light-dark().</text>
+      <rect x="546" y="194" width="70" height="24" rx="12" fill="#e8a94c" fill-opacity=".16" stroke="#e8a94c" stroke-opacity=".40"/>
+      <text x="581" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#e8a94c">astro 6</text>
+      <rect x="626" y="194" width="44" height="24" rx="12" fill="#34d1a6" fill-opacity=".16" stroke="#34d1a6" stroke-opacity=".40"/>
+      <text x="648" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#34d1a6">MIT</text>
+      <rect x="680" y="194" width="70" height="24" rx="12" fill="#6fb4ea" fill-opacity=".16" stroke="#6fb4ea" stroke-opacity=".40"/>
+      <text x="715" y="210" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#6fb4ea">WCAG AA</text>
+      <rect x="546" y="234" width="130" height="32" rx="8" fill="url(#dBtn)"/>
+      <text x="611" y="254" text-anchor="middle" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="12" fill="#0b0f14">npm install</text>
+
+      <rect x="526" y="300" width="448" height="38" rx="8" fill="#121820" stroke="#ffffff" stroke-opacity=".14"/>
+      <text x="544" y="324" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11.5" fill="#eef2f6"><tspan fill="#6fb4ea">import</tspan> Header <tspan fill="#6fb4ea">from</tspan> '@adenyrr/astro-ui'</text>
+
+      <rect x="526" y="350" width="448" height="34" rx="10" fill="#ffffff" fill-opacity=".055" stroke="#ffffff" stroke-opacity=".14"/>
+      <text x="544" y="371" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#a9b4c0"><tspan fill="#34d1a6">adenyrr</tspan>:~$</text>
+      <rect x="608" y="363" width="5" height="9" fill="#e8a94c"/>
+      <text x="680" y="371" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#6fb4ea">main</text>
+      <circle cx="717" cy="367" r="3" fill="#34d1a6"/>
+      <text x="958" y="371" text-anchor="end" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="10" fill="#818c99">Copyleft &#183; 2026</text>
+
+      <g clip-path="url(#stripD)">
+        <rect x="526" y="396" width="56" height="20" fill="#0b0f14"/>
+        <rect x="582" y="396" width="56" height="20" fill="#121820"/>
+        <rect x="638" y="396" width="56" height="20" fill="#1a222c"/>
+        <rect x="694" y="396" width="56" height="20" fill="#e8a94c"/>
+        <rect x="750" y="396" width="56" height="20" fill="#6fb4ea"/>
+        <rect x="806" y="396" width="56" height="20" fill="#34d1a6"/>
+        <rect x="862" y="396" width="56" height="20" fill="#f08767"/>
+        <rect x="918" y="396" width="56" height="20" fill="#eef2f6"/>
+      </g>
+      <rect x="526" y="396" width="448" height="20" rx="5" fill="none" stroke="#ffffff" stroke-opacity=".14"/>
+      <text x="508" y="438" font-family="ui-monospace,'SF Mono',Menlo,Consolas,monospace" font-size="11" fill="#818c99">#0b0f14);</text>
+    </g>
+
+    <line x1="500" y1="0" x2="500" y2="470" stroke="#e8a94c" stroke-opacity=".32" stroke-width="1"/>
+  </g>
+</svg>
