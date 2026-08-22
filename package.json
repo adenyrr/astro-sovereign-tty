@@ -1,0 +1,41 @@
+{
+  "name": "@adenyrr/astro-ui",
+  "version": "1.0.0",
+  "description": "Shared Astro workstation interface for adenyrr.me",
+  "type": "module",
+  "scripts": {
+    "build": "astro check"
+  },
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles/global.css",
+    "./Header.astro": "./src/components/Header.astro",
+    "./Footer.astro": "./src/components/Footer.astro",
+    "./ThemeToggle.astro": "./src/components/ThemeToggle.astro",
+    "./ReadingModeToggle.astro": "./src/components/ReadingModeToggle.astro",
+    "./AmbientBackground.astro": "./src/components/AmbientBackground.astro",
+    "./Animations.astro": "./src/components/Animations.astro"
+  },
+  "peerDependencies": {
+    "astro": "^6.0.0 || ^7.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/inclusive-sans": "^5.2.8",
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.2.8",
+    "@lucide/astro": "^1.33.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.6",
+    "astro": "^7.2.4",
+    "typescript": "^5.9.2"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "license": "MIT"
+}
