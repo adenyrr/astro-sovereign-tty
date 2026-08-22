@@ -50,6 +50,8 @@ publish:
   stage: publish
   script:
     - |
+      echo "Tag: $CI_COMMIT_TAG"
+      echo "Version du package: v$(node -p "require('./package.json').version")"
       if [ "v$(node -p "require('./package.json').version")" != "$CI_COMMIT_TAG" ]; then
         echo "Le tag $CI_COMMIT_TAG ne correspond pas à la version de package.json." >&2
         exit 1
@@ -59,3 +61,4 @@ publish:
     - npm publish
   rules:
     - if: $CI_COMMIT_TAG
+      when: always
