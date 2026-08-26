@@ -19,7 +19,11 @@ test('counters initialize without ClientRouter', async ({ page }) => {
 test('dark theme survives a ClientRouter swap', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('theme', 'dark'));
   await page.goto('/');
-  await page.locator('.desktop-nav a[href="/blog"]').click();
+  const mobile = (page.viewportSize()?.width ?? 1280) <= 820;
+  if (mobile) await page.locator('.mobile-menu summary').click();
+  await page
+    .locator(mobile ? '.mobile-panel a[href="/blog"]' : '.desktop-nav a[href="/blog"]')
+    .click();
   await expect(page).toHaveURL(/\/blog\/?$/);
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
 });

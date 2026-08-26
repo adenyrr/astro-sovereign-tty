@@ -1,3 +1,29 @@
+export type ChromeLocale = 'fr' | 'en';
+
+export type BrandIconName = 'Github' | 'Gitlab' | 'Linkedin';
+export type InterfaceIconName = 'Mail' | 'MessageCircle' | 'Rss';
+export type ChromeIconName = BrandIconName | InterfaceIconName | (string & {});
+
+export interface ChromeLabels {
+  skipToContent: string;
+  homeAriaLabel: string;
+  primaryNavigation: string;
+  mobileNavigation: string;
+  footerNavigation: string;
+  openMenu: string;
+  closeMenu: string;
+  menuHeading: string;
+  themeToLight: string;
+  themeToDark: string;
+  readingModeOn: string;
+  readingModeOff: string;
+  rssFeed: string;
+  branchUpToDate: string;
+  backToTop: string;
+  externalLink: string;
+  unknownSocialLink: string;
+}
+
 export interface NavigationItem {
   label: string;
   route?: string;
@@ -10,7 +36,7 @@ export interface NavigationItem {
 
 export interface SocialLink {
   label: string;
-  icon: string;
+  icon: ChromeIconName;
   url: string;
   enabled?: boolean;
 }
@@ -21,6 +47,8 @@ export interface FooterLink {
 }
 
 export interface SiteChromeConfig {
+  locale?: ChromeLocale;
+  labels?: Partial<ChromeLabels>;
   features?: Record<string, boolean>;
   appearance?: {
     ambientBackground?: boolean;
@@ -30,6 +58,8 @@ export interface SiteChromeConfig {
     brandName: string;
     brandHost: string;
     homeUrl?: string;
+    /** Préfixe de déploiement retiré avant de comparer les routes. */
+    basePath?: string;
     /** `mobile` masque sous 820px, `true` partout et `false` jamais. */
     hideOnScroll?: boolean | 'mobile';
     navigation: NavigationItem[];

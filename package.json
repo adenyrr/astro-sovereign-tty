@@ -21,6 +21,9 @@
   ],
   "exports": {
     ".": "./src/index.ts",
+    "./i18n": "./src/i18n.ts",
+    "./safe-href": "./src/utils/safe-href.ts",
+    "./navigation": "./src/utils/navigation.ts",
     "./styles.css": "./src/styles/global.css",
     "./Header.astro": "./src/components/Header.astro",
     "./Footer.astro": "./src/components/Footer.astro",

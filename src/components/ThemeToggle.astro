@@ -1,5 +1,12 @@
 ---
+import { fr } from '../i18n';
+import type { ChromeLabels } from '../types';
 
+interface Props {
+  labels?: Pick<ChromeLabels, 'themeToLight' | 'themeToDark'>;
+}
+
+const { labels = fr } = Astro.props;
 ---
 
 <!-- aria-pressed reflète l'état sombre (§5.2) ; le libellé accessible est
@@ -8,9 +15,11 @@
   id="theme-toggle"
   type="button"
   aria-pressed="false"
-  aria-label="Basculer le thème"
+  aria-label={labels.themeToDark}
   class="theme-toggle"
-  title="Basculer le thème"
+  title={labels.themeToDark}
+  data-label-light={labels.themeToLight}
+  data-label-dark={labels.themeToDark}
 >
   <!-- Icônes en traits (§3.5) : stroke=currentColor, 1.7, bouts arrondis —
        cohérent avec les capsules arrondies du reste du système. -->
@@ -121,7 +130,7 @@
 
       if (toggle) {
         toggle.setAttribute('aria-pressed', String(isDark));
-        var label = isDark ? 'Basculer vers le thème clair' : 'Basculer vers le thème sombre';
+        var label = isDark ? toggle.dataset.labelLight : toggle.dataset.labelDark;
         toggle.setAttribute('aria-label', label);
         toggle.setAttribute('title', label);
       }

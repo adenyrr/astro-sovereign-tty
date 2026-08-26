@@ -16,10 +16,14 @@ interface Props {
 }
 
 const { title, router = true, lang = 'fr', hideOnScroll } = Astro.props;
-const config =
-  hideOnScroll === undefined
-    ? chromeConfig
-    : { ...chromeConfig, header: { ...chromeConfig.header, hideOnScroll } };
+const config = {
+  ...chromeConfig,
+  locale: lang,
+  header: {
+    ...chromeConfig.header,
+    ...(hideOnScroll === undefined ? {} : { hideOnScroll }),
+  },
+};
 ---
 
 <!doctype html>
@@ -38,7 +42,7 @@ const config =
     <main id="main" tabindex="-1" class="page-content">
       <slot />
     </main>
-    <Footer config={chromeConfig} />
+    <Footer config={config} />
     <Animations />
   </body>
 </html>

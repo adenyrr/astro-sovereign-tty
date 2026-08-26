@@ -704,9 +704,12 @@ a:hover {
   animation: pulse-dot 2s ease-in-out infinite;
 }
 .status-offline .status-dot {
-  background: oklch(68% 0.13 30);
+  border-radius: 0;
+  background: var(--accent-coral);
+  transform: rotate(45deg);
 }
 .status-maintenance .status-dot {
+  border-radius: 2px;
   background: var(--sem-warn);
   animation: pulse-dot 1.5s ease-in-out infinite;
 }
@@ -1449,6 +1452,14 @@ a:hover {
 /* Mouvement réduit : les halos cessent de dériver, le curseur cesse de
    clignoter — le contenu reste strictement identique. */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
   .gradient-text {
     animation: none;
   }
@@ -1458,12 +1469,28 @@ a:hover {
   }
 }
 
+@media (forced-colors: active) {
+  :root {
+    --focus-ring: Highlight;
+  }
+  a {
+    text-decoration: underline;
+  }
+  .status-dot {
+    border: 2px solid CanvasText;
+  }
+}
+
 /* Cibles tactiles ≥ 40×40px sur mobile pour tout élément interactif (§4). */
 @media (pointer: coarse) {
   .tab,
   .btn,
-  .theme-toggle {
-    min-height: 40px;
-    min-width: 40px;
+  .theme-toggle,
+  .reading-mode-toggle,
+  a[href],
+  button,
+  summary {
+    min-height: 44px;
+    min-width: 44px;
   }
 }

@@ -1,7 +1,9 @@
 ---
 import BrandIcon from './BrandIcon.astro';
-import { ArrowUp, GitBranch, Mail, MessageCircle, Rss } from '@lucide/astro';
-import type { SiteChromeConfig } from '../types';
+import { ArrowUp, ExternalLink, GitBranch, Mail, MessageCircle, Rss } from '@lucide/astro';
+import { resolveChromeLabels } from '../i18n';
+import { safeHref } from '../utils/safe-href';
+import type { BrandIconName, SiteChromeConfig } from '../types';
 
 interface Props {
   config: SiteChromeConfig;
@@ -14,8 +16,9 @@ const socials = (config.header?.socialLinks || []).filter((link) => link.enabled
 const navigation = (config.header?.navigation || []).filter(
   (item) => item.enabled !== false && (!item.feature || config.features?.[item.feature]),
 );
-const brandIcons = new Set(['Github', 'Gitlab', 'Linkedin']);
-const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
+const labels = resolveChromeLabels(config);
+const brandIcons = new Set<BrandIconName>(['Github', 'Gitlab', 'Linkedin']);
+const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon as BrandIconName);
 ---
 
 {
@@ -27,17 +30,17 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
             <p>
               <span aria-hidden="true">$</span> {footer.signatureCommand}
             </p>
-            <a href={footer.authorUrl} class="footer-brand">
+            <a href={safeHref(footer.authorUrl)} class="footer-brand">
               .{footer.author}
             </a>
             <p class="footer-note">{footer.note}</p>
           </div>
 
-          <nav class="footer-nav" aria-label="Navigation du pied de page">
+          <nav class="footer-nav" aria-label={labels.footerNavigation}>
             <p>{footer.navigationLabel}</p>
             {navigation.map((item) => (
               <a
-                href={item.url || item.route}
+                href={safeHref(item.url || item.route)}
                 target={item.external ? '_blank' : undefined}
                 rel={item.external ? 'noopener noreferrer' : undefined}
               >
@@ -50,34 +53,54 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
             <p>{footer.connectLabel}</p>
             <div>
               {socials.map((link) => {
-                const Icon = iconMap[link.icon];
-                return brandIcons.has(link.icon) ? (
+                const href = safeHref(link.url);
+                return isBrandIcon(link.icon) ? (
                   <a
-                    href={link.url}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     title={link.label}
                   >
-                    <BrandIcon name={link.icon as 'Github' | 'Gitlab' | 'Linkedin'} size={17} />
+                    <BrandIcon name={link.icon} size={17} />
                   </a>
-                ) : Icon ? (
+                ) : link.icon === 'Mail' ? (
                   <a
-                    href={link.url}
+                    href={href}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     title={link.label}
                   >
-                    <Icon size={17} />
+                    <Mail size={17} />
                   </a>
-                ) : null;
+                ) : link.icon === 'MessageCircle' ? (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    title={link.label}
+                  >
+                    <MessageCircle size={17} />
+                  </a>
+                ) : (
+                  <a
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${link.label} — ${labels.unknownSocialLink}`}
+                    title={link.label}
+                  >
+                    <ExternalLink size={17} />
+                  </a>
+                );
               })}
               {footer.rss && (
                 <a
-                  href={typeof footer.rss === 'string' ? footer.rss : '/rss.xml'}
-                  aria-label="Flux RSS"
-                  title="Flux RSS"
+                  href={safeHref(typeof footer.rss === 'string' ? footer.rss : '/rss.xml')}
+                  aria-label={labels.rssFeed}
+                  title={labels.rssFeed}
                 >
                   <Rss size={17} />
                 </a>
@@ -85,10 +108,14 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
             </div>
           </div>
 
-          <a href="#main" class="back-top" aria-label={footer.backToTopLabel}>
+          <a
+            href="#site-header"
+            class="back-top"
+            aria-label={footer.backToTopLabel || labels.backToTop}
+          >
             <>
               <ArrowUp size={16} />
-              <span>{footer.backToTopLabel}</span>
+              <span>{footer.backToTopLabel || labels.backToTop}</span>
             </>
           </a>
         </div>
@@ -101,14 +128,14 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
             <GitBranch size={13} /> {footer.branch}{' '}
             <>
               <span class="sync-mark" aria-hidden="true" />
-              <span class="sr-only">branche à jour</span>
+              <span class="sr-only">{labels.branchUpToDate}</span>
             </>
           </span>
           <span class="build">
             {footer.poweredBy?.map((item, index) => (
               <>
                 {index > 0 && ' · '}
-                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                <a href={safeHref(item.url)} target="_blank" rel="noopener noreferrer">
                   {item.label}
                 </a>
               </>
@@ -199,8 +226,8 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
   .back-top {
     display: grid;
     place-items: center;
-    width: 39px;
-    height: 39px;
+    width: 44px;
+    height: 44px;
     color: var(--text-muted);
     border: 1px solid var(--glass-border);
     border-radius: 8px;
@@ -325,6 +352,19 @@ const iconMap: Record<string, any> = { Mail, MessageCircle, Rss };
       background: var(--bg-1);
       backdrop-filter: none;
       -webkit-backdrop-filter: none;
+    }
+  }
+  @media (forced-colors: active) {
+    .footer-shell,
+    .footer-connect a,
+    .back-top {
+      border-color: CanvasText;
+      background: Canvas;
+      color: LinkText;
+    }
+    .sync-mark {
+      border: 2px solid CanvasText;
+      background: CanvasText;
     }
   }
 </style>

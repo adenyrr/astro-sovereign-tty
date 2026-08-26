@@ -3,7 +3,10 @@ import ThemeToggle from './ThemeToggle.astro';
 import ReadingModeToggle from './ReadingModeToggle.astro';
 import BrandIcon from './BrandIcon.astro';
 import { ExternalLink, Menu, Terminal, X } from '@lucide/astro';
-import type { NavigationItem, SiteChromeConfig } from '../types';
+import { resolveChromeLabels } from '../i18n';
+import { isNavigationItemActive } from '../utils/navigation';
+import { safeHref } from '../utils/safe-href';
+import type { SiteChromeConfig } from '../types';
 
 interface Props {
   config: SiteChromeConfig;
@@ -17,15 +20,9 @@ const navItems = (config.header?.navigation || []).filter(
 const socialLinks = (config.header?.socialLinks || []).filter((link) => link.enabled !== false);
 const githubLink = socialLinks.find((link) => link.label.toLowerCase() === 'github');
 const hideOnScroll = config.header.hideOnScroll ?? 'mobile';
-
-function active(item: NavigationItem) {
-  if (typeof item.active === 'boolean') return item.active;
-  return (
-    !item.external &&
-    Boolean(item.route) &&
-    (currentPath === item.route || (item.route !== '/' && currentPath.startsWith(item.route!)))
-  );
-}
+const labels = resolveChromeLabels(config);
+const homeHref = safeHref(config.header.homeUrl || '/');
+const labelHome = labels.homeAriaLabel.replace('{brand}', config.header.brandName);
 ---
 
 {
@@ -38,14 +35,10 @@ function active(item: NavigationItem) {
       }
     >
       <a class="skip-link" href="#main">
-        Aller au contenu principal
+        {labels.skipToContent}
       </a>
       <div class="header-shell">
-        <a
-          class="brand"
-          href={config.header.homeUrl || '/'}
-          aria-label={`${config.header.brandName} — accueil`}
-        >
+        <a class="brand" href={homeHref} aria-label={labelHome}>
           <span class="brand-glyph">
             <Terminal size={15} />
           </span>
@@ -55,10 +48,10 @@ function active(item: NavigationItem) {
           </>
         </a>
 
-        <nav class="desktop-nav" aria-label="Navigation principale">
+        <nav class="desktop-nav" aria-label={labels.primaryNavigation}>
           {navItems.map((item) => {
-            const href = item.url || item.route;
-            const isActive = active(item);
+            const href = safeHref(item.url || item.route);
+            const isActive = isNavigationItemActive(item, currentPath, config.header.basePath);
             return (
               <a
                 href={href}
@@ -69,7 +62,12 @@ function active(item: NavigationItem) {
               >
                 <span aria-hidden="true">~/</span>
                 {item.label}
-                {item.external && <ExternalLink size={10} />}
+                {item.external && (
+                  <>
+                    <ExternalLink size={10} aria-hidden="true" />
+                    <span class="sr-only"> — {labels.externalLink}</span>
+                  </>
+                )}
               </a>
             );
           })}
@@ -79,7 +77,7 @@ function active(item: NavigationItem) {
           {githubLink && (
             <a
               class="github-link"
-              href={githubLink.url}
+              href={safeHref(githubLink.url)}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={githubLink.label}
@@ -87,24 +85,33 @@ function active(item: NavigationItem) {
               <BrandIcon name="Github" size={17} />
             </a>
           )}
-          <ReadingModeToggle />
-          <ThemeToggle />
+          <ReadingModeToggle labels={labels} />
+          <ThemeToggle labels={labels} />
           <details class="mobile-menu">
-            <summary aria-label="Ouvrir le menu">
+            <summary
+              aria-label={labels.openMenu}
+              aria-controls="mobile-navigation-panel"
+              data-label-open={labels.openMenu}
+              data-label-close={labels.closeMenu}
+            >
               <>
                 <Menu class="menu-open" size={19} />
                 <X class="menu-close" size={19} />
               </>
             </summary>
-            <button type="button" class="mobile-backdrop" aria-label="Fermer le menu" />
-            <div class="mobile-panel">
-              <p>
-                <span aria-hidden="true">$</span> cd ~/navigation
+            <button type="button" class="mobile-backdrop" aria-label={labels.closeMenu} />
+            <div class="mobile-panel" id="mobile-navigation-panel">
+              <p id="mobile-navigation-heading">
+                <span aria-hidden="true">$</span> cd ~/{labels.menuHeading.toLowerCase()}
               </p>
-              <nav aria-label="Navigation mobile">
+              <nav aria-label={labels.mobileNavigation}>
                 {navItems.map((item, index) => {
-                  const href = item.url || item.route;
-                  const isActive = active(item);
+                  const href = safeHref(item.url || item.route);
+                  const isActive = isNavigationItemActive(
+                    item,
+                    currentPath,
+                    config.header.basePath,
+                  );
                   return (
                     <a
                       href={href}
@@ -116,7 +123,7 @@ function active(item: NavigationItem) {
                       <small>0{index + 1}</small>
                       <span>/{item.label}</span>
                       {item.external ? (
-                        <ExternalLink size={14} />
+                        <ExternalLink size={14} aria-hidden="true" />
                       ) : (
                         <span aria-hidden="true">↗</span>
                       )}
@@ -126,7 +133,7 @@ function active(item: NavigationItem) {
               </nav>
               <div class="mobile-socials">
                 {socialLinks.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <a href={safeHref(link.url)} target="_blank" rel="noopener noreferrer">
                     {link.label}
                   </a>
                 ))}
@@ -235,7 +242,7 @@ function active(item: NavigationItem) {
     display: inline-flex;
     align-items: center;
     gap: 0.12rem;
-    min-height: 38px;
+    min-height: 44px;
     padding: 0.5rem 0.72rem;
     color: var(--text-muted);
     border: 1px solid transparent;
@@ -256,6 +263,15 @@ function active(item: NavigationItem) {
     background: var(--glass-bg-strong);
     border-color: var(--glass-border);
     box-shadow: inset 0 -2px var(--accent-amber);
+  }
+  .nav-item.active::before,
+  .mobile-panel nav a.active::before {
+    content: '•';
+    color: var(--accent-amber);
+    font-weight: 800;
+  }
+  .nav-item.active::before {
+    margin-right: 0.1rem;
   }
   .nav-item.active > span {
     color: var(--accent-amber);
@@ -367,6 +383,7 @@ function active(item: NavigationItem) {
     gap: 0.35rem;
   }
   .mobile-panel nav a {
+    position: relative;
     display: grid;
     grid-template-columns: 2rem 1fr auto;
     align-items: center;
@@ -389,6 +406,10 @@ function active(item: NavigationItem) {
   }
   .mobile-panel nav a.active small {
     color: var(--accent-amber);
+  }
+  .mobile-panel nav a.active::before {
+    position: absolute;
+    margin-left: 1.55rem;
   }
   .mobile-socials {
     display: flex;
@@ -460,6 +481,23 @@ function active(item: NavigationItem) {
   @media (prefers-reduced-motion: reduce) {
     #site-header[data-hide-on-scroll] {
       transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .header-shell,
+    .mobile-panel,
+    .nav-item.active,
+    .mobile-panel nav a.active {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+      forced-color-adjust: auto;
+    }
+    .nav-item.active,
+    .mobile-panel nav a.active {
+      text-decoration: underline 2px;
+      text-underline-offset: 0.3em;
     }
   }
 
@@ -561,11 +599,28 @@ function active(item: NavigationItem) {
     const { signal } = controller;
     const summary = menu.querySelector<HTMLElement>('summary');
     const backdrop = menu.querySelector<HTMLButtonElement>('.mobile-backdrop');
+    const panel = menu.querySelector<HTMLElement>('.mobile-panel');
+    const outside = Array.from(document.body.children).filter(
+      (element): element is HTMLElement =>
+        element instanceof HTMLElement && !element.contains(menu) && element.tagName !== 'SCRIPT',
+    );
+
+    const setOutsideInert = (inert: boolean) => {
+      for (const element of outside) element.inert = inert;
+    };
 
     const syncState = () => {
       const open = menu.open;
       document.body.classList.toggle('mobile-menu-open', open);
-      summary?.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      setOutsideInert(open);
+      summary?.setAttribute('aria-expanded', String(open));
+      summary?.setAttribute(
+        'aria-label',
+        open ? summary.dataset.labelClose || '' : summary.dataset.labelOpen || '',
+      );
+      if (open) {
+        requestAnimationFrame(() => panel?.querySelector<HTMLElement>('a, button')?.focus());
+      }
     };
     const close = (restoreFocus = false) => {
       if (!menu.open) return;
@@ -582,10 +637,33 @@ function active(item: NavigationItem) {
     document.addEventListener(
       'keydown',
       (event) => {
-        if (event.key === 'Escape' && menu.open) close(true);
+        if (!menu.open) return;
+        if (event.key === 'Escape') {
+          event.preventDefault();
+          close(true);
+          return;
+        }
+        if (event.key !== 'Tab') return;
+        const focusable = [
+          summary,
+          ...Array.from(panel?.querySelectorAll<HTMLElement>('a, button') ?? []),
+        ].filter((element): element is HTMLElement => Boolean(element));
+        const first = focusable[0];
+        const last = focusable.at(-1);
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last?.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first?.focus();
+        }
       },
       { signal },
     );
+    signal.addEventListener('abort', () => {
+      setOutsideInert(false);
+      document.body.classList.remove('mobile-menu-open');
+    });
     syncState();
   }
   initMobileMenu();
@@ -597,7 +675,8 @@ function active(item: NavigationItem) {
   document.addEventListener('astro:after-swap', () => {
     document.getElementById('site-header')?.setAttribute('data-scroll-state', 'visible');
   });
-  document.addEventListener('astro:before-swap', () =>
-    document.body.classList.remove('mobile-menu-open'),
-  );
+  document.addEventListener('astro:before-swap', () => {
+    mobileMenuController?.abort();
+    scrollController?.abort();
+  });
 </script>

@@ -75,6 +75,7 @@ import ThemeScript from '@adenyrr/astro-ui/ThemeScript.astro';
 import type { SiteChromeConfig } from '@adenyrr/astro-ui';
 
 const config: SiteChromeConfig = {
+  locale: 'fr', // default; use `en` or override individual `labels`
   features: {
     readingMode: true,
   },
@@ -86,6 +87,8 @@ const config: SiteChromeConfig = {
     brandName: 'adenyrr',
     brandHost: '@home',
     homeUrl: '/',
+    hideOnScroll: 'mobile',
+    basePath: '/',
     navigation: [
       { label: 'Blog', route: '/blog', enabled: true },
       { label: 'Projects', route: '/projects', enabled: true },
@@ -132,6 +135,9 @@ const config: SiteChromeConfig = {
 The package exposes the following entry points:
 
 - `@adenyrr/astro-ui`
+- `@adenyrr/astro-ui/i18n`
+- `@adenyrr/astro-ui/navigation`
+- `@adenyrr/astro-ui/safe-href`
 - `@adenyrr/astro-ui/styles.css`
 - `@adenyrr/astro-ui/Header.astro`
 - `@adenyrr/astro-ui/Footer.astro`
@@ -148,6 +154,7 @@ The package exposes the following entry points:
 - Use `SiteChromeConfig` instead of ad hoc object literals when building shared layouts.
 - Respect `enabled` and feature flags to keep content and navigation context-aware.
 - Prefer semantic markup and accessible labels for navigation and actions.
+- Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
 
 ## Development
