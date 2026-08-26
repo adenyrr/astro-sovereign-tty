@@ -1,4 +1,4 @@
-# @adenyrr/astro-ui — pipelines de vérification et publication stable.
+#  @adenyrr/astro-ui — pipelines de vérification et publication stable.
 workflow:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
