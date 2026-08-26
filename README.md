@@ -1,6 +1,6 @@
 # @adenyrr/astro-ui
 
-[![Release v1.2.0](https://img.shields.io/badge/Release-v1.2.0-blue)](https://forge.massivedynamics.be/aboutme/astro-ui/-/releases/v1.2.0)
+[![Release v2.0.0](https://img.shields.io/badge/Release-v2.0.0-blue)](https://forge.massivedynamics.be/aboutme/astro-ui/-/releases/v2.0.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](LICENSE)
 
@@ -9,7 +9,7 @@ Shared visual chrome for Astro sites built around the adenyrr workstation shell.
 This package provides a reusable global layout for website headers, footers, light/dark theme tokens, reading mode, ambient background, motion accents, and a coherent typography system. It is designed to be consumed by Astro applications that want a consistent brand layer without duplicating the same UI scaffolding across multiple sites.
 
 <p align="center">
-  <img src="./preview.svg" alt="Apercu de @adenyrr/astro-ui : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
+  <img src="https://forge.massivedynamics.be/aboutme/astro-ui/-/raw/v2.0.0/preview.svg" alt="Apercu de @adenyrr/astro-ui : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
 </p>
 
 ## Features
@@ -25,7 +25,7 @@ This package provides a reusable global layout for website headers, footers, lig
 ## Requirements
 
 - Node.js `>= 22.12.0`
-- Astro `^6.0.0 || ^7.0.0`
+- Astro `^6.2.0 || ^7.0.0`
 - A project using Astro pages or layouts
 
 ## Installation
@@ -167,6 +167,7 @@ The package exposes the following entry points:
 - Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
 - Enable Astro's native CSP using the autonomous baseline in [`docs/csp.md`](docs/csp.md).
+- Follow the tested WCAG contract and consumer responsibilities in [`docs/accessibility.md`](docs/accessibility.md).
 
 ### Site themes
 
@@ -183,12 +184,16 @@ import '@adenyrr/astro-ui/themes/train.css';
 | -------- | ---------- | -------------------- | ----------------- | ------------------ |
 | 2.x      | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
 
+### Migrating from 1.x
+
+Version 2 requires `ThemeScript`, explicit Astro Fonts configuration, and an intentional choice of optional CSS bridges. Follow the ordered [1.x to 2.0 migration guide](docs/migration-v2.md).
+
 ## Development
 
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://github.com/adenyrr/astro-sovereign-tty
+git clone https://forge.massivedynamics.be/aboutme/astro-ui.git
 cd astro-ui
 npm install
 npm run build
@@ -202,7 +207,7 @@ npm run build
 
 ## Versioning and release
 
-Current release: `v1.2.0`
+Current release: `v2.0.0`
 
 ## License
 
