@@ -12,12 +12,14 @@ interface Props {
 const { enabled = true } = Astro.props;
 ---
 
-{enabled && (
-  <div id="ambient-bg" aria-hidden="true">
-    <div class="ambient-aurora ambient-aurora-1"></div>
-    <div class="ambient-aurora ambient-aurora-2"></div>
-  </div>
-)}
+{
+  enabled && (
+    <div id="ambient-bg" aria-hidden="true">
+      <div class="ambient-aurora ambient-aurora-1" />
+      <div class="ambient-aurora ambient-aurora-2" />
+    </div>
+  )
+}
 
 <style>
   #ambient-bg {
@@ -62,21 +64,34 @@ const { enabled = true } = Astro.props;
   }
 
   @keyframes aurora-drift-1 {
-    from { transform: translate(0, 0) scale(1); }
-    to   { transform: translate(14vw, 10vh) scale(1.18); }
+    from {
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      transform: translate(14vw, 10vh) scale(1.18);
+    }
   }
 
   @keyframes aurora-drift-2 {
-    from { transform: translate(0, 0) scale(1.1); }
-    to   { transform: translate(-12vw, -8vh) scale(0.95); }
+    from {
+      transform: translate(0, 0) scale(1.1);
+    }
+    to {
+      transform: translate(-12vw, -8vh) scale(0.95);
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .ambient-aurora { animation: none; }
+    .ambient-aurora {
+      animation: none;
+    }
   }
 
   /* Sur mobile : blur coûteux réduit, pas d'animation continue */
   @media (max-width: 768px) {
-    .ambient-aurora { filter: blur(40px); animation: none; }
+    .ambient-aurora {
+      filter: blur(40px);
+      animation: none;
+    }
   }
 </style>

@@ -1,11 +1,9 @@
 node_modules/
 dist/
 .astro/
-.npm/
-.npmrc
+playground/dist/
 playwright-report/
 test-results/
 reports/
-playground/dist/
-playground/.astro/
-.lighthouseci/
+package-lock.json
+LICENSE

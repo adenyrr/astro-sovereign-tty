@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <button
@@ -32,10 +33,10 @@
   }
 
   .reading-mode-toggle:hover,
-  .reading-mode-toggle[aria-pressed="true"] {
+  .reading-mode-toggle[aria-pressed='true'] {
     color: var(--accent-blue);
-    border-color: rgba(var(--blue-rgb), .45);
-    background: rgba(var(--blue-rgb), .12);
+    border-color: rgba(var(--blue-rgb), 0.45);
+    background: rgba(var(--blue-rgb), 0.12);
   }
 
   .reading-mode-toggle:focus-visible {
@@ -47,11 +48,19 @@
 <script is:inline>
   (function () {
     function readStored() {
-      try { return localStorage.getItem('reading-mode'); } catch (e) { return null; }
+      try {
+        return localStorage.getItem('reading-mode');
+      } catch (e) {
+        return null;
+      }
     }
 
     function writeStored(enabled) {
-      try { localStorage.setItem('reading-mode', enabled ? 'comfortable' : 'default'); } catch (e) { /* réglage temporaire */ }
+      try {
+        localStorage.setItem('reading-mode', enabled ? 'comfortable' : 'default');
+      } catch (e) {
+        /* réglage temporaire */
+      }
     }
 
     function apply(enabled) {

@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kitchen sink">
+  <section class="container">
+    <h1>Kitchen sink</h1>
+    <div class="card"><h2>Carte</h2><p>Surface principale.</p></div>
+    <div class="glass-panel"><p>Panneau de verre.</p></div>
+    <p>
+      <span class="pill pill--amber">ambre</span>
+      <span class="pill pill--blue">bleu</span>
+      <span class="tag">tag</span>
+    </p>
+    <p>
+      <span class="status status-online"><i class="status-dot"></i>En ligne</span>
+      <span class="status status-offline"><i class="status-dot"></i>Hors ligne</span>
+      <span class="status status-maintenance"><i class="status-dot"></i>Maintenance</span>
+    </p>
+    <p>
+      <a class="btn btn-primary" href="#main">Primaire</a>
+      <a class="btn btn-outline" href="/">Secondaire</a>
+    </p>
+    <p class="stat-value" data-target="42">0<small>%</small></p>
+  </section>
+</BaseLayout>

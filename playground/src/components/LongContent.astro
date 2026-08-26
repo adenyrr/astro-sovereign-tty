@@ -1,0 +1,23 @@
+---
+interface Props {
+  heading?: string;
+}
+const { heading = 'Page longue' } = Astro.props;
+const paragraphs = Array.from({ length: 28 }, (_, index) => index + 1);
+---
+
+<section class="container" aria-labelledby="long-heading">
+  <h1 id="long-heading">{heading}</h1>
+  <p class="lead">Une surface de test longue pour le scroll, les ancres et le mode lecture.</p>
+  {
+    paragraphs.map((index) => (
+      <section id={`section-${index}`} class="card reveal">
+        <h2>Section {index}</h2>
+        <p>
+          Le playground vérifie le chrome partagé sans dépendance tierce ni contenu distant. Cette
+          phrase répétée fournit une mesure de lecture stable et suffisamment longue.
+        </p>
+      </section>
+    ))
+  }
+</section>

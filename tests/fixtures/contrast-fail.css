@@ -1,0 +1,6 @@
+:root {
+  --bg-0: light-dark(#ffffff, #000000);
+  --bg-1: light-dark(#ffffff, #000000);
+  --surface-raised: light-dark(#ffffff, #000000);
+  --text-muted: light-dark(#999999, #777777);
+}

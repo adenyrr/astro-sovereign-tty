@@ -1,6 +1,1 @@
-export type {
-  FooterLink,
-  NavigationItem,
-  SiteChromeConfig,
-  SocialLink,
-} from './types';
+export type { FooterLink, NavigationItem, SiteChromeConfig, SocialLink } from './types';

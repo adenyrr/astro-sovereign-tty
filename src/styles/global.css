@@ -2,11 +2,11 @@
    FONTS — auto-hébergées via Fontsource (zéro requête Google, privacy-first).
    Versions variables : un seul fichier par famille couvre tous les poids.
    ============================================================================ */
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/inclusive-sans";
-@import "@fontsource-variable/jetbrains-mono";
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/inclusive-sans';
+@import '@fontsource-variable/jetbrains-mono';
 
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* ============================================================================
    TAILWIND v4 — shadcn/ui theme tokens
@@ -47,7 +47,7 @@
    (bordure conique des boutons, angle d'aurora du fond ambiant).
    ============================================================================ */
 @property --btn-angle {
-  syntax: "<angle>";
+  syntax: '<angle>';
   inherits: false;
   initial-value: 0deg;
 }
@@ -72,10 +72,10 @@
      texte. C'est ce qui évite qu'un thème clair paraisse terne : on
      n'assombrit jamais une couleur qui ne porte pas de texte.
      ========================================================================== */
-  --amber-rgb: 232,169,76;
-  --blue-rgb:  111,180,234;
-  --teal-rgb:  52,209,166;
-  --coral-rgb: 240,135,103;
+  --amber-rgb: 232, 169, 76;
+  --blue-rgb: 111, 180, 234;
+  --teal-rgb: 52, 209, 166;
+  --coral-rgb: 240, 135, 103;
 
   /* ==========================================================================
      COUCHE 2 — « INK » : couleurs porteuses de texte/icône, assombries en
@@ -83,94 +83,96 @@
      Base Okabe–Ito : le « succès » est un vert BLEUTÉ, distinguable du
      corail en deutéranopie/protanopie.
      ========================================================================== */
-    --accent-amber: light-dark(#744200, #e8a94c);
-    --accent-blue:  light-dark(#0262ab, #6fb4ea);
-    --accent-teal:  light-dark(#006653, #34d1a6);
-    --accent-coral: light-dark(#b2392b, #f08767);
-    --focus-ring:   light-dark(#0262ab, #6fb4ea);
+  --accent-amber: light-dark(#744200, #e8a94c);
+  --accent-blue: light-dark(#0262ab, #6fb4ea);
+  --accent-teal: light-dark(#006653, #34d1a6);
+  --accent-coral: light-dark(#b2392b, #f08767);
+  --focus-ring: light-dark(#0262ab, #6fb4ea);
 
   /* ---- Fonds de page (§2.1 / §2.2) ---- */
   --bg-0: light-dark(#f2ece3, #0b0f14);
   --bg-1: light-dark(#fdfaf4, #121820);
 
   /* ---- Verre (§2.1 / §2.2) ---- */
-    --glass-bg:        light-dark(rgba(253,250,244,.70), rgba(255,255,255,.055));
-    --glass-bg-strong: light-dark(rgba(255,253,249,.90), rgba(255,255,255,.09));
-    --glass-border:    light-dark(rgba(31,26,18,.15),    rgba(255,255,255,.14));
-  --glass-blur:      22px;
-    --glint:           light-dark(transparent,            rgba(255,255,255,.07));
+  --glass-bg: light-dark(rgba(253, 250, 244, 0.7), rgba(255, 255, 255, 0.055));
+  --glass-bg-strong: light-dark(rgba(255, 253, 249, 0.9), rgba(255, 255, 255, 0.09));
+  --glass-border: light-dark(rgba(31, 26, 18, 0.15), rgba(255, 255, 255, 0.14));
+  --glass-blur: 22px;
+  --glint: light-dark(transparent, rgba(255, 255, 255, 0.07));
   /* Listes multi-ombres : light-dark() sépare ses deux arguments par une
      virgule, donc une liste d'ombres ne peut pas y tenir. Valeurs sombres
      ici (= :root de la référence §2.1), surchargées en clair plus bas. */
-  --shadow: 0 20px 60px -20px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.35);
+  --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
 
   /* ---- Halos ambiants (§2.1 / §2.2) — assez opaques pour que le
      backdrop-filter ait de la matière à flouter (§1.1) ---- */
-  --blob-amber: light-dark(rgba(var(--amber-rgb),.10), rgba(232,169,76,.20));
-  --blob-blue:  light-dark(rgba(var(--blue-rgb),.18),  rgba(111,180,234,.16));
-  --blob-teal:  light-dark(rgba(var(--teal-rgb),.13),  rgba(52,209,166,.12));
+  --blob-amber: light-dark(rgba(var(--amber-rgb), 0.1), rgba(232, 169, 76, 0.2));
+  --blob-blue: light-dark(rgba(var(--blue-rgb), 0.18), rgba(111, 180, 234, 0.16));
+  --blob-teal: light-dark(rgba(var(--teal-rgb), 0.13), rgba(52, 209, 166, 0.12));
 
   /* ---- Texte (§2.1 / §2.2) ---- */
-    --text-primary:   light-dark(#1f1a12, #eef2f6);
-    --text-secondary: light-dark(#4d473d, #a9b4c0);
-    --text-muted:     light-dark(#696257, #818c99);
+  --text-primary: light-dark(#1f1a12, #eef2f6);
+  --text-secondary: light-dark(#4d473d, #a9b4c0);
+  --text-muted: light-dark(#696257, #818c99);
 
   /* ==========================================================================
      ALIAS DE COMPATIBILITÉ — l'API de tokens consommée par les composants
      reste stable ; seules les valeurs sont réfractées vers le frost-glass.
      ========================================================================== */
-  --bg:             var(--bg-0);
-  --surface:        var(--bg-1);
+  --bg: var(--bg-0);
+  --surface: var(--bg-1);
   --surface-raised: light-dark(#eae4d8, #1a222c);
-  --card-bg:        var(--glass-bg);
-  --card-border:    var(--glass-border);
-  --card-border-hover: light-dark(rgba(31,26,18,.34), rgba(255,255,255,.30));
+  --card-bg: var(--glass-bg);
+  --card-border: var(--glass-border);
+  --card-border-hover: light-dark(rgba(31, 26, 18, 0.34), rgba(255, 255, 255, 0.3));
 
-  --text:       var(--text-primary);
+  --text: var(--text-primary);
   --muted-text: var(--text-muted);
 
   /* L'ambre reste la teinte de marque ; les liens passent au bleu « info ». */
-  --accent:           var(--accent-amber);
-  --brand-mark:     rgb(var(--amber-rgb));
+  --accent: var(--accent-amber);
+  --brand-mark: rgb(var(--amber-rgb));
   --brand-mark-dim: #d9973a;
   --brand-mark-lit: #f3c076;
-  --on-brand-mark:  #412402;
-  --accent-mid:       light-dark(#8a5000, #f5c47a);
+  --on-brand-mark: #412402;
+  --accent-mid: light-dark(#8a5000, #f5c47a);
   --accent-secondary: light-dark(#5e3500, #c98a2e);
-  --accent-warm:      var(--accent-amber);
-  --link-color:       var(--accent-blue);
+  --accent-warm: var(--accent-amber);
+  --link-color: var(--accent-blue);
 
   /* ---- Halos dérivés — bâtis sur la couche « vif » (non textuelle) ---- */
-  --glow:       rgba(var(--amber-rgb), .14);
-  --glow-hover: rgba(var(--amber-rgb), .26);
-  --glow-cyan:  rgba(var(--blue-rgb), .12);
+  --glow: rgba(var(--amber-rgb), 0.14);
+  --glow-hover: rgba(var(--amber-rgb), 0.26);
+  --glow-cyan: rgba(var(--blue-rgb), 0.12);
 
   /* ---- Palette sémantique log-level — mappée sur les inks Okabe–Ito ---- */
-  --sem-ok:    var(--accent-teal);
-  --sem-info:  var(--accent-blue);
-  --sem-warn:  var(--accent-amber);
+  --sem-ok: var(--accent-teal);
+  --sem-info: var(--accent-blue);
+  --sem-warn: var(--accent-amber);
   --sem-debug: var(--text-muted);
 
   --gradient-start: var(--brand-mark-dim);
-  --gradient-mid:   var(--brand-mark);
-  --gradient-end:   var(--brand-mark-lit);
+  --gradient-mid: var(--brand-mark);
+  --gradient-end: var(--brand-mark-lit);
 
   /* ---- Code ---- */
-  --code-bg:   light-dark(var(--surface-raised), var(--bg-1));
+  --code-bg: light-dark(var(--surface-raised), var(--bg-1));
   --code-text: var(--text-primary);
 
-  --selection-bg: rgba(var(--amber-rgb), .30);
+  --selection-bg: rgba(var(--amber-rgb), 0.3);
 
   /* ---- Ombres ---- */
-  --shadow-sm: 0 1px 2px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.25);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
   --shadow-md: var(--shadow);
   --shadow-glow: 0 0 24px var(--glow-hover);
 
   /* ---- Familles (§2.4) ---- */
-  --font-ui:   'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-ui: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
   --font-body: var(--font-ui);
   --font-reading: 'Inclusive Sans Variable', 'Inclusive Sans', var(--font-ui);
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  --font-mono:
+    'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    Consolas, monospace;
   --font-code: var(--font-mono);
 
   /* Échelle typographique fluide (clamp = lisible sans media-query) */
@@ -189,17 +191,18 @@
   --space-2xl: 4rem;
 
   /* Transitions */
-  --transition-colors: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  --transition-colors:
+    color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
   --transition-all: all 0.3s ease;
   --transition-transform: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* ---- Tokens de la bannière terminal — remappés sur les inks ---- */
-  --banner-teal:     var(--accent-blue);
+  --banner-teal: var(--accent-blue);
   --banner-teal-dim: light-dark(#155f8f, #4e93c4);
-  --banner-salmon:   var(--accent-amber);
-  --banner-text:     var(--text-primary);
+  --banner-salmon: var(--accent-amber);
+  --banner-text: var(--text-primary);
   --banner-text-dim: var(--text-secondary);
-  --banner-muted:    var(--text-muted);
+  --banner-muted: var(--text-muted);
 
   /* Pastilles de barre de titre — convention macOS conservée. Non
      textuelles, mais §3.6 impose une icône au survol/focus : la couleur
@@ -209,46 +212,50 @@
   --dot-g: #27c93f;
 
   /* ---- Verre : alias hérités pointant sur les jetons §2 ---- */
-  --glass-edge:   var(--glint);
+  --glass-edge: var(--glint);
   --glass-shadow: var(--shadow);
-  --glass-inner:  var(--glint);
-  --glass-glow:   rgba(var(--amber-rgb), .12);
+  --glass-inner: var(--glint);
+  --glass-glow: rgba(var(--amber-rgb), 0.12);
 
   /* ---- Décor non textuel (couche « vif ») ---- */
-  --scan-color: rgba(var(--amber-rgb), .19);
-  --grid-line:  light-dark(rgba(31,26,18,.07), rgba(255,255,255,.05));
+  --scan-color: rgba(var(--amber-rgb), 0.19);
+  --grid-line: light-dark(rgba(31, 26, 18, 0.07), rgba(255, 255, 255, 0.05));
 
   /* ---- Fond ambiant : nappes en dérive, volontairement plus faibles que
      les halos §3.2 posés sur <body> — elles s'y ajoutent sans saturer. ---- */
-  --blob-drift-amber: rgba(var(--amber-rgb), .10);
-  --blob-drift-blue:  rgba(var(--blue-rgb), .10);
-  --ambient-dot: light-dark(rgba(31,26,18,.08), rgba(255,255,255,.045));
+  --blob-drift-amber: rgba(var(--amber-rgb), 0.1);
+  --blob-drift-blue: rgba(var(--blue-rgb), 0.1);
+  --ambient-dot: light-dark(rgba(31, 26, 18, 0.08), rgba(255, 255, 255, 0.045));
 }
 
 /* Le choix explicite de thème (toggle) force le color-scheme : tous les
    tokens light-dark() basculent d'un coup, avant le premier paint. */
-:root[data-theme="light"],
+:root[data-theme='light'],
 :root:not([data-theme]):where(.light) {
   color-scheme: light;
-  --shadow:    0 24px 60px -22px rgba(58,44,22,.20), 0 4px 14px rgba(58,44,22,.09);
-  --shadow-sm: 0 1px 2px rgba(58,44,22,.10), 0 3px 8px rgba(58,44,22,.06);
+  --shadow: 0 24px 60px -22px rgba(58, 44, 22, 0.2), 0 4px 14px rgba(58, 44, 22, 0.09);
+  --shadow-sm: 0 1px 2px rgba(58, 44, 22, 0.1), 0 3px 8px rgba(58, 44, 22, 0.06);
 }
-:root[data-theme="dark"],
-.dark { color-scheme: dark; }
+:root[data-theme='dark'],
+.dark {
+  color-scheme: dark;
+}
 
 /* Repli si aucun data-theme n'est posé (JS désactivé) : le média système
    pilote seul les ombres, light-dark() gère déjà tout le reste. */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --shadow:    0 24px 60px -22px rgba(58,44,22,.20), 0 4px 14px rgba(58,44,22,.09);
-    --shadow-sm: 0 1px 2px rgba(58,44,22,.10), 0 3px 8px rgba(58,44,22,.06);
+    --shadow: 0 24px 60px -22px rgba(58, 44, 22, 0.2), 0 4px 14px rgba(58, 44, 22, 0.09);
+    --shadow-sm: 0 1px 2px rgba(58, 44, 22, 0.1), 0 3px 8px rgba(58, 44, 22, 0.06);
   }
 }
 
 /* ============================================================================
    BASE STYLES
    ============================================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -269,7 +276,6 @@ html {
   overflow-x: hidden;
 }
 
-
 body {
   font-family: var(--font-body);
   background-color: var(--bg);
@@ -285,9 +291,9 @@ body {
      (transparent 60%), jamais de formes nettes. Sans elles, les panneaux
      ne sont que semi-transparents : ce n'est plus du frost-glass. */
   background-image:
-    radial-gradient(60vmax 60vmax at 15% 10%,  var(--blob-amber), transparent 60%),
-    radial-gradient(55vmax 55vmax at 90% 20%,  var(--blob-blue),  transparent 60%),
-    radial-gradient(60vmax 60vmax at 50% 100%, var(--blob-teal),  transparent 60%);
+    radial-gradient(60vmax 60vmax at 15% 10%, var(--blob-amber), transparent 60%),
+    radial-gradient(55vmax 55vmax at 90% 20%, var(--blob-blue), transparent 60%),
+    radial-gradient(60vmax 60vmax at 50% 100%, var(--blob-teal), transparent 60%);
   background-attachment: fixed;
 }
 
@@ -298,34 +304,34 @@ body {
 /* Mode lecture — opt-in local, notamment utile aux personnes dyslexiques.
    Il ne prétend pas convenir à tout le monde : le réglage est explicite,
    persistant et laisse le thème de couleur indépendant. */
-:root[data-reading-mode="comfortable"] {
+:root[data-reading-mode='comfortable'] {
   --font-body: var(--font-reading);
   --text-secondary: var(--text-primary);
   --text-muted: var(--text-secondary);
   --glass-bg: var(--bg-1);
   --glass-bg-strong: var(--bg-1);
-  --glass-border: light-dark(rgba(20,28,38,.28), rgba(255,255,255,.28));
+  --glass-border: light-dark(rgba(20, 28, 38, 0.28), rgba(255, 255, 255, 0.28));
 }
 
-:root[data-reading-mode="comfortable"] body {
+:root[data-reading-mode='comfortable'] body {
   line-height: 1.85;
-  letter-spacing: .018em;
-  word-spacing: .08em;
+  letter-spacing: 0.018em;
+  word-spacing: 0.08em;
   background-image: none;
   background-attachment: scroll;
 }
 
-:root[data-reading-mode="comfortable"] #ambient-bg,
-:root[data-reading-mode="comfortable"] .banner-grid,
-:root[data-reading-mode="comfortable"] .banner-blob,
-:root[data-reading-mode="comfortable"] .banner-card::before,
-:root[data-reading-mode="comfortable"] .banner-card::after {
+:root[data-reading-mode='comfortable'] #ambient-bg,
+:root[data-reading-mode='comfortable'] .banner-grid,
+:root[data-reading-mode='comfortable'] .banner-blob,
+:root[data-reading-mode='comfortable'] .banner-card::before,
+:root[data-reading-mode='comfortable'] .banner-card::after {
   display: none;
 }
 
-:root[data-reading-mode="comfortable"] *,
-:root[data-reading-mode="comfortable"] *::before,
-:root[data-reading-mode="comfortable"] *::after {
+:root[data-reading-mode='comfortable'] *,
+:root[data-reading-mode='comfortable'] *::before,
+:root[data-reading-mode='comfortable'] *::after {
   animation: none !important;
   transition: none !important;
 }
@@ -343,7 +349,12 @@ body {
 /* ============================================================================
    TYPOGRAPHY
    ============================================================================ */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-body);
   font-weight: 700;
   line-height: 1.25;
@@ -353,16 +364,24 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-h1 { font-size: var(--fs-h1); }
-h2 { font-size: var(--fs-h2); }
-h3 { font-size: var(--fs-h3); }
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
 
 p {
   /* Coupe les paragraphes plus proprement (évite mots seuls en fin) */
   text-wrap: pretty;
 }
 
-code, pre, .font-code {
+code,
+pre,
+.font-code {
   font-family: var(--font-code);
 }
 
@@ -422,11 +441,15 @@ a:hover {
   padding: 1.5rem;
   /* Le liseré interne simule un reflet en haut du panneau — discret en
      sombre, net en clair : c'est ce détail qui évite l'effet « plat ». */
-  box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glint), inset 0 -1px 0 var(--glint-under);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 var(--glint),
+    inset 0 -1px 0 var(--glint-under);
   position: relative;
-  transition: transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
-              border-color 0.3s ease,
-              box-shadow 0.35s ease;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
+    border-color 0.3s ease,
+    box-shadow 0.35s ease;
 }
 
 /* Crochets de coin (top-left + bottom-right) dessinés en dégradés —
@@ -442,8 +465,16 @@ a:hover {
     linear-gradient(var(--brand-mark), var(--brand-mark)),
     linear-gradient(var(--brand-mark), var(--brand-mark)),
     linear-gradient(var(--brand-mark), var(--brand-mark));
-  background-position: 0 0, 0 0, 100% 100%, 100% 100%;
-  background-size: 16px 1.5px, 1.5px 16px, 16px 1.5px, 1.5px 16px;
+  background-position:
+    0 0,
+    0 0,
+    100% 100%,
+    100% 100%;
+  background-size:
+    16px 1.5px,
+    1.5px 16px,
+    16px 1.5px,
+    1.5px 16px;
   background-repeat: no-repeat;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -459,19 +490,31 @@ a:hover {
 
 .card:hover {
   border-color: var(--card-border-hover);
-  box-shadow: var(--shadow-md), var(--shadow-glow), inset 0 1px 0 var(--glint);
+  box-shadow:
+    var(--shadow-md),
+    var(--shadow-glow),
+    inset 0 1px 0 var(--glint);
 }
 
 @media (hover: hover) {
-  .card:hover { transform: translateY(-3px); }
-  .card:hover::after { opacity: 0.7; }
+  .card:hover {
+    transform: translateY(-3px);
+  }
+  .card:hover::after {
+    opacity: 0.7;
+  }
 }
 
 /* ============================================================================
    GRADIENT TEXT
    ============================================================================ */
 .gradient-text {
-  background: linear-gradient(135deg, var(--gradient-start), var(--gradient-mid), var(--gradient-end));
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end)
+  );
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -480,8 +523,12 @@ a:hover {
 }
 
 @keyframes shimmer-text {
-  0%   { background-position: 0% center; }
-  100% { background-position: 200% center; }
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
 }
 
 /* ============================================================================
@@ -526,11 +573,12 @@ a:hover {
   font-weight: 500;
   letter-spacing: 0.01em;
   cursor: pointer;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-              box-shadow 0.25s ease,
-              opacity 0.2s ease,
-              border-color 0.2s ease,
-              color 0.2s ease;
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
   text-decoration: none;
   border: none;
   position: relative;
@@ -541,23 +589,30 @@ a:hover {
   border: 1px solid transparent;
   background:
     linear-gradient(135deg, var(--gradient-start), var(--gradient-mid)) padding-box,
-    conic-gradient(from var(--btn-angle),
-      var(--gradient-start),
-      var(--gradient-end) 35%,
-      oklch(100% 0 0 / 75%) 50%,
-      var(--gradient-end) 65%,
-      var(--gradient-start)) border-box;
+    conic-gradient(
+        from var(--btn-angle),
+        var(--gradient-start),
+        var(--gradient-end) 35%,
+        oklch(100% 0 0 / 75%) 50%,
+        var(--gradient-end) 65%,
+        var(--gradient-start)
+      )
+      border-box;
   color: var(--on-brand-mark);
   box-shadow: 0 2px 12px var(--glow);
   animation: btn-border-spin 3.2s linear infinite;
 }
 
 @keyframes btn-border-spin {
-  to { --btn-angle: 360deg; }
+  to {
+    --btn-angle: 360deg;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-primary { animation: none; }
+  .btn-primary {
+    animation: none;
+  }
 }
 
 .btn-primary:hover {
@@ -596,7 +651,9 @@ a:hover {
   font-weight: 500;
   letter-spacing: 0.02em;
   border: none;
-  transition: color 0.2s ease, background 0.2s ease;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
 }
 .tag::before {
   content: '[';
@@ -635,12 +692,24 @@ a:hover {
   box-shadow: 0 0 8px color-mix(in oklab, var(--sem-ok) 40%, transparent);
   animation: pulse-dot 2s ease-in-out infinite;
 }
-.status-offline .status-dot { background: oklch(68% 0.13 30); }
-.status-maintenance .status-dot { background: var(--sem-warn); animation: pulse-dot 1.5s ease-in-out infinite; }
+.status-offline .status-dot {
+  background: oklch(68% 0.13 30);
+}
+.status-maintenance .status-dot {
+  background: var(--sem-warn);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
 
 @keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.7; transform: scale(1.2); }
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
 }
 
 /* ============================================================================
@@ -656,7 +725,9 @@ a:hover {
   position: relative;
 }
 
-.tabs::-webkit-scrollbar { display: none; }
+.tabs::-webkit-scrollbar {
+  display: none;
+}
 
 .tab {
   display: inline-flex;
@@ -671,7 +742,10 @@ a:hover {
   border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
   white-space: nowrap;
   position: relative;
 }
@@ -699,8 +773,14 @@ a:hover {
 }
 
 @keyframes tab-slide-in {
-  from { transform: scaleX(0); opacity: 0; }
-  to   { transform: scaleX(1); opacity: 1; }
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
 }
 
 /* ============================================================================
@@ -765,38 +845,72 @@ a:hover {
 }
 
 @keyframes reveal-rise {
-  from { opacity: 0; transform: translateY(26px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes reveal-pop {
-  from { opacity: 0; transform: translateY(22px) scale(0.985); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 @keyframes reveal-slide {
-  from { opacity: 0; transform: translateX(-20px); }
-  to   { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 @keyframes divider-grow {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
 
 /* Stagger helpers (transitions CSS pilotées par les pages) */
-.stagger-1 { transition-delay: 0.05s; }
-.stagger-2 { transition-delay: 0.12s; }
-.stagger-3 { transition-delay: 0.19s; }
-.stagger-4 { transition-delay: 0.26s; }
-.stagger-5 { transition-delay: 0.33s; }
+.stagger-1 {
+  transition-delay: 0.05s;
+}
+.stagger-2 {
+  transition-delay: 0.12s;
+}
+.stagger-3 {
+  transition-delay: 0.19s;
+}
+.stagger-4 {
+  transition-delay: 0.26s;
+}
+.stagger-5 {
+  transition-delay: 0.33s;
+}
 
 /* ============================================================================
    RESPONSIVE
    ============================================================================ */
 @media (max-width: 768px) {
   /* Les tailles de titres sont gérées par clamp() — pas d'override ici */
-  .container { padding: 0 1rem; }
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 /* ============================================================================
@@ -824,26 +938,47 @@ a:hover {
 /* ============================================================================
    SCROLLBAR
    ============================================================================ */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
 ::-webkit-scrollbar-thumb {
   background: var(--card-border);
   border-radius: 4px;
   transition: background 0.2s;
 }
-::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
 
 /* ============================================================================
    VIEW TRANSITIONS — Astro native
    ============================================================================ */
-@keyframes vt-fade-in  { from { opacity: 0; } to { opacity: 1; } }
-@keyframes vt-fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 
 ::view-transition-old(root) {
   animation: 120ms ease-out both vt-fade-out;
 }
 ::view-transition-new(root) {
-  animation: 120ms ease-in  both vt-fade-in;
+  animation: 120ms ease-in both vt-fade-in;
   /* Ensure bg is never transparent during VT reveal */
   background-color: var(--bg);
 }
@@ -872,8 +1007,14 @@ a:hover {
    Used by blog/index and BlogPost — CSS-driven so it's immune to VT timing.
    ============================================================================ */
 @keyframes blog-enter {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .blog-enter {
   animation: blog-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -881,14 +1022,16 @@ a:hover {
      VT is already synchronised by astro:after-swap before the class exists */
 }
 @media (prefers-reduced-motion: reduce) {
-  .blog-enter { animation: none; }
+  .blog-enter {
+    animation: none;
+  }
 }
 
 /* ============================================================================
    SMOOTH LINK TRANSITIONS (page-level)
    ============================================================================ */
 @media (prefers-reduced-motion: no-preference) {
-  a[href]:not([href^="#"]):not([href^="mailto"]):not([href^="http"]) {
+  a[href]:not([href^='#']):not([href^='mailto']):not([href^='http']) {
     transition: color 0.2s ease;
   }
 }
@@ -897,36 +1040,87 @@ a:hover {
    SHADCN/UI ANIMATION UTILITIES (Tailwind v4)
    Required by Sheet, Tooltip, Tabs and other Radix-based shadcn components.
    ============================================================================ */
-@keyframes shadcn-in   { from { opacity: var(--tw-enter-opacity, 1); transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), 1) rotate(var(--tw-enter-rotate, 0)); } }
-@keyframes shadcn-out  { to   { opacity: var(--tw-exit-opacity, 1);  transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0) scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), 1) rotate(var(--tw-exit-rotate, 0)); } }
+@keyframes shadcn-in {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0)
+      scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), 1)
+      rotate(var(--tw-enter-rotate, 0));
+  }
+}
+@keyframes shadcn-out {
+  to {
+    opacity: var(--tw-exit-opacity, 1);
+    transform: translate3d(var(--tw-exit-translate-x, 0), var(--tw-exit-translate-y, 0), 0)
+      scale3d(var(--tw-exit-scale, 1), var(--tw-exit-scale, 1), 1) rotate(var(--tw-exit-rotate, 0));
+  }
+}
 
-@utility animate-in  { animation: shadcn-in 200ms ease forwards; }
-@utility animate-out { animation: shadcn-out 150ms ease forwards; }
+@utility animate-in {
+  animation: shadcn-in 200ms ease forwards;
+}
+@utility animate-out {
+  animation: shadcn-out 150ms ease forwards;
+}
 
-@utility fade-in-0  { --tw-enter-opacity: 0; }
-@utility fade-out-0 { --tw-exit-opacity: 0; }
+@utility fade-in-0 {
+  --tw-enter-opacity: 0;
+}
+@utility fade-out-0 {
+  --tw-exit-opacity: 0;
+}
 
-@utility zoom-in-95  { --tw-enter-scale: .95; }
-@utility zoom-out-95 { --tw-exit-scale: .95; }
+@utility zoom-in-95 {
+  --tw-enter-scale: 0.95;
+}
+@utility zoom-out-95 {
+  --tw-exit-scale: 0.95;
+}
 
-@utility slide-in-from-top      { --tw-enter-translate-y: -100%; }
-@utility slide-in-from-top-2    { --tw-enter-translate-y: -0.5rem; }
-@utility slide-in-from-bottom   { --tw-enter-translate-y: 100%; }
-@utility slide-in-from-bottom-2 { --tw-enter-translate-y: 0.5rem; }
-@utility slide-in-from-left     { --tw-enter-translate-x: -100%; }
-@utility slide-in-from-left-2   { --tw-enter-translate-x: -0.5rem; }
-@utility slide-in-from-right    { --tw-enter-translate-x: 100%; }
-@utility slide-in-from-right-2  { --tw-enter-translate-x: 0.5rem; }
+@utility slide-in-from-top {
+  --tw-enter-translate-y: -100%;
+}
+@utility slide-in-from-top-2 {
+  --tw-enter-translate-y: -0.5rem;
+}
+@utility slide-in-from-bottom {
+  --tw-enter-translate-y: 100%;
+}
+@utility slide-in-from-bottom-2 {
+  --tw-enter-translate-y: 0.5rem;
+}
+@utility slide-in-from-left {
+  --tw-enter-translate-x: -100%;
+}
+@utility slide-in-from-left-2 {
+  --tw-enter-translate-x: -0.5rem;
+}
+@utility slide-in-from-right {
+  --tw-enter-translate-x: 100%;
+}
+@utility slide-in-from-right-2 {
+  --tw-enter-translate-x: 0.5rem;
+}
 
-@utility slide-out-to-top    { --tw-exit-translate-y: -100%; }
-@utility slide-out-to-bottom { --tw-exit-translate-y: 100%; }
-@utility slide-out-to-left   { --tw-exit-translate-x: -100%; }
-@utility slide-out-to-right  { --tw-exit-translate-x: 100%; }
+@utility slide-out-to-top {
+  --tw-exit-translate-y: -100%;
+}
+@utility slide-out-to-bottom {
+  --tw-exit-translate-y: 100%;
+}
+@utility slide-out-to-left {
+  --tw-exit-translate-x: -100%;
+}
+@utility slide-out-to-right {
+  --tw-exit-translate-x: 100%;
+}
 
 @utility scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 /* ============================================================================
    VAUL — Mobile bottom drawer (replaces Sheet/radix-dialog for mobile nav)
@@ -942,8 +1136,12 @@ a:hover {
 }
 
 @keyframes drawer-overlay-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Drawer panel */
@@ -962,8 +1160,9 @@ a:hover {
   border-top-left-radius: var(--radius-xl);
   border-top-right-radius: var(--radius-xl);
   padding: 0 1.5rem 2.5rem;
-  box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.35),
-              0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow:
+    0 -8px 48px rgba(0, 0, 0, 0.35),
+    0 0 0 1px color-mix(in srgb, var(--accent) 8%, transparent);
   outline: none;
   overflow-y: auto;
 }
@@ -1010,7 +1209,10 @@ a:hover {
   text-decoration: none;
   color: var(--muted-text);
   border: 1px solid transparent;
-  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .mobile-drawer-link:hover {
@@ -1059,7 +1261,10 @@ a:hover {
   border-radius: var(--radius-md);
   color: var(--muted-text);
   border: 1px solid transparent;
-  transition: color 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
 }
 
 .mobile-drawer-social-link:hover {
@@ -1082,13 +1287,21 @@ a:hover {
 }
 
 @keyframes drawer-slide-in {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 @keyframes drawer-slide-out {
-  from { transform: translateY(0); }
-  to   { transform: translateY(100%); }
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
 }
 
 /* ============================================================================
@@ -1116,10 +1329,26 @@ a:hover {
 
 /* Variantes teintées : fond/bordure en couleur « vive » constante (non
    textuelle → 3:1 suffit), texte en couleur « ink » qui garantit le 4.5:1. */
-.pill--amber { color: var(--accent-amber); background: rgba(var(--amber-rgb), .16); border-color: rgba(var(--amber-rgb), .40); }
-.pill--blue  { color: var(--accent-blue);  background: rgba(var(--blue-rgb),  .16); border-color: rgba(var(--blue-rgb),  .40); }
-.pill--teal  { color: var(--accent-teal);  background: rgba(var(--teal-rgb),  .16); border-color: rgba(var(--teal-rgb),  .40); }
-.pill--coral { color: var(--accent-coral); background: rgba(var(--coral-rgb), .16); border-color: rgba(var(--coral-rgb), .40); }
+.pill--amber {
+  color: var(--accent-amber);
+  background: rgba(var(--amber-rgb), 0.16);
+  border-color: rgba(var(--amber-rgb), 0.4);
+}
+.pill--blue {
+  color: var(--accent-blue);
+  background: rgba(var(--blue-rgb), 0.16);
+  border-color: rgba(var(--blue-rgb), 0.4);
+}
+.pill--teal {
+  color: var(--accent-teal);
+  background: rgba(var(--teal-rgb), 0.16);
+  border-color: rgba(var(--teal-rgb), 0.4);
+}
+.pill--coral {
+  color: var(--accent-coral);
+  background: rgba(var(--coral-rgb), 0.16);
+  border-color: rgba(var(--coral-rgb), 0.4);
+}
 
 /* ============================================================================
    ÉTATS / STATUTS (§3.4)
@@ -1147,10 +1376,18 @@ a:hover {
   stroke-linejoin: round;
 }
 
-.state-ok    { color: var(--accent-teal); }
-.state-warn  { color: var(--accent-amber); }
-.state-error { color: var(--accent-coral); }
-.state-info  { color: var(--accent-blue); }
+.state-ok {
+  color: var(--accent-teal);
+}
+.state-warn {
+  color: var(--accent-amber);
+}
+.state-error {
+  color: var(--accent-coral);
+}
+.state-info {
+  color: var(--accent-blue);
+}
 
 /* ============================================================================
    ACCESSIBILITÉ — media queries non négociables (§4)
@@ -1172,8 +1409,12 @@ a:hover {
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
-  body { background-image: none; }
-  #ambient-bg { display: none; }
+  body {
+    background-image: none;
+  }
+  #ambient-bg {
+    display: none;
+  }
 }
 
 /* Contraste renforcé : bordures en currentColor, textes secondaires et
@@ -1197,9 +1438,13 @@ a:hover {
 /* Mouvement réduit : les halos cessent de dériver, le curseur cesse de
    clignoter — le contenu reste strictement identique. */
 @media (prefers-reduced-motion: reduce) {
-  .gradient-text { animation: none; }
+  .gradient-text {
+    animation: none;
+  }
   .status-online .status-dot,
-  .status-maintenance .status-dot { animation: none; }
+  .status-maintenance .status-dot {
+    animation: none;
+  }
 }
 
 /* Cibles tactiles ≥ 40×40px sur mobile pour tout élément interactif (§4). */

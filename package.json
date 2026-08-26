@@ -4,7 +4,17 @@
   "description": "Shared Astro workstation interface for adenyrr.me",
   "type": "module",
   "scripts": {
-    "build": "astro check"
+    "check": "astro check && tsc --noEmit",
+    "lint": "eslint . && stylelint \"src/**/*.{css,astro}\" \"playground/**/*.{css,astro}\"",
+    "format": "prettier --check .",
+    "format:fix": "prettier --write .",
+    "test": "vitest run",
+    "test:a11y": "npm run build:playground && playwright test",
+    "test:tokens": "node scripts/check-contrast.mjs",
+    "dev": "astro dev --root \"$INIT_CWD/playground\"",
+    "build:playground": "astro build --root playground",
+    "preview:playground": "node scripts/serve-playground.mjs",
+    "verify": "npm run format && npm run lint && npm run check && npm run test && npm run test:tokens"
   },
   "files": [
     "src"
@@ -31,8 +41,23 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.6",
+    "@axe-core/playwright": "4.13.0",
+    "@eslint/js": "^10.0.1",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/vite": "^4.1.18",
     "astro": "^7.2.4",
-    "typescript": "^5.9.2"
+    "eslint": "^10.9.1",
+    "eslint-plugin-astro": "^3.1.0",
+    "globals": "^16.4.0",
+    "postcss-html": "^2.0.0",
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard": "^40.0.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.68.0",
+    "vitest": "^4.0.18"
   },
   "engines": {
     "node": ">=22.12.0"

@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <!-- aria-pressed reflète l'état sombre (§5.2) ; le libellé accessible est
@@ -13,12 +14,30 @@
 >
   <!-- Icônes en traits (§3.5) : stroke=currentColor, 1.7, bouts arrondis —
        cohérent avec les capsules arrondies du reste du système. -->
-  <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="icon" aria-hidden="true">
-    <circle cx="12" cy="12" r="4.5" />
-    <path d="M12 1.8v2.4M12 19.8v2.4M1.8 12h2.4M19.8 12h2.4M4.8 4.8l1.7 1.7M17.5 17.5l1.7 1.7M19.2 4.8l-1.7 1.7M6.5 17.5l-1.7 1.7" />
+  <svg
+    id="sun-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    class="icon"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="4.5"></circle>
+    <path
+      d="M12 1.8v2.4M12 19.8v2.4M1.8 12h2.4M19.8 12h2.4M4.8 4.8l1.7 1.7M17.5 17.5l1.7 1.7M19.2 4.8l-1.7 1.7M6.5 17.5l-1.7 1.7"
+    ></path>
   </svg>
-  <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" class="icon hidden" aria-hidden="true">
-    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+  <svg
+    id="moon-icon"
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    class="icon hidden"
+    aria-hidden="true"
+  >
+    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
   </svg>
 </button>
 
@@ -66,14 +85,22 @@
 </style>
 
 <script is:inline>
-  (function() {
+  (function () {
     // Le stockage peut lever (mode privé, cookies bloqués) : on retombe
     // silencieusement sur la préférence système (§5.3).
     function readStored() {
-      try { return localStorage.getItem('theme'); } catch (e) { return null; }
+      try {
+        return localStorage.getItem('theme');
+      } catch (e) {
+        return null;
+      }
     }
     function writeStored(theme) {
-      try { localStorage.setItem('theme', theme); } catch (e) { /* sans effet */ }
+      try {
+        localStorage.setItem('theme', theme);
+      } catch (e) {
+        /* sans effet */
+      }
     }
 
     // applyTheme n'ÉCRIT jamais : sans cette séparation, le thème déduit du
@@ -112,7 +139,7 @@
       // Re-bind toggle (DOM may be new after View Transition)
       var toggle = document.getElementById('theme-toggle');
       if (toggle) {
-        toggle.onclick = function() {
+        toggle.onclick = function () {
           var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
           applyTheme(next);
           writeStored(next); // choix explicite : lui seul est mémorisé
@@ -125,7 +152,7 @@
 
     // Suit le système tant qu'aucun choix explicite n'a été fait — un choix
     // explicite n'est jamais écrasé par un changement système (§5.4).
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
       if (!readStored()) applyTheme(e.matches ? 'dark' : 'light');
     });
   })();

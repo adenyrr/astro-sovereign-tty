@@ -1,0 +1,36 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import Header from '../../../src/components/Header.astro';
+import Footer from '../../../src/components/Footer.astro';
+import AmbientBackground from '../../../src/components/AmbientBackground.astro';
+import Animations from '../../../src/components/Animations.astro';
+import { chromeConfig } from '../config';
+import '../../../src/styles/global.css';
+
+interface Props {
+  title: string;
+  router?: boolean;
+  lang?: 'fr' | 'en';
+}
+
+const { title, router = true, lang = 'fr' } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title} — astro-ui playground</title>
+    {router && <ClientRouter />}
+  </head>
+  <body>
+    <AmbientBackground />
+    <Header config={chromeConfig} currentPath={Astro.url.pathname} />
+    <main id="main" tabindex="-1" class="page-content">
+      <slot />
+    </main>
+    <Footer config={chromeConfig} />
+    <Animations />
+  </body>
+</html>

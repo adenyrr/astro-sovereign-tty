@@ -2,7 +2,7 @@
 #
 # Aucun Docker requis : le paquet ne produit ni image ni site.
 # La présence de ce fichier désactive Auto DevOps sur le projet.
- 
+
 default:
   image: node:22-alpine
   cache:
@@ -13,18 +13,18 @@ default:
       - .npm/
   before_script:
     - npm ci --cache .npm --prefer-offline
- 
+
 variables:
-  ASTRO_TELEMETRY_DISABLED: "1"
-  npm_config_fund: "false"
-  npm_config_audit: "false"
- 
+  ASTRO_TELEMETRY_DISABLED: '1'
+  npm_config_fund: 'false'
+  npm_config_audit: 'false'
+
 stages:
   - check
   - publish
- 
+
 # ── Vérifications ───────────────────────────────────────────────
- 
+
 typecheck:
   stage: check
   script:
@@ -32,7 +32,7 @@ typecheck:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
     - if: $CI_COMMIT_BRANCH
- 
+
 audit:
   stage: check
   script:
@@ -41,11 +41,10 @@ audit:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
- 
 # ── Publication vers le registre npm GitLab ─────────────────────
 # Déclenché uniquement sur un tag : git tag v1.0.1 && git push --tags
 # La version du tag doit correspondre au champ "version" de package.json.
- 
+
 publish:
   stage: publish
   script:
