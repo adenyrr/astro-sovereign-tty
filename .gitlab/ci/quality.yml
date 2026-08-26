@@ -1,0 +1,42 @@
+.quality-job:
+  stage: quality
+
+format:
+  extends: .quality-job
+  script:
+    - npm run format
+
+lint:
+  extends: .quality-job
+  script:
+    - npm run lint
+
+types:
+  extends: .quality-job
+  script:
+    - npm run check
+
+unit:
+  extends: .quality-job
+  script:
+    - npm run test
+
+contrast:
+  extends: .quality-job
+  script:
+    - npm run test:tokens
+
+axe:
+  stage: browser
+  image: mcr.microsoft.com/playwright:v1.62.1-noble
+  script:
+    - npm run build:playground
+    - npx playwright test
+  artifacts:
+    when: always
+    expire_in: 1 week
+    reports:
+      junit: reports/playwright.xml
+    paths:
+      - playwright-report/
+      - test-results/
