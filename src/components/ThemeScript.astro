@@ -1,28 +1,14 @@
-<script is:inline>
-  (function () {
-    function read(key) {
-      try {
-        return localStorage.getItem(key);
-      } catch (_) {
-        return null;
-      }
-    }
+---
+import {
+  readingModeScript,
+  themeBootstrapScript,
+  themeToggleScript,
+} from '../scripts/inline-scripts';
+import { sha256CspHash } from '../utils/csp';
 
-    function applyPreferences() {
-      var storedTheme = read('theme');
-      var theme =
-        storedTheme === 'light' || storedTheme === 'dark'
-          ? storedTheme
-          : window.matchMedia('(prefers-color-scheme: dark)').matches
-            ? 'dark'
-            : 'light';
-      var reading = read('reading-mode') === 'comfortable' ? 'comfortable' : 'default';
-      document.documentElement.dataset.theme = theme;
-      document.documentElement.dataset.readingMode = reading;
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-    }
+for (const source of [themeBootstrapScript, themeToggleScript, readingModeScript]) {
+  Astro.csp?.insertScriptHash(await sha256CspHash(source));
+}
+---
 
-    applyPreferences();
-    document.addEventListener('astro:after-swap', applyPreferences);
-  })();
-</script>
+<script is:inline set:html={themeBootstrapScript} />

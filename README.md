@@ -157,6 +157,7 @@ The package exposes the following entry points:
 - Prefer semantic markup and accessible labels for navigation and actions.
 - Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
+- Enable Astro's native CSP using the autonomous baseline in [`docs/csp.md`](docs/csp.md).
 
 ## Development
 

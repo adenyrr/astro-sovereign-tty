@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "dependencyDashboard": true,
+  "labels": ["dependencies"],
+  "rangeStrategy": "replace",
+  "schedule": ["before 06:00 on monday"],
+  "timezone": "Europe/Paris"
+}

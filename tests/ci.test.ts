@@ -19,6 +19,8 @@ describe('release pipeline contract', () => {
     expect(root).toContain('node:22.12.0-alpine');
     expect(security).toContain('zricethezav/gitleaks:v8.30.1');
     expect(security).toContain('ghcr.io/google/osv-scanner:v2.5.1');
+    expect(security).toContain('renovate/renovate:44.46.0');
+    expect(security).toContain('$CI_PIPELINE_SOURCE == "schedule" && $RUN_RENOVATE == "true"');
   });
 
   it('gates publication on every release check', () => {

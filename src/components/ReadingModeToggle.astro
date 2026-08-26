@@ -1,5 +1,6 @@
 ---
 import { fr } from '../i18n';
+import { readingModeScript } from '../scripts/inline-scripts';
 import type { ChromeLabels } from '../types';
 
 interface Props {
@@ -54,48 +55,4 @@ const { labels = fr } = Astro.props;
   }
 </style>
 
-<script is:inline>
-  (function () {
-    function readStored() {
-      try {
-        return localStorage.getItem('reading-mode');
-      } catch (e) {
-        return null;
-      }
-    }
-
-    function writeStored(enabled) {
-      try {
-        localStorage.setItem('reading-mode', enabled ? 'comfortable' : 'default');
-      } catch (e) {
-        /* réglage temporaire */
-      }
-    }
-
-    function apply(enabled) {
-      var toggle = document.getElementById('reading-mode-toggle');
-      document.documentElement.dataset.readingMode = enabled ? 'comfortable' : 'default';
-      if (toggle) {
-        toggle.setAttribute('aria-pressed', String(enabled));
-        var label = enabled ? toggle.dataset.labelOff : toggle.dataset.labelOn;
-        toggle.setAttribute('aria-label', label);
-        toggle.setAttribute('title', label);
-      }
-    }
-
-    function init() {
-      apply(readStored() === 'comfortable');
-      var toggle = document.getElementById('reading-mode-toggle');
-      if (toggle) {
-        toggle.onclick = function () {
-          var enabled = document.documentElement.dataset.readingMode !== 'comfortable';
-          apply(enabled);
-          writeStored(enabled);
-        };
-      }
-    }
-
-    init();
-    document.addEventListener('astro:page-load', init);
-  })();
-</script>
+<script is:inline set:html={readingModeScript} />

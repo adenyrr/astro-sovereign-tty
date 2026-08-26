@@ -36,3 +36,20 @@ sbom:
     expire_in: 1 month
     paths:
       - gl-sbom.cdx.json
+
+renovate:
+  stage: security
+  image:
+    name: renovate/renovate:44.46.0
+    entrypoint: ['']
+  before_script: []
+  cache: []
+  variables:
+    RENOVATE_PLATFORM: gitlab
+    RENOVATE_ENDPOINT: '$CI_API_V4_URL'
+    RENOVATE_AUTODISCOVER: 'false'
+  script:
+    - renovate "$CI_PROJECT_PATH"
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $RUN_RENOVATE == "true"'
+    - when: never
