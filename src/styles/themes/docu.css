@@ -1,0 +1,5 @@
+/* Documentation keeps the established amber workstation identity. */
+:root {
+  --amber-rgb: 232, 169, 76;
+  --accent-amber: light-dark(#744200, #e8a94c);
+}

@@ -8,13 +8,12 @@ const source =
     : fs.existsSync('src/styles/tokens.css')
       ? 'src/styles/tokens.css'
       : 'src/styles/global.css';
-const css = fs.readFileSync(source, 'utf8');
-const pairs = new Map();
+const pairPattern = /--([\w-]+)\s*:\s*light-dark\(\s*(#[\da-f]{6})\s*,\s*(#[\da-f]{6})\s*\)/gi;
 
-for (const match of css.matchAll(
-  /--([\w-]+)\s*:\s*light-dark\(\s*(#[\da-f]{6})\s*,\s*(#[\da-f]{6})\s*\)/gi,
-)) {
-  pairs.set(match[1], [match[2], match[3]]);
+function extractPairs(css) {
+  const pairs = new Map();
+  for (const match of css.matchAll(pairPattern)) pairs.set(match[1], [match[2], match[3]]);
+  return pairs;
 }
 
 function luminance(hex) {
@@ -33,21 +32,41 @@ function contrast(a, b) {
   return (high + 0.05) / (low + 0.05);
 }
 
-const backgrounds = ['bg-0', 'bg-1', 'surface-raised'].filter((name) => pairs.has(name));
-const foregrounds = [...pairs.keys()].filter(
-  (name) => name.startsWith('text-') || name.startsWith('accent-'),
-);
 const failures = [];
 const cases = [];
 
-for (const foreground of foregrounds) {
-  for (const background of backgrounds) {
-    for (const theme of [0, 1]) {
-      const ratio = contrast(pairs.get(foreground)[theme], pairs.get(background)[theme]);
-      const name = `${foreground} on ${background} (${theme === 0 ? 'light' : 'dark'})`;
-      cases.push({ name, ratio });
-      if (ratio < 4.5) failures.push(`${name}: ${ratio.toFixed(2)}:1`);
+function checkPairs(label, pairs) {
+  const backgrounds = ['bg-0', 'bg-1', 'surface-raised'].filter((name) => pairs.has(name));
+  const foregrounds = [...pairs.keys()].filter(
+    (name) => name.startsWith('text-') || name.startsWith('accent-'),
+  );
+  for (const foreground of foregrounds) {
+    for (const background of backgrounds) {
+      for (const theme of [0, 1]) {
+        const ratio = contrast(pairs.get(foreground)[theme], pairs.get(background)[theme]);
+        const name = `${label}: ${foreground} on ${background} (${theme === 0 ? 'light' : 'dark'})`;
+        cases.push({ name, ratio });
+        if (ratio < 4.5) failures.push(`${name}: ${ratio.toFixed(2)}:1`);
+      }
     }
+  }
+}
+
+const basePairs = extractPairs(fs.readFileSync(source, 'utf8'));
+checkPairs(path.basename(source, '.css'), basePairs);
+
+if (explicit < 0) {
+  const themeDirectory = 'src/styles/themes';
+  for (const filename of fs.readdirSync(themeDirectory).filter((name) => name.endsWith('.css'))) {
+    const themeCss = fs.readFileSync(path.join(themeDirectory, filename), 'utf8');
+    const properties = [...themeCss.matchAll(/--([\w-]+)\s*:/g)].map((match) => match[1]);
+    if (properties.join(',') !== 'amber-rgb,accent-amber') {
+      failures.push(`${filename}: expected only --amber-rgb and --accent-amber`);
+      continue;
+    }
+    const themedPairs = new Map(basePairs);
+    for (const [name, values] of extractPairs(themeCss)) themedPairs.set(name, values);
+    checkPairs(filename, themedPairs);
   }
 }
 
@@ -59,4 +78,4 @@ if (failures.length) {
   console.error(failures.join('\n'));
   process.exit(1);
 }
-console.log(`✓ ${cases.length} contrast checks from ${path.normalize(source)}`);
+console.log(`✓ ${cases.length} contrast checks from ${path.normalize(source)} and static themes`);

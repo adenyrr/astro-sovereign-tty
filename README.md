@@ -145,6 +145,9 @@ The package exposes the following entry points:
 - `@adenyrr/astro-ui/tailwind.css` (optional)
 - `@adenyrr/astro-ui/compat.css` (legacy vaul styles)
 - `@adenyrr/astro-ui/print.css` (opt-in)
+- `@adenyrr/astro-ui/themes/adenyrr.css`
+- `@adenyrr/astro-ui/themes/docu.css`
+- `@adenyrr/astro-ui/themes/train.css`
 - `@adenyrr/astro-ui/Header.astro`
 - `@adenyrr/astro-ui/Footer.astro`
 - `@adenyrr/astro-ui/ThemeToggle.astro`
@@ -165,6 +168,21 @@ The package exposes the following entry points:
 - Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
 - Enable Astro's native CSP using the autonomous baseline in [`docs/csp.md`](docs/csp.md).
+
+### Site themes
+
+Load one static brand contract after `styles.css`; no runtime class or JavaScript is required:
+
+```astro
+---
+import '@adenyrr/astro-ui/styles.css';
+import '@adenyrr/astro-ui/themes/train.css';
+---
+```
+
+| astro-ui | Astro      | adenyrr.me           | docu              | training           |
+| -------- | ---------- | -------------------- | ----------------- | ------------------ |
+| 2.x      | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
 
 ## Development
 

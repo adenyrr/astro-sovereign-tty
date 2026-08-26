@@ -43,7 +43,10 @@ test('forced colors retains visible active and focus states', async ({ page }) =
   await page.emulateMedia({ forcedColors: 'active' });
   await page.goto('/blog/');
   const mobile = (page.viewportSize()?.width ?? 1280) <= 820;
-  if (mobile) await page.locator('.mobile-menu summary').click();
+  if (mobile) {
+    await page.locator('.mobile-menu summary').click();
+    await expect(page.locator('.mobile-panel nav a').first()).toBeFocused();
+  }
   const active = page.locator(
     mobile ? '.mobile-panel [aria-current="page"]' : '.desktop-nav [aria-current="page"]',
   );

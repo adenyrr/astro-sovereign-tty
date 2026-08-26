@@ -1,0 +1,5 @@
+/* Training uses its own accessible blue brand triplet. */
+:root {
+  --amber-rgb: 120, 170, 215;
+  --accent-amber: light-dark(#1c4f77, #86bde8);
+}
