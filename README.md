@@ -16,7 +16,7 @@ This package provides a reusable global layout for website headers, footers, lig
 
 - Shared workstation-style header and footer chrome
 - Light and dark theme support via CSS variables and `light-dark()`
-- Reading mode toggle for long-form content
+- Binary reading mode: Inclusive Sans normally, Atkinson Hyperlegible Next on demand
 - Ambient background and subtle motion treatment
 - Tailwind-powered design tokens and global styling
 - Mobile drawer navigation with accessible interaction patterns
@@ -153,6 +153,7 @@ The package exposes the following entry points:
 - Keep `currentPath` aligned with the route you are rendering for correct active nav state.
 - Use `SiteChromeConfig` instead of ad hoc object literals when building shared layouts.
 - Respect `enabled` and feature flags to keep content and navigation context-aware.
+- Keep reading content compatible with the 66-character measure and WCAG Text Spacing overrides.
 - Prefer semantic markup and accessible labels for navigation and actions.
 - Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
@@ -162,7 +163,7 @@ The package exposes the following entry points:
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://forge.massivedynamics.be/aboutme/astro-ui.git
+git clone https://github.com/adenyrr/astro-sovereign-tty
 cd astro-ui
 npm install
 npm run build

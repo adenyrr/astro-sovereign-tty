@@ -170,9 +170,11 @@
   --shadow-glow: 0 0 24px var(--glow-hover);
 
   /* ---- Familles (§2.4) ---- */
-  --font-ui: 'Inter Variable', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-ui: 'Inclusive Sans Variable', 'Inclusive Sans', system-ui, -apple-system, sans-serif;
   --font-body: var(--font-ui);
-  --font-reading: 'Inclusive Sans Variable', 'Inclusive Sans', var(--font-ui);
+  --font-reading:
+    'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',
+    var(--font-ui);
   --font-mono:
     'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
     Consolas, monospace;
@@ -319,10 +321,30 @@ body {
 
 :root[data-reading-mode='comfortable'] body {
   line-height: 1.85;
-  letter-spacing: 0.018em;
+  letter-spacing: 0.025em;
   word-spacing: 0.08em;
   background-image: none;
   background-attachment: scroll;
+}
+
+:root[data-reading-mode='comfortable'] main :is(p, li, blockquote) {
+  max-width: 66ch;
+  font-kerning: normal;
+  letter-spacing: 0.025em;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+
+:root[data-reading-mode='comfortable'] main p {
+  margin-block: 0 2em;
+}
+
+:root[data-reading-mode='comfortable'] main :is(h1, h2, h3, h4, h5, h6) {
+  max-width: 36ch;
+  font-weight: 650;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
 }
 
 :root[data-reading-mode='comfortable'] #ambient-bg,
