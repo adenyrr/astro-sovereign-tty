@@ -1,19 +1,19 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const root = readFileSync(new URL('../.gitlab-ci.yaml', import.meta.url), 'utf8');
-const quality = readFileSync(new URL('../.gitlab/ci/quality.yaml', import.meta.url), 'utf8');
-const release = readFileSync(new URL('../.gitlab/ci/release.yaml', import.meta.url), 'utf8');
-const security = readFileSync(new URL('../.gitlab/ci/security.yaml', import.meta.url), 'utf8');
+const root = readFileSync(new URL('../.gitlab-ci.yml', import.meta.url), 'utf8');
+const quality = readFileSync(new URL('../.gitlab/ci/quality.yml', import.meta.url), 'utf8');
+const release = readFileSync(new URL('../.gitlab/ci/release.yml', import.meta.url), 'utf8');
+const security = readFileSync(new URL('../.gitlab/ci/security.yml', import.meta.url), 'utf8');
 
 describe('release pipeline contract', () => {
-  it('uses only the requested .yaml extension for GitLab configuration', () => {
+  it('uses the standard .yml extension for GitLab configuration', () => {
     expect(readdirSync(new URL('../.gitlab/ci/', import.meta.url)).sort()).toEqual([
-      'quality.yaml',
-      'release.yaml',
-      'security.yaml',
+      'quality.yml',
+      'release.yml',
+      'security.yml',
     ]);
-    expect(root).not.toContain('.yml');
+    expect(root).not.toContain('.yaml');
   });
 
   it('only creates automatic pipelines for MRs, schedules and stable tags', () => {

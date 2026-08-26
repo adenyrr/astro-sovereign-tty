@@ -7,9 +7,9 @@ workflow:
     - when: never
 
 include:
-  - local: /.gitlab/ci/quality.yaml
-  - local: /.gitlab/ci/security.yaml
-  - local: /.gitlab/ci/release.yaml
+  - local: /.gitlab/ci/quality.yml
+  - local: /.gitlab/ci/security.yml
+  - local: /.gitlab/ci/release.yml
 
 stages:
   - quality
