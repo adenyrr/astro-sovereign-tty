@@ -14,7 +14,7 @@ export default defineConfig({
         "base-uri 'self'",
         "object-src 'none'",
         "img-src 'self' data:",
-        "font-src 'self' data:", // remove `data:` when using Astro Fonts (v2 default)
+        "font-src 'self'",
         "connect-src 'self'",
       ],
     },

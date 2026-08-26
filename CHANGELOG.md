@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Split the default CSS into `astro-ui.tokens`, `astro-ui.base`, and `astro-ui.components` layers; Tailwind, vaul compatibility, and print rules are now opt-in exports.
+- Reduced the unminified default CSS source from 42,369 bytes to 35,334 bytes (−16.6%) by removing optional Tailwind and vaul rules from `styles.css`.
+
 ### Fixed
 
 - Restored card shadows by defining the missing `--glint-under` token.

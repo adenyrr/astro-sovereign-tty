@@ -1,0 +1,6 @@
+/* Default visual entry: no Tailwind, vaul compatibility, or font package required. */
+@layer astro-ui.tokens, astro-ui.base, astro-ui.components;
+
+@import './tokens.css' layer(astro-ui.tokens);
+@import './base.css' layer(astro-ui.base);
+@import './components.css' layer(astro-ui.components);

@@ -1,0 +1,52 @@
+/* Opt-in print contract. Import after `styles.css` when a consumer supports printing. */
+@media print {
+  :root {
+    color-scheme: light;
+    --bg: #fff;
+    --bg-0: #fff;
+    --bg-1: #fff;
+    --text: #000;
+    --text-primary: #000;
+    --text-secondary: #222;
+    --text-muted: #333;
+    --glass-bg: #fff;
+    --glass-bg-strong: #fff;
+    --glass-border: #777;
+    --shadow: none;
+    --shadow-sm: none;
+  }
+
+  #site-header,
+  #site-footer,
+  #ambient-bg,
+  .skip-link,
+  .theme-toggle,
+  .reading-mode-toggle {
+    display: none !important;
+  }
+
+  body {
+    color: #000;
+    background: #fff;
+    font-size: 11pt;
+  }
+
+  .page-content {
+    min-height: 0;
+    padding: 0;
+  }
+
+  .card,
+  .glass-panel {
+    break-inside: avoid;
+    border-color: #777;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font: 0.85em var(--font-code);
+    overflow-wrap: anywhere;
+  }
+}

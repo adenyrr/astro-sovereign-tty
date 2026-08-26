@@ -1,0 +1,220 @@
+/* @adenyrr/astro-ui — tokens.css. Public CSS API. */
+
+/* ============================================================================
+   PROPRIÉTÉS ENREGISTRÉES — @property rend les custom properties animables
+   (bordure conique des boutons, angle d'aurora du fond ambiant).
+   ============================================================================ */
+@property --btn-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* ============================================================================
+   CSS CUSTOM PROPERTIES (Theme tokens)
+   Frost Glass Design System — verre dépoli translucide sur ardoise froide,
+   teinte de marque ambre, base Okabe–Ito sûre pour le daltonisme.
+   Deux familles de couleur JAMAIS interchangées (§1.2) :
+     • « vif »  → triplets RGB constants, fonds/bordures/halos NON textuels ;
+     • « ink »  → couleurs de texte/icône, ajustées par thème pour le 4.5:1.
+   Un seul bloc de tokens : light-dark() résout selon color-scheme —
+   plus de duplication light/dark à maintenir.
+   ============================================================================ */
+:root {
+  /* Suit la préférence système par défaut ; surchargé par data-theme */
+  color-scheme: light dark;
+  --header-height: 74px;
+  --header-gap: 8px;
+
+  /* ==========================================================================
+     COUCHE 1 — « VIF » : triplets RGB CONSTANTS sur les deux thèmes (§2.3).
+     Réservés aux fonds teintés, bordures, halos, soulignés — JAMAIS à du
+     texte. C'est ce qui évite qu'un thème clair paraisse terne : on
+     n'assombrit jamais une couleur qui ne porte pas de texte.
+     ========================================================================== */
+  --amber-rgb: 232, 169, 76;
+  --blue-rgb: 111, 180, 234;
+  --teal-rgb: 52, 209, 166;
+  --coral-rgb: 240, 135, 103;
+
+  /* ==========================================================================
+     COUCHE 2 — « INK » : couleurs porteuses de texte/icône, assombries en
+     clair et éclaircies en sombre pour tenir ≥ 4.5:1 (§2.1 / §2.2).
+     Base Okabe–Ito : le « succès » est un vert BLEUTÉ, distinguable du
+     corail en deutéranopie/protanopie.
+     ========================================================================== */
+  --accent-amber: light-dark(#744200, #e8a94c);
+  --accent-blue: light-dark(#0262ab, #6fb4ea);
+  --accent-teal: light-dark(#006653, #34d1a6);
+  --accent-coral: light-dark(#b2392b, #f08767);
+  --focus-ring: light-dark(#0262ab, #6fb4ea);
+
+  /* ---- Fonds de page (§2.1 / §2.2) ---- */
+  --bg-0: light-dark(#f2ece3, #0b0f14);
+  --bg-1: light-dark(#fdfaf4, #121820);
+
+  /* ---- Verre (§2.1 / §2.2) ---- */
+  --glass-bg: light-dark(rgba(253, 250, 244, 0.7), rgba(255, 255, 255, 0.055));
+  --glass-bg-strong: light-dark(rgba(255, 253, 249, 0.9), rgba(255, 255, 255, 0.09));
+  --glass-border: light-dark(rgba(31, 26, 18, 0.15), rgba(255, 255, 255, 0.14));
+  --glass-blur: 22px;
+  --glint: light-dark(transparent, rgba(255, 255, 255, 0.07));
+  --glint-under: light-dark(rgba(31, 26, 18, 0.05), rgba(0, 0, 0, 0.22));
+  /* Listes multi-ombres : light-dark() sépare ses deux arguments par une
+     virgule, donc une liste d'ombres ne peut pas y tenir. Valeurs sombres
+     ici (= :root de la référence §2.1), surchargées en clair plus bas. */
+  --shadow: 0 20px 60px -20px rgba(0, 0, 0, 0.55), 0 2px 8px rgba(0, 0, 0, 0.35);
+
+  /* ---- Halos ambiants (§2.1 / §2.2) — assez opaques pour que le
+     backdrop-filter ait de la matière à flouter (§1.1) ---- */
+  --blob-amber: light-dark(rgba(var(--amber-rgb), 0.1), rgba(232, 169, 76, 0.2));
+  --blob-blue: light-dark(rgba(var(--blue-rgb), 0.18), rgba(111, 180, 234, 0.16));
+  --blob-teal: light-dark(rgba(var(--teal-rgb), 0.13), rgba(52, 209, 166, 0.12));
+
+  /* ---- Texte (§2.1 / §2.2) ---- */
+  --text-primary: light-dark(#1f1a12, #eef2f6);
+  --text-secondary: light-dark(#4d473d, #a9b4c0);
+  --text-muted: light-dark(#696257, #818c99);
+
+  /* ==========================================================================
+     ALIAS DE COMPATIBILITÉ — l'API de tokens consommée par les composants
+     reste stable ; seules les valeurs sont réfractées vers le frost-glass.
+     ========================================================================== */
+  --bg: var(--bg-0);
+  --surface: var(--bg-1);
+  --surface-raised: light-dark(#eae4d8, #1a222c);
+  --card-bg: var(--glass-bg);
+  --card-border: var(--glass-border);
+  --card-border-hover: light-dark(rgba(31, 26, 18, 0.34), rgba(255, 255, 255, 0.3));
+
+  --text: var(--text-primary);
+  --muted-text: var(--text-muted);
+
+  /* L'ambre reste la teinte de marque ; les liens passent au bleu « info ». */
+  --accent: var(--accent-amber);
+  --brand-mark: rgb(var(--amber-rgb));
+  --brand-mark-dim: #d9973a;
+  --brand-mark-lit: #f3c076;
+  --on-brand-mark: #412402;
+  --accent-mid: light-dark(#8a5000, #f5c47a);
+  --accent-secondary: light-dark(#5e3500, #c98a2e);
+  --accent-warm: var(--accent-amber);
+  --link-color: var(--accent-blue);
+
+  /* ---- Halos dérivés — bâtis sur la couche « vif » (non textuelle) ---- */
+  --glow: rgba(var(--amber-rgb), 0.14);
+  --glow-hover: rgba(var(--amber-rgb), 0.26);
+  --glow-cyan: rgba(var(--blue-rgb), 0.12);
+
+  /* ---- Palette sémantique log-level — mappée sur les inks Okabe–Ito ---- */
+  --sem-ok: var(--accent-teal);
+  --sem-info: var(--accent-blue);
+  --sem-warn: var(--accent-amber);
+  --sem-debug: var(--text-muted);
+
+  --gradient-start: var(--brand-mark-dim);
+  --gradient-mid: var(--brand-mark);
+  --gradient-end: var(--brand-mark-lit);
+
+  /* ---- Code ---- */
+  --code-bg: light-dark(var(--surface-raised), var(--bg-1));
+  --code-text: var(--text-primary);
+
+  --selection-bg: rgba(var(--amber-rgb), 0.3);
+
+  /* ---- Ombres ---- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35), 0 2px 6px rgba(0, 0, 0, 0.25);
+  --shadow-md: var(--shadow);
+  --shadow-glow: 0 0 24px var(--glow-hover);
+
+  /* ---- Familles (§2.4) ---- */
+  --font-ui: 'Inclusive Sans Variable', 'Inclusive Sans', system-ui, -apple-system, sans-serif;
+  --font-body: var(--font-ui);
+  --font-reading:
+    'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',
+    var(--font-ui);
+  --font-mono:
+    'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
+    Consolas, monospace;
+  --font-code: var(--font-mono);
+
+  /* Échelle typographique fluide (clamp = lisible sans media-query) */
+  --fs-h1: clamp(2rem, 1.4rem + 3vw, 3rem);
+  --fs-h2: clamp(1.45rem, 1.2rem + 1.2vw, 1.85rem);
+  --fs-h3: clamp(1.2rem, 1.05rem + 0.6vw, 1.45rem);
+  --fs-lead: clamp(1.02rem, 0.97rem + 0.3vw, 1.18rem);
+
+  /* Rayons publics, disponibles même sans le pont Tailwind optionnel. */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 18px;
+
+  /* Rythme d'espacement (multiples de 4px) */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  /* Transitions */
+  --transition-colors:
+    color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  --transition-all: all 0.3s ease;
+  --transition-transform: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ---- Tokens de la bannière terminal — remappés sur les inks ---- */
+  --banner-teal: var(--accent-blue);
+  --banner-teal-dim: light-dark(#155f8f, #4e93c4);
+  --banner-salmon: var(--accent-amber);
+  --banner-text: var(--text-primary);
+  --banner-text-dim: var(--text-secondary);
+  --banner-muted: var(--text-muted);
+
+  /* Pastilles de barre de titre — convention macOS conservée. Non
+     textuelles, mais §3.6 impose une icône au survol/focus : la couleur
+     seule ne porte jamais l'information (voir .win-dot). */
+  --dot-r: #ff5f56;
+  --dot-y: #ffbd2e;
+  --dot-g: #27c93f;
+
+  /* ---- Verre : alias hérités pointant sur les jetons §2 ---- */
+  --glass-edge: var(--glint);
+  --glass-shadow: var(--shadow);
+  --glass-inner: var(--glint);
+  --glass-glow: rgba(var(--amber-rgb), 0.12);
+
+  /* ---- Décor non textuel (couche « vif ») ---- */
+  --scan-color: rgba(var(--amber-rgb), 0.19);
+  --grid-line: light-dark(rgba(31, 26, 18, 0.07), rgba(255, 255, 255, 0.05));
+
+  /* ---- Fond ambiant : nappes en dérive, volontairement plus faibles que
+     les halos §3.2 posés sur <body> — elles s'y ajoutent sans saturer. ---- */
+  --blob-drift-amber: rgba(var(--amber-rgb), 0.1);
+  --blob-drift-blue: rgba(var(--blue-rgb), 0.1);
+  --ambient-dot: light-dark(rgba(31, 26, 18, 0.08), rgba(255, 255, 255, 0.045));
+}
+
+/* Le choix explicite de thème (toggle) force le color-scheme : tous les
+   tokens light-dark() basculent d'un coup, avant le premier paint. */
+:root[data-theme='light'],
+:root:not([data-theme]):where(.light) {
+  color-scheme: light;
+  --shadow: 0 24px 60px -22px rgba(58, 44, 22, 0.2), 0 4px 14px rgba(58, 44, 22, 0.09);
+  --shadow-sm: 0 1px 2px rgba(58, 44, 22, 0.1), 0 3px 8px rgba(58, 44, 22, 0.06);
+}
+:root[data-theme='dark'],
+.dark {
+  color-scheme: dark;
+}
+
+/* Repli si aucun data-theme n'est posé (JS désactivé) : le média système
+   pilote seul les ombres, light-dark() gère déjà tout le reste. */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --shadow: 0 24px 60px -22px rgba(58, 44, 22, 0.2), 0 4px 14px rgba(58, 44, 22, 0.09);
+    --shadow-sm: 0 1px 2px rgba(58, 44, 22, 0.1), 0 3px 8px rgba(58, 44, 22, 0.06);
+  }
+}

@@ -1,0 +1,203 @@
+/* @adenyrr/astro-ui — base.css. Public CSS API. */
+
+/* ============================================================================
+   BASE STYLES
+   ============================================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  /* PAS de `scroll-behavior: smooth` global : au retour arrière, le routeur
+     d'Astro restaure la position via scrollTo() SANS `behavior: instant`
+     (contrairement à la navigation avant). Le scroll de restauration était
+     donc animé, ce qui se ressent comme une latence. Aucune ancre interne
+     n'existe sur le site — seul le skip-link en profitait, et un saut
+     instantané y est de toute façon préférable. */
+  /* Décale les cibles d'ancre pour ne pas passer sous le header fixe */
+  scroll-padding-top: calc(var(--header-height) + var(--header-gap));
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Background on html ensures no flash during VT DOM swap */
+  background-color: var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  line-height: 1.7;
+  transition: var(--transition-colors);
+  /* §3.2 — OBLIGATOIRE : le backdrop-filter ne se voit que s'il a de la
+     matière contrastée à flouter. Trois taches radiales larges et diffuses
+     (transparent 60%), jamais de formes nettes. Sans elles, les panneaux
+     ne sont que semi-transparents : ce n'est plus du frost-glass. */
+  background-image:
+    radial-gradient(60vmax 60vmax at 15% 10%, var(--blob-amber), transparent 60%),
+    radial-gradient(55vmax 55vmax at 90% 20%, var(--blob-blue), transparent 60%),
+    radial-gradient(60vmax 60vmax at 50% 100%, var(--blob-teal), transparent 60%);
+  background-attachment: fixed;
+}
+
+::selection {
+  background: var(--selection-bg);
+}
+
+img,
+video,
+svg {
+  max-width: 100%;
+}
+
+main,
+.page-content {
+  min-width: 0;
+}
+
+/* Mode lecture — opt-in local, notamment utile aux personnes dyslexiques.
+   Il ne prétend pas convenir à tout le monde : le réglage est explicite,
+   persistant et laisse le thème de couleur indépendant. */
+:root[data-reading-mode='comfortable'] {
+  --font-body: var(--font-reading);
+  --text-secondary: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --glass-bg: var(--bg-1);
+  --glass-bg-strong: var(--bg-1);
+  --glass-border: light-dark(rgba(20, 28, 38, 0.28), rgba(255, 255, 255, 0.28));
+}
+
+:root[data-reading-mode='comfortable'] body {
+  line-height: 1.85;
+  letter-spacing: 0.025em;
+  word-spacing: 0.08em;
+  background-image: none;
+  background-attachment: scroll;
+}
+
+:root[data-reading-mode='comfortable'] main :is(p, li, blockquote) {
+  max-width: 66ch;
+  font-kerning: normal;
+  letter-spacing: 0.025em;
+  overflow-wrap: anywhere;
+  text-align: start;
+}
+
+:root[data-reading-mode='comfortable'] main p {
+  margin-block: 0 2em;
+}
+
+:root[data-reading-mode='comfortable'] main :is(h1, h2, h3, h4, h5, h6) {
+  max-width: 36ch;
+  font-weight: 650;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+:root[data-reading-mode='comfortable'] #ambient-bg,
+:root[data-reading-mode='comfortable'] .banner-grid,
+:root[data-reading-mode='comfortable'] .banner-blob,
+:root[data-reading-mode='comfortable'] .banner-card::before,
+:root[data-reading-mode='comfortable'] .banner-card::after {
+  display: none;
+}
+
+:root[data-reading-mode='comfortable'] *,
+:root[data-reading-mode='comfortable'] *::before,
+:root[data-reading-mode='comfortable'] *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ============================================================================
+   PAGE CONTENT
+   ============================================================================ */
+.page-content {
+  padding-top: calc(var(--header-height) + var(--header-gap));
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (max-width: 820px) {
+  :root {
+    --header-height: 66px;
+  }
+}
+
+/* ============================================================================
+   TYPOGRAPHY
+   ============================================================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--text);
+  letter-spacing: -0.015em;
+  /* Évite les lignes orphelines disgracieuses dans les titres */
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
+
+p {
+  /* Coupe les paragraphes plus proprement (évite mots seuls en fin) */
+  text-wrap: pretty;
+}
+
+code,
+pre,
+.font-code {
+  font-family: var(--font-code);
+}
+
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 1.25rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--shadow-sm);
+}
+
+code:not(pre code) {
+  background: var(--code-bg);
+  color: var(--link-color);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88em;
+  border: 1px solid var(--card-border);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+a:hover {
+  color: var(--accent);
+}

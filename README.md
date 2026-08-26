@@ -18,7 +18,7 @@ This package provides a reusable global layout for website headers, footers, lig
 - Light and dark theme support via CSS variables and `light-dark()`
 - Binary reading mode: Inclusive Sans normally, Atkinson Hyperlegible Next on demand
 - Ambient background and subtle motion treatment
-- Tailwind-powered design tokens and global styling
+- Layered design tokens and global styling with no required Tailwind runtime
 - Mobile drawer navigation with accessible interaction patterns
 - Type-safe configuration via `SiteChromeConfig`
 
@@ -51,11 +51,11 @@ This package declares the following runtime dependencies:
 - `@fontsource-variable/inclusive-sans`
 - `@fontsource-variable/jetbrains-mono`
 - `@lucide/astro`
-- `tailwindcss`
 
 Peer dependency:
 
 - `astro`: `^6.0.0 || ^7.0.0`
+- `tailwindcss`: `^4.1.18` (optional, only for `tailwind.css`)
 
 Development dependencies used for validation:
 
@@ -139,6 +139,12 @@ The package exposes the following entry points:
 - `@adenyrr/astro-ui/navigation`
 - `@adenyrr/astro-ui/safe-href`
 - `@adenyrr/astro-ui/styles.css`
+- `@adenyrr/astro-ui/tokens.css`
+- `@adenyrr/astro-ui/base.css`
+- `@adenyrr/astro-ui/components.css`
+- `@adenyrr/astro-ui/tailwind.css` (optional)
+- `@adenyrr/astro-ui/compat.css` (legacy vaul styles)
+- `@adenyrr/astro-ui/print.css` (opt-in)
 - `@adenyrr/astro-ui/Header.astro`
 - `@adenyrr/astro-ui/Footer.astro`
 - `@adenyrr/astro-ui/ThemeToggle.astro`
@@ -150,6 +156,7 @@ The package exposes the following entry points:
 ## Best practices
 
 - Import the stylesheet once at the app root, not in every page component.
+- Import Tailwind, vaul compatibility, and print contracts only where the consumer needs them; see [`docs/tokens.md`](docs/tokens.md).
 - Keep `currentPath` aligned with the route you are rendering for correct active nav state.
 - Use `SiteChromeConfig` instead of ad hoc object literals when building shared layouts.
 - Respect `enabled` and feature flags to keep content and navigation context-aware.

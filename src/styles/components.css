@@ -1,0 +1,801 @@
+/* @adenyrr/astro-ui — components.css. Public CSS API. */
+
+/* ============================================================================
+   LAYOUT UTILITIES
+   ============================================================================ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ============================================================================
+   CARDS — panneaux HUD : verre dépoli + crochets de visée aux coins
+   (réticule terminal qui apparaît au survol)
+   ============================================================================ */
+.card,
+.glass-panel {
+  background: var(--glass-bg);
+  /* saturate() est essentiel : sans lui le flou « délave » les couleurs
+     derrière le verre et l'effet perd son côté vitré/coloré (§3.1). */
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  /* Le liseré interne simule un reflet en haut du panneau — discret en
+     sombre, net en clair : c'est ce détail qui évite l'effet « plat ». */
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 var(--glint),
+    inset 0 -1px 0 var(--glint-under);
+  position: relative;
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.2, 0.64, 1),
+    border-color 0.3s ease,
+    box-shadow 0.35s ease;
+}
+
+/* Crochets de coin (top-left + bottom-right) dessinés en dégradés —
+   aucun pseudo-élément des pages n'utilise ::after sur .card */
+.card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark)),
+    linear-gradient(var(--brand-mark), var(--brand-mark));
+  background-position:
+    0 0,
+    0 0,
+    100% 100%,
+    100% 100%;
+  background-size:
+    16px 1.5px,
+    1.5px 16px,
+    16px 1.5px,
+    1.5px 16px;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background: var(--surface);
+  }
+}
+
+.card:hover {
+  border-color: var(--card-border-hover);
+  box-shadow:
+    var(--shadow-md),
+    var(--shadow-glow),
+    inset 0 1px 0 var(--glint);
+}
+
+@media (hover: hover) {
+  .card:hover {
+    transform: translateY(-3px);
+  }
+  .card:hover::after {
+    opacity: 0.7;
+  }
+}
+
+/* ============================================================================
+   GRADIENT TEXT
+   ============================================================================ */
+.gradient-text {
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-mid),
+    var(--gradient-end)
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 5s linear infinite;
+}
+
+@keyframes shimmer-text {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* ============================================================================
+   TERMINAL-STYLE HEADINGS
+   ============================================================================ */
+.term-tilde {
+  color: var(--link-color);
+  -webkit-text-fill-color: var(--link-color);
+  font-weight: 500;
+}
+
+.term-head {
+  font-family: var(--font-code);
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.term-head-path {
+  font-family: var(--font-code);
+  font-size: 1.4rem;
+  font-weight: 600;
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* ============================================================================
+   BUTTONS — mono terminal ; le primaire porte une bordure conique animée
+   (@property --btn-angle) qui tourne en continu.
+   ============================================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.3rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-code);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(135deg, var(--gradient-start), var(--gradient-mid)) padding-box,
+    conic-gradient(
+        from var(--btn-angle),
+        var(--gradient-start),
+        var(--gradient-end) 35%,
+        oklch(100% 0 0 / 75%) 50%,
+        var(--gradient-end) 65%,
+        var(--gradient-start)
+      )
+      border-box;
+  color: var(--on-brand-mark);
+  box-shadow: 0 2px 12px var(--glow);
+  animation: btn-border-spin 3.2s linear infinite;
+}
+
+@keyframes btn-border-spin {
+  to {
+    --btn-angle: 360deg;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary {
+    animation: none;
+  }
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--glow-hover);
+  color: var(--on-brand-mark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--card-border);
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 0 12px var(--glow);
+  transform: translateY(-1px);
+}
+
+/* ============================================================================
+   TAGS
+   ============================================================================ */
+/* Tag style man-page: `[ name ]` en mono, sans pastille arrondie */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem;
+  background: transparent;
+  color: var(--accent);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-code);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  border: none;
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+.tag::before {
+  content: '[';
+  color: color-mix(in srgb, var(--accent) 55%, transparent);
+  font-weight: 400;
+}
+.tag::after {
+  content: ']';
+  color: color-mix(in srgb, var(--accent) 55%, transparent);
+  font-weight: 400;
+}
+.tag:hover {
+  color: var(--accent-mid);
+  background: var(--glow);
+}
+
+/* ============================================================================
+   STATUS BADGES
+   ============================================================================ */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-online .status-dot {
+  background: var(--sem-ok);
+  box-shadow: 0 0 8px color-mix(in oklab, var(--sem-ok) 40%, transparent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+.status-offline .status-dot {
+  border-radius: 0;
+  background: var(--accent-coral);
+  transform: rotate(45deg);
+}
+.status-maintenance .status-dot {
+  border-radius: 2px;
+  background: var(--sem-warn);
+  animation: pulse-dot 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}
+
+/* ============================================================================
+   TABS — animated underline slide
+   ============================================================================ */
+.tabs {
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--card-border);
+  margin-bottom: 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  position: relative;
+}
+
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted-text);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.tab:hover {
+  color: var(--text);
+  transform: translateY(-1px);
+}
+
+.tab.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--brand-mark);
+}
+
+.tab.active::before {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  border-radius: 1px 1px 0 0;
+  animation: tab-slide-in 0.2s ease;
+}
+
+@keyframes tab-slide-in {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+/* ============================================================================
+   SECTION HEADERS
+   ============================================================================ */
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-divider {
+  height: 3px;
+  width: 60px;
+  background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+  border-radius: 2px;
+  transform-origin: left center;
+}
+
+/* ============================================================================
+   SCROLL-DRIVEN REVEALS — 100 % CSS natif (animation-timeline: view()),
+   remplace GSAP ScrollTrigger. Les animations sont *scrubbed* par le scroll :
+   l'élément se révèle au rythme où il entre dans le viewport.
+   Dégradation propre : sans support, tout est simplement visible.
+   ============================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: reveal-rise both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 80%;
+    }
+
+    /* Les grilles révèlent leurs enfants individuellement */
+    :is(.projects-grid, .certs-grid, .nodes-grid, .vlans-grid, .services-grid, .stats-grid) > * {
+      animation: reveal-pop both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 85%;
+    }
+
+    .section-header {
+      animation: reveal-slide both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+
+    .section-divider {
+      animation: divider-grow both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+
+    .timeline-item {
+      animation: reveal-slide both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 70%;
+    }
+  }
+}
+
+@keyframes reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-pop {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes reveal-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes divider-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Stagger helpers (transitions CSS pilotées par les pages) */
+.stagger-1 {
+  transition-delay: 0.05s;
+}
+.stagger-2 {
+  transition-delay: 0.12s;
+}
+.stagger-3 {
+  transition-delay: 0.19s;
+}
+.stagger-4 {
+  transition-delay: 0.26s;
+}
+.stagger-5 {
+  transition-delay: 0.33s;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 768px) {
+  /* Les tailles de titres sont gérées par clamp() — pas d'override ici */
+  .container {
+    padding: 0 1rem;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+:focus-visible {
+  /* outline-offset pour ne pas être mangé par les bords arrondis (§4) */
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   SCROLLBAR
+   ============================================================================ */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--card-border);
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ============================================================================
+   VIEW TRANSITIONS — Astro native
+   ============================================================================ */
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes vt-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 120ms ease-out both vt-fade-out;
+}
+::view-transition-new(root) {
+  animation: 120ms ease-in both vt-fade-in;
+  /* Ensure bg is never transparent during VT reveal */
+  background-color: var(--bg);
+}
+
+/* CRITICAL FIX — suppress all CSS transitions during a View Transition.
+   Without this, CSS rules like `body { transition: background-color 0.3s }`
+   fire on every DOM swap and cause a visible color flash.
+   :active-view-transition is a native pseudo-class applied to <html> by the
+   browser for the entire duration of the VT (Chrome 111+, Firefox 126+). */
+:root:active-view-transition,
+:root:active-view-transition body,
+:root:active-view-transition body *,
+:root:active-view-transition body *::before,
+:root:active-view-transition body *::after {
+  transition-duration: 0ms !important;
+}
+
+/* Le fond ambiant est position:fixed et persiste entre navigations.
+   L'exclure des View Transitions évite un flash de double snapshot. */
+#ambient-bg {
+  view-transition-name: none;
+}
+
+/* ============================================================================
+   BLOG PAGE ENTRY ANIMATION
+   Used by blog/index and BlogPost — CSS-driven so it's immune to VT timing.
+   ============================================================================ */
+@keyframes blog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.blog-enter {
+  animation: blog-enter 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  /* No delay — on hard refresh it would create an 80ms invisible flash;
+     VT is already synchronised by astro:after-swap before the class exists */
+}
+@media (prefers-reduced-motion: reduce) {
+  .blog-enter {
+    animation: none;
+  }
+}
+
+/* ============================================================================
+   SMOOTH LINK TRANSITIONS (page-level)
+   ============================================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  a[href]:not([href^='#']):not([href^='mailto']):not([href^='http']) {
+    transition: color 0.2s ease;
+  }
+}
+
+/* ============================================================================
+   PILULES / SEGMENTS DE VERRE (§3.3)
+   Le « signature element » du site : les segments d'invite façon powerline
+   réinterprétés en capsules de verre dépoli plutôt qu'en blocs à angles vifs.
+   Toujours en capsule complète (999px), quel que soit le rayon global.
+   ============================================================================ */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.28rem 0.65rem;
+  border-radius: 999px;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+  box-shadow: inset 0 1px 0 var(--glint);
+  backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+}
+
+/* Variantes teintées : fond/bordure en couleur « vive » constante (non
+   textuelle → 3:1 suffit), texte en couleur « ink » qui garantit le 4.5:1. */
+.pill--amber {
+  color: var(--accent-amber);
+  background: rgba(var(--amber-rgb), 0.16);
+  border-color: rgba(var(--amber-rgb), 0.4);
+}
+.pill--blue {
+  color: var(--accent-blue);
+  background: rgba(var(--blue-rgb), 0.16);
+  border-color: rgba(var(--blue-rgb), 0.4);
+}
+.pill--teal {
+  color: var(--accent-teal);
+  background: rgba(var(--teal-rgb), 0.16);
+  border-color: rgba(var(--teal-rgb), 0.4);
+}
+.pill--coral {
+  color: var(--accent-coral);
+  background: rgba(var(--coral-rgb), 0.16);
+  border-color: rgba(var(--coral-rgb), 0.4);
+}
+
+/* ============================================================================
+   ÉTATS / STATUTS (§3.4)
+   WCAG 1.4.1 — aucune information n'est portée par la couleur seule :
+   chaque état = couleur + icône + libellé texte. Lisible en niveaux de gris
+   comme en deutéranopie.
+   ============================================================================ */
+.state {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.state svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.state-ok {
+  color: var(--accent-teal);
+}
+.state-warn {
+  color: var(--accent-amber);
+}
+.state-error {
+  color: var(--accent-coral);
+}
+.state-info {
+  color: var(--accent-blue);
+}
+
+/* ============================================================================
+   ACCESSIBILITÉ — media queries non négociables (§4)
+   ============================================================================ */
+
+/* Transparence réduite : tout le design repose sur le verre, il faut donc
+   le rendre franchement opaque plutôt que de simplement baisser le flou. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: var(--bg-1);
+    --glass-bg-strong: var(--bg-1);
+    --glass-blur: 0px;
+    --glint: transparent;
+  }
+  .card,
+  .glass-panel,
+  .pill {
+    background: var(--bg-1);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+  body {
+    background-image: none;
+  }
+  #ambient-bg {
+    display: none;
+  }
+}
+
+/* Contraste renforcé : bordures en currentColor, textes secondaires et
+   discrets remontés au niveau du texte principal. */
+@media (prefers-contrast: more) {
+  :root {
+    --text-secondary: var(--text-primary);
+    --text-muted: var(--text-primary);
+    --glass-border: currentColor;
+    --glass-bg: var(--bg-1);
+    --glass-bg-strong: var(--bg-1);
+  }
+  .card,
+  .glass-panel,
+  .pill,
+  .tabs {
+    border-color: currentColor;
+  }
+}
+
+/* Mouvement réduit : les halos cessent de dériver, le curseur cesse de
+   clignoter — le contenu reste strictement identique. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .gradient-text {
+    animation: none;
+  }
+  .status-online .status-dot,
+  .status-maintenance .status-dot {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  :root {
+    --focus-ring: Highlight;
+  }
+  a {
+    text-decoration: underline;
+  }
+  .status-dot {
+    border: 2px solid CanvasText;
+  }
+}
+
+/* Cibles tactiles ≥ 40×40px sur mobile pour tout élément interactif (§4). */
+@media (pointer: coarse) {
+  .tab,
+  .btn,
+  .theme-toggle,
+  .reading-mode-toggle,
+  a[href],
+  button,
+  summary {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}

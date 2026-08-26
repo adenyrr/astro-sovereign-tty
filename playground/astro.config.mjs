@@ -1,5 +1,4 @@
 import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   output: 'static',
@@ -17,10 +16,9 @@ export default defineConfig({
         "base-uri 'self'",
         "object-src 'none'",
         "img-src 'self' data:",
-        "font-src 'self' data:",
+        "font-src 'self'",
         "connect-src 'self'",
       ],
     },
   },
-  vite: { plugins: [tailwindcss()] },
 });
