@@ -3,6 +3,8 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests/browser',
   outputDir: './test-results',
+  timeout: process.env.CI ? 60_000 : 30_000,
+  workers: process.env.CI ? 3 : undefined,
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],

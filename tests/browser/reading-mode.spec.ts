@@ -18,10 +18,16 @@ test('reading mode remains binary and applies the accessible measure', async ({ 
       const paragraphStyle = getComputedStyle(paragraph);
       const headingStyle = getComputedStyle(document.querySelector('main h1')!);
       const bodyStyle = getComputedStyle(document.body);
+      const chProbe = document.createElement('span');
+      chProbe.style.cssText = `position:absolute;visibility:hidden;width:1ch;font:${paragraphStyle.font}`;
+      document.body.append(chProbe);
+      const chWidth = chProbe.getBoundingClientRect().width;
+      chProbe.remove();
       return {
         bodyFont: bodyStyle.fontFamily,
         letterSpacing: Number.parseFloat(paragraphStyle.letterSpacing),
         maxWidth: paragraphStyle.maxWidth,
+        chWidth,
         paragraphSpacing: Number.parseFloat(paragraphStyle.marginBottom),
         headingLetterSpacing: headingStyle.letterSpacing,
       };
@@ -29,7 +35,7 @@ test('reading mode remains binary and applies the accessible measure', async ({ 
   expect(metrics.bodyFont).toContain('Atkinson Hyperlegible Next');
   expect(metrics.letterSpacing).toBeGreaterThanOrEqual(0);
   expect(Number.parseFloat(metrics.maxWidth)).toBeGreaterThan(0);
-  expect(Number.parseFloat(metrics.maxWidth)).toBeLessThanOrEqual(660);
+  expect(Number.parseFloat(metrics.maxWidth)).toBeLessThanOrEqual(metrics.chWidth * 66 + 1);
   expect(metrics.paragraphSpacing).toBeGreaterThan(16);
   expect(
     metrics.headingLetterSpacing === 'normal' ||

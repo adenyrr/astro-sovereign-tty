@@ -26,9 +26,23 @@ contrast:
   script:
     - npm run test:tokens
 
-axe:
+.browser-job:
   stage: browser
   image: mcr.microsoft.com/playwright:v1.62.1-noble
+  variables:
+    BROWSER_NODE_ARCHIVE: node-v22.12.0-linux-x64.tar.gz
+    BROWSER_NODE_SHA256: e05a4d65232ae2b27b3d77da2e368522fb46b923335b8e0d5f77624c32484044
+  before_script:
+    - curl --fail --silent --show-error --location "https://nodejs.org/dist/v22.12.0/$BROWSER_NODE_ARCHIVE" --output "$BROWSER_NODE_ARCHIVE"
+    - echo "$BROWSER_NODE_SHA256  $BROWSER_NODE_ARCHIVE" | sha256sum --check
+    - mkdir -p .node
+    - tar --extract --gzip --no-same-owner --file "$BROWSER_NODE_ARCHIVE" --directory .node --strip-components 1
+    - export PATH="$CI_PROJECT_DIR/.node/bin:$PATH"
+    - test "$(node --version)" = "v22.12.0"
+    - npm ci --cache .npm --prefer-offline
+
+axe:
+  extends: .browser-job
   script:
     - npm run build:playground
     - npx playwright test
@@ -42,8 +56,7 @@ axe:
       - test-results/
 
 performance:
-  stage: browser
-  image: mcr.microsoft.com/playwright:v1.62.1-noble
+  extends: .browser-job
   script:
     - npm run build:playground
     - npm run test:fonts

@@ -42,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Added native Astro CSP guidance and playground enforcement without `unsafe-inline`.
 - Added stable-tag-only publication gates, pinned security scanners, SBOM generation, package-content checks, and scheduled-only Renovate execution.
+- Standardized GitLab configuration on `.yaml`, verified Node jobs in `node:22.12.0-alpine`, and checksum-pinned Node 22.12.0 inside the Playwright image.
 
 ## [1.2.0] - 2026-08-22
 

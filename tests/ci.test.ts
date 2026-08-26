@@ -1,11 +1,21 @@
-import { readFileSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-const root = readFileSync(new URL('../.gitlab-ci.yml', import.meta.url), 'utf8');
-const release = readFileSync(new URL('../.gitlab/ci/release.yml', import.meta.url), 'utf8');
-const security = readFileSync(new URL('../.gitlab/ci/security.yml', import.meta.url), 'utf8');
+const root = readFileSync(new URL('../.gitlab-ci.yaml', import.meta.url), 'utf8');
+const quality = readFileSync(new URL('../.gitlab/ci/quality.yaml', import.meta.url), 'utf8');
+const release = readFileSync(new URL('../.gitlab/ci/release.yaml', import.meta.url), 'utf8');
+const security = readFileSync(new URL('../.gitlab/ci/security.yaml', import.meta.url), 'utf8');
 
 describe('release pipeline contract', () => {
+  it('uses only the requested .yaml extension for GitLab configuration', () => {
+    expect(readdirSync(new URL('../.gitlab/ci/', import.meta.url)).sort()).toEqual([
+      'quality.yaml',
+      'release.yaml',
+      'security.yaml',
+    ]);
+    expect(root).not.toContain('.yml');
+  });
+
   it('only creates automatic pipelines for MRs, schedules and stable tags', () => {
     expect(root).toContain('merge_request_event');
     expect(root).toContain('schedule');
@@ -17,6 +27,11 @@ describe('release pipeline contract', () => {
 
   it('pins the requested execution and security images', () => {
     expect(root).toContain('node:22.12.0-alpine');
+    expect(quality).toContain('mcr.microsoft.com/playwright:v1.62.1-noble');
+    expect(quality).toContain('node-v22.12.0-linux-x64.tar.gz');
+    expect(quality).toContain('e05a4d65232ae2b27b3d77da2e368522fb46b923335b8e0d5f77624c32484044');
+    expect(quality).toContain('--no-same-owner');
+    expect(quality.match(/extends: \.browser-job/gu)).toHaveLength(2);
     expect(security).toContain('zricethezav/gitleaks:v8.30.1');
     expect(security).toContain('ghcr.io/google/osv-scanner:v2.5.1');
     expect(security).toContain('renovate/renovate:44.46.0');
