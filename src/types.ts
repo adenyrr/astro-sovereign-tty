@@ -30,6 +30,8 @@ export interface SiteChromeConfig {
     brandName: string;
     brandHost: string;
     homeUrl?: string;
+    /** `mobile` masque sous 820px, `true` partout et `false` jamais. */
+    hideOnScroll?: boolean | 'mobile';
     navigation: NavigationItem[];
     socialLinks: SocialLink[];
   };

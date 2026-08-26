@@ -11,9 +11,14 @@ interface Props {
   title: string;
   router?: boolean;
   lang?: 'fr' | 'en';
+  hideOnScroll?: boolean | 'mobile';
 }
 
-const { title, router = true, lang = 'fr' } = Astro.props;
+const { title, router = true, lang = 'fr', hideOnScroll } = Astro.props;
+const config =
+  hideOnScroll === undefined
+    ? chromeConfig
+    : { ...chromeConfig, header: { ...chromeConfig.header, hideOnScroll } };
 ---
 
 <!doctype html>
@@ -26,7 +31,7 @@ const { title, router = true, lang = 'fr' } = Astro.props;
   </head>
   <body>
     <AmbientBackground />
-    <Header config={chromeConfig} currentPath={Astro.url.pathname} />
+    <Header config={config} currentPath={Astro.url.pathname} />
     <main id="main" tabindex="-1" class="page-content">
       <slot />
     </main>

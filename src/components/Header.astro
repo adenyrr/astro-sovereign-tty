@@ -16,6 +16,7 @@ const navItems = (config.header?.navigation || []).filter(
 );
 const socialLinks = (config.header?.socialLinks || []).filter((link) => link.enabled !== false);
 const githubLink = socialLinks.find((link) => link.label.toLowerCase() === 'github');
+const hideOnScroll = config.header.hideOnScroll ?? 'mobile';
 
 function active(item: NavigationItem) {
   if (typeof item.active === 'boolean') return item.active;
@@ -29,7 +30,13 @@ function active(item: NavigationItem) {
 
 {
   config.header.show && (
-    <header id="site-header">
+    <header
+      id="site-header"
+      data-scroll-state="visible"
+      data-hide-on-scroll={
+        hideOnScroll === false ? undefined : hideOnScroll === true ? 'all' : 'mobile'
+      }
+    >
       <a class="skip-link" href="#main">
         Aller au contenu principal
       </a>
@@ -139,6 +146,20 @@ function active(item: NavigationItem) {
     z-index: 100;
     padding: 0.7rem 1rem;
     pointer-events: none;
+    transform: none;
+  }
+
+  #site-header[data-hide-on-scroll='all'] {
+    transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  #site-header[data-hide-on-scroll='all'][data-scroll-state='hidden'] {
+    transform: translateY(calc(-100% - 0.7rem));
+  }
+
+  #site-header:has(.mobile-menu[open]) {
+    transform: none !important;
+    transition: none;
   }
 
   .header-shell {
@@ -384,6 +405,12 @@ function active(item: NavigationItem) {
   }
 
   @media (max-width: 820px) {
+    #site-header[data-hide-on-scroll='mobile'] {
+      transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    #site-header[data-hide-on-scroll='mobile'][data-scroll-state='hidden'] {
+      transform: translateY(calc(-100% - 0.7rem));
+    }
     #site-header {
       padding: 0.5rem 0.6rem;
     }
@@ -430,6 +457,12 @@ function active(item: NavigationItem) {
     }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    #site-header[data-hide-on-scroll] {
+      transition: none;
+    }
+  }
+
   :global(body.mobile-menu-open) {
     overflow: hidden;
   }
@@ -437,6 +470,86 @@ function active(item: NavigationItem) {
 
 <script>
   let mobileMenuController: AbortController | undefined;
+  let scrollController: AbortController | undefined;
+
+  const HIDE_BREAKPOINT = 820;
+  const SCROLL_DELTA = 8;
+  const ALWAYS_VISIBLE = 64;
+
+  function initHeaderScroll() {
+    scrollController?.abort();
+    const candidate = document.getElementById('site-header');
+    if (!candidate) return;
+    const header = candidate;
+    const mode = header.dataset.hideOnScroll;
+    if (!mode) return;
+
+    const controller = new AbortController();
+    scrollController = controller;
+    const { signal } = controller;
+    const compact = window.matchMedia(`(max-width: ${HIDE_BREAKPOINT}px)`);
+    const menu = header.querySelector<HTMLDetailsElement>('.mobile-menu');
+    let lastY = window.scrollY;
+    let ticking = false;
+    let listening = false;
+
+    const show = () => (header.dataset.scrollState = 'visible');
+    const hide = () => (header.dataset.scrollState = 'hidden');
+
+    function update() {
+      ticking = false;
+      const y = Math.max(0, window.scrollY);
+      const delta = y - lastY;
+      if (
+        y <= ALWAYS_VISIBLE ||
+        menu?.open ||
+        header.contains(document.activeElement) ||
+        y + window.innerHeight >= document.documentElement.scrollHeight - 2
+      ) {
+        lastY = y;
+        show();
+        return;
+      }
+      if (Math.abs(delta) < SCROLL_DELTA) return;
+      if (delta > 0) hide();
+      else show();
+      lastY = y;
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    function apply() {
+      const enabled = mode === 'all' || compact.matches;
+      if (!enabled) {
+        show();
+        if (listening) window.removeEventListener('scroll', onScroll);
+        listening = false;
+        return;
+      }
+      lastY = Math.max(0, window.scrollY);
+      update();
+      if (!listening) {
+        window.addEventListener('scroll', onScroll, { passive: true, signal });
+        listening = true;
+      }
+    }
+
+    compact.addEventListener('change', apply, { signal });
+    header.addEventListener('focusin', show, { signal });
+    menu?.addEventListener('toggle', show, { signal });
+    apply();
+
+    const observer = new ResizeObserver(() => {
+      const height = Math.ceil(header.getBoundingClientRect().height);
+      document.documentElement.style.setProperty('--header-height', `${height}px`);
+    });
+    observer.observe(header);
+    signal.addEventListener('abort', () => observer.disconnect());
+  }
 
   function initMobileMenu() {
     mobileMenuController?.abort();
@@ -476,7 +589,14 @@ function active(item: NavigationItem) {
     syncState();
   }
   initMobileMenu();
-  document.addEventListener('astro:page-load', initMobileMenu);
+  initHeaderScroll();
+  document.addEventListener('astro:page-load', () => {
+    initMobileMenu();
+    initHeaderScroll();
+  });
+  document.addEventListener('astro:after-swap', () => {
+    document.getElementById('site-header')?.setAttribute('data-scroll-state', 'visible');
+  });
   document.addEventListener('astro:before-swap', () =>
     document.body.classList.remove('mobile-menu-open'),
   );
