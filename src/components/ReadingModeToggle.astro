@@ -36,7 +36,7 @@ const { labels = fr } = Astro.props;
     background: none;
     color: var(--muted-text);
     cursor: pointer;
-    font-family: var(--font-reading);
+    font-family: var(--font-ui);
     font-size: 1rem;
     font-weight: 700;
     line-height: 1;
@@ -47,6 +47,10 @@ const { labels = fr } = Astro.props;
     color: var(--accent-blue);
     border-color: rgba(var(--blue-rgb), 0.45);
     background: rgba(var(--blue-rgb), 0.12);
+  }
+
+  .reading-mode-toggle[aria-pressed='true'] {
+    font-family: var(--font-reading);
   }
 
   .reading-mode-toggle:focus-visible {

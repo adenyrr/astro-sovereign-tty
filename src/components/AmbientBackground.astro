@@ -28,6 +28,7 @@ const { enabled = true } = Astro.props;
     z-index: 0;
     pointer-events: none;
     overflow: hidden;
+    contain: strict;
     /* Grille de points façon blueprint, estompée vers le bas */
     background-image: radial-gradient(var(--ambient-dot) 1px, transparent 1.5px);
     background-size: 26px 26px;

@@ -128,14 +128,24 @@
   --shadow-glow: 0 0 24px var(--glow-hover);
 
   /* ---- Familles (§2.4) ---- */
-  --font-ui: 'Inclusive Sans Variable', 'Inclusive Sans', system-ui, -apple-system, sans-serif;
+  --font-ui: var(--astro-ui-font-body, 'Inclusive Sans', system-ui, -apple-system, sans-serif);
   --font-body: var(--font-ui);
-  --font-reading:
-    'Atkinson Hyperlegible Next Variable', 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible',
-    var(--font-ui);
-  --font-mono:
-    'JetBrains Mono Variable', 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono', Menlo,
-    Consolas, monospace;
+  --font-reading: var(
+    --astro-ui-font-reading,
+    'Atkinson Hyperlegible Next',
+    'Atkinson Hyperlegible',
+    var(--font-ui)
+  );
+  --font-mono: var(
+    --astro-ui-font-code,
+    'JetBrains Mono',
+    ui-monospace,
+    SFMono-Regular,
+    'SF Mono',
+    Menlo,
+    Consolas,
+    monospace
+  );
   --font-code: var(--font-mono);
 
   /* Échelle typographique fluide (clamp = lisible sans media-query) */

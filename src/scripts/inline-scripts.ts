@@ -61,6 +61,19 @@ export const themeToggleScript = `(function () {
 })();`;
 
 export const readingModeScript = `(function () {
+  function preloadReadingFont() {
+    var meta = document.querySelector('meta[name="astro-ui-reading-font"]');
+    var href = meta && meta.getAttribute('content');
+    if (!href || document.querySelector('link[data-astro-ui-reading-font]')) return;
+    var link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'font';
+    link.type = 'font/woff2';
+    link.crossOrigin = 'anonymous';
+    link.href = href;
+    link.dataset.astroUiReadingFont = '';
+    document.head.appendChild(link);
+  }
   function readStored() {
     try { return localStorage.getItem('reading-mode'); } catch (_) { return null; }
   }
@@ -80,11 +93,15 @@ export const readingModeScript = `(function () {
   function init() {
     apply(readStored() === 'comfortable');
     var toggle = document.getElementById('reading-mode-toggle');
-    if (toggle) toggle.onclick = function () {
-      var enabled = document.documentElement.dataset.readingMode !== 'comfortable';
-      apply(enabled);
-      writeStored(enabled);
-    };
+    if (toggle) {
+      toggle.onpointerenter = preloadReadingFont;
+      toggle.onfocus = preloadReadingFont;
+      toggle.onclick = function () {
+        var enabled = document.documentElement.dataset.readingMode !== 'comfortable';
+        apply(enabled);
+        writeStored(enabled);
+      };
+    }
   }
   init();
   document.addEventListener('astro:page-load', init);

@@ -5,6 +5,7 @@ import Footer from '../../../src/components/Footer.astro';
 import AmbientBackground from '../../../src/components/AmbientBackground.astro';
 import Animations from '../../../src/components/Animations.astro';
 import ThemeScript from '../../../src/components/ThemeScript.astro';
+import Fonts from '../../../src/components/Fonts.astro';
 import { chromeConfig } from '../config';
 import '../../../src/styles/styles.css';
 
@@ -30,6 +31,7 @@ const config = {
 <html lang={lang}>
   <head>
     <ThemeScript />
+    <Fonts />
     <meta name="color-scheme" content="light dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />

@@ -11,6 +11,8 @@
     "test": "vitest run",
     "test:a11y": "npm run build:playground && playwright test",
     "test:tokens": "node scripts/check-contrast.mjs",
+    "test:fonts": "node scripts/check-fonts.mjs",
+    "test:performance": "node scripts/run-lighthouse.mjs",
     "test:package": "node scripts/check-package.mjs",
     "dev": "astro dev --root \"$INIT_CWD/playground\"",
     "build:playground": "astro build --root playground",
@@ -41,12 +43,13 @@
     "./Footer.astro": "./src/components/Footer.astro",
     "./ThemeToggle.astro": "./src/components/ThemeToggle.astro",
     "./ThemeScript.astro": "./src/components/ThemeScript.astro",
+    "./Fonts.astro": "./src/components/Fonts.astro",
     "./ReadingModeToggle.astro": "./src/components/ReadingModeToggle.astro",
     "./AmbientBackground.astro": "./src/components/AmbientBackground.astro",
     "./Animations.astro": "./src/components/Animations.astro"
   },
   "peerDependencies": {
-    "astro": "^6.0.0 || ^7.0.0",
+    "astro": "^6.2.0 || ^7.0.0",
     "tailwindcss": "^4.1.18"
   },
   "peerDependenciesMeta": {
@@ -55,9 +58,6 @@
     }
   },
   "dependencies": {
-    "@fontsource-variable/inclusive-sans": "^5.2.8",
-    "@fontsource-variable/inter": "^5.3.0",
-    "@fontsource-variable/jetbrains-mono": "^5.2.8",
     "@lucide/astro": "^1.33.0"
   },
   "devDependencies": {

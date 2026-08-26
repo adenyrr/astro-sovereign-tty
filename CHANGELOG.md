@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Split the default CSS into `astro-ui.tokens`, `astro-ui.base`, and `astro-ui.components` layers; Tailwind, vaul compatibility, and print rules are now opt-in exports.
 - Reduced the unminified default CSS source from 42,369 bytes to 35,334 bytes (−16.6%) by removing optional Tailwind and vaul rules from `styles.css`.
+- Replaced bundled Fontsource packages with Astro Fonts: Inclusive Sans and JetBrains Mono are preloaded, while Atkinson Hyperlegible Next is fetched only on reading-mode intent.
+- Raised the Astro peer requirement to `^6.2.0 || ^7.0.0` and made Lighthouse performance budgets release-blocking.
 
 ### Fixed
 

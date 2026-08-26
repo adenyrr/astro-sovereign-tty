@@ -24,6 +24,10 @@ describe('layered CSS contract', () => {
     const css = ['tokens.css', 'base.css', 'components.css'].map(readStyle).join('\n');
     const definitions = new Set([...css.matchAll(/--([\w-]+)\s*:/gu)].map((match) => match[1]));
     const references = new Set([...css.matchAll(/var\(--([\w-]+)/gu)].map((match) => match[1]));
-    expect([...references].filter((name) => !definitions.has(name))).toEqual([]);
+    expect(
+      [...references].filter(
+        (name) => !definitions.has(name) && !name.startsWith('astro-ui-font-'),
+      ),
+    ).toEqual([]);
   });
 });

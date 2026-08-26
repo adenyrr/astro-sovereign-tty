@@ -1,9 +1,11 @@
+# Astro Fonts contract
+
+Version 2 uses Astro's native Fonts API. Consumers must copy this configuration into `astro.config.mjs`; the package no longer installs or imports Fontsource packages.
+
+```js
 import { defineConfig, fontProviders } from 'astro/config';
 
 export default defineConfig({
-  output: 'static',
-  build: { format: 'directory' },
-  markdown: { syntaxHighlight: false },
   fonts: [
     {
       provider: fontProviders.fontsource(),
@@ -36,21 +38,15 @@ export default defineConfig({
       fallbacks: ['sans-serif'],
     },
   ],
-  security: {
-    csp: {
-      algorithm: 'SHA-256',
-      // Hash de la feuille injectée par le test WCAG Text Spacing.
-      styleDirective: {
-        hashes: ['sha256-lhOu7j3pLsbviUTPGREJG+h/fFqOdV6bULKHhABcmCo='],
-      },
-      directives: [
-        "default-src 'self'",
-        "base-uri 'self'",
-        "object-src 'none'",
-        "img-src 'self' data:",
-        "font-src 'self'",
-        "connect-src 'self'",
-      ],
-    },
-  },
 });
+```
+
+Place the components in this order in `<head>`:
+
+```astro
+<ThemeScript />
+<Fonts />
+<meta name="color-scheme" content="light dark" />
+```
+
+`Fonts` preloads only Inclusive Sans and JetBrains Mono. It exposes the local Atkinson WOFF2 URL in a meta element; the reading toggle creates its preload only on focus or pointer hover. The build therefore contains three WOFF2 files while keeping the optional reading font off the critical path.

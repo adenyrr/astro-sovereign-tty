@@ -31,6 +31,7 @@ describe('release pipeline contract', () => {
       'unit',
       'contrast',
       'axe',
+      'performance',
       'audit',
       'secrets',
       'osv',

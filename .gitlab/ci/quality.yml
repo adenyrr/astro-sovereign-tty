@@ -40,3 +40,16 @@ axe:
     paths:
       - playwright-report/
       - test-results/
+
+performance:
+  stage: browser
+  image: mcr.microsoft.com/playwright:v1.62.1-noble
+  script:
+    - npm run build:playground
+    - npm run test:fonts
+    - npm run test:performance
+  artifacts:
+    when: always
+    expire_in: 1 week
+    paths:
+      - reports/lighthouse/

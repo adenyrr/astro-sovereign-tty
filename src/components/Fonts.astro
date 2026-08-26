@@ -1,0 +1,24 @@
+---
+import { Font, experimental_getFontFileURL, fontData } from 'astro:assets';
+
+const readingVariable = '--astro-ui-font-reading';
+const readingVariant =
+  fontData[readingVariable]?.find(
+    (variant) => variant.style === 'normal' && (!variant.subset || variant.subset === 'latin'),
+  ) ?? fontData[readingVariable]?.[0];
+const readingSource = readingVariant?.src.find(
+  (source) => source.format === 'woff2' || source.url.endsWith('.woff2'),
+);
+const resolvedReadingFontUrl = readingSource
+  ? experimental_getFontFileURL(readingSource.url, Astro.url)
+  : undefined;
+const readingFontUrl =
+  resolvedReadingFontUrl && readingSource && !/^https?:/u.test(readingSource.url)
+    ? new URL(resolvedReadingFontUrl).pathname
+    : resolvedReadingFontUrl;
+---
+
+<Font cssVariable="--astro-ui-font-body" preload={[{ subset: 'latin', style: 'normal' }]} />
+<Font cssVariable="--astro-ui-font-code" preload={[{ subset: 'latin', style: 'normal' }]} />
+<Font cssVariable={readingVariable} />
+{readingFontUrl && <meta name="astro-ui-reading-font" content={readingFontUrl} />}

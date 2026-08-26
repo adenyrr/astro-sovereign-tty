@@ -45,16 +45,11 @@ npm install @adenyrr/astro-ui
 
 ## Dependencies
 
-This package declares the following runtime dependencies:
-
-- `@fontsource-variable/inter`
-- `@fontsource-variable/inclusive-sans`
-- `@fontsource-variable/jetbrains-mono`
-- `@lucide/astro`
+The only runtime dependency is `@lucide/astro`. Font files are resolved and self-hosted by each consumer through Astro Fonts.
 
 Peer dependency:
 
-- `astro`: `^6.0.0 || ^7.0.0`
+- `astro`: `^6.2.0 || ^7.0.0`
 - `tailwindcss`: `^4.1.18` (optional, only for `tailwind.css`)
 
 Development dependencies used for validation:
@@ -71,6 +66,7 @@ Import the global theme stylesheet once in your Astro layout or app root:
 import '@adenyrr/astro-ui/styles.css';
 import Header from '@adenyrr/astro-ui/Header.astro';
 import Footer from '@adenyrr/astro-ui/Footer.astro';
+import Fonts from '@adenyrr/astro-ui/Fonts.astro';
 import ThemeScript from '@adenyrr/astro-ui/ThemeScript.astro';
 import type { SiteChromeConfig } from '@adenyrr/astro-ui';
 
@@ -116,6 +112,7 @@ const config: SiteChromeConfig = {
 <html lang="fr">
   <head>
     <ThemeScript />
+    <Fonts />
     <meta name="color-scheme" content="light dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -152,6 +149,7 @@ The package exposes the following entry points:
 - `@adenyrr/astro-ui/Footer.astro`
 - `@adenyrr/astro-ui/ThemeToggle.astro`
 - `@adenyrr/astro-ui/ThemeScript.astro`
+- `@adenyrr/astro-ui/Fonts.astro`
 - `@adenyrr/astro-ui/ReadingModeToggle.astro`
 - `@adenyrr/astro-ui/AmbientBackground.astro`
 - `@adenyrr/astro-ui/Animations.astro`
@@ -160,6 +158,7 @@ The package exposes the following entry points:
 
 - Import the stylesheet once at the app root, not in every page component.
 - Import Tailwind, vaul compatibility, and print contracts only where the consumer needs them; see [`docs/tokens.md`](docs/tokens.md).
+- Configure Astro Fonts exactly as documented in [`docs/fonts.md`](docs/fonts.md), then place `Fonts` in `<head>` after `ThemeScript`.
 - Keep `currentPath` aligned with the route you are rendering for correct active nav state.
 - Use `SiteChromeConfig` instead of ad hoc object literals when building shared layouts.
 - Respect `enabled` and feature flags to keep content and navigation context-aware.
