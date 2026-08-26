@@ -4,6 +4,7 @@ import Header from '../../../src/components/Header.astro';
 import Footer from '../../../src/components/Footer.astro';
 import AmbientBackground from '../../../src/components/AmbientBackground.astro';
 import Animations from '../../../src/components/Animations.astro';
+import ThemeScript from '../../../src/components/ThemeScript.astro';
 import { chromeConfig } from '../config';
 import '../../../src/styles/global.css';
 
@@ -24,6 +25,8 @@ const config =
 <!doctype html>
 <html lang={lang}>
   <head>
+    <ThemeScript />
+    <meta name="color-scheme" content="light dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title} — astro-ui playground</title>

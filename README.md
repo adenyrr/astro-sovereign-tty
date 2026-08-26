@@ -71,6 +71,7 @@ Import the global theme stylesheet once in your Astro layout or app root:
 import '@adenyrr/astro-ui/styles.css';
 import Header from '@adenyrr/astro-ui/Header.astro';
 import Footer from '@adenyrr/astro-ui/Footer.astro';
+import ThemeScript from '@adenyrr/astro-ui/ThemeScript.astro';
 import type { SiteChromeConfig } from '@adenyrr/astro-ui';
 
 const config: SiteChromeConfig = {
@@ -111,6 +112,8 @@ const config: SiteChromeConfig = {
 
 <html lang="fr">
   <head>
+    <ThemeScript />
+    <meta name="color-scheme" content="light dark" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
@@ -133,6 +136,7 @@ The package exposes the following entry points:
 - `@adenyrr/astro-ui/Header.astro`
 - `@adenyrr/astro-ui/Footer.astro`
 - `@adenyrr/astro-ui/ThemeToggle.astro`
+- `@adenyrr/astro-ui/ThemeScript.astro`
 - `@adenyrr/astro-ui/ReadingModeToggle.astro`
 - `@adenyrr/astro-ui/AmbientBackground.astro`
 - `@adenyrr/astro-ui/Animations.astro`

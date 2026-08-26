@@ -1,0 +1,28 @@
+<script is:inline>
+  (function () {
+    function read(key) {
+      try {
+        return localStorage.getItem(key);
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function applyPreferences() {
+      var storedTheme = read('theme');
+      var theme =
+        storedTheme === 'light' || storedTheme === 'dark'
+          ? storedTheme
+          : window.matchMedia('(prefers-color-scheme: dark)').matches
+            ? 'dark'
+            : 'light';
+      var reading = read('reading-mode') === 'comfortable' ? 'comfortable' : 'default';
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.dataset.readingMode = reading;
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+    }
+
+    applyPreferences();
+    document.addEventListener('astro:after-swap', applyPreferences);
+  })();
+</script>
