@@ -1,6 +1,6 @@
 # @adenyrr/astro-ui
 
-[![Release v1.2.0](https://img.shields.io/badge/Release-v1.2.0-blue)](https://gitlab.com/adenyrr/aboutme/astro-ui/-/releases/v1.2.0)
+[![Release v1.2.0](https://img.shields.io/badge/Release-v1.2.0-blue)](https://forge.massivedynamics.be/aboutme/astro-ui/-/releases/v1.2.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](LICENSE)
 
@@ -151,7 +151,7 @@ The package exposes the following entry points:
 Clone the repository and install dependencies:
 
 ```bash
-git clone https://gitlab.com/adenyrr/aboutme/astro-ui.git
+git clone https://forge.massivedynamics.be/aboutme/astro-ui.git
 cd astro-ui
 npm install
 npm run build

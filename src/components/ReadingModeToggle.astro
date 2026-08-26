@@ -87,6 +87,9 @@
     }
 
     init();
+    document.addEventListener('astro:after-swap', function () {
+      apply(readStored() === 'comfortable');
+    });
     document.addEventListener('astro:page-load', init);
   })();
 </script>

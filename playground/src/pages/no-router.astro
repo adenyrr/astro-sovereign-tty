@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LongContent from '../components/LongContent.astro';
 ---
 
-<BaseLayout title="Sans routeur" router={false}
-  ><LongContent heading="Page sans ClientRouter" /></BaseLayout
->
+<BaseLayout title="Sans routeur" router={false}>
+  <p class="stat-value" data-target="42">0<small>%</small></p>
+  <LongContent heading="Page sans ClientRouter" />
+</BaseLayout>

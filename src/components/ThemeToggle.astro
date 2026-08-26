@@ -148,6 +148,9 @@
     }
 
     initToggle();
+    document.addEventListener('astro:after-swap', function () {
+      applyTheme(currentTheme());
+    });
     document.addEventListener('astro:page-load', initToggle);
 
     // Suit le système tant qu'aucun choix explicite n'a été fait — un choix
