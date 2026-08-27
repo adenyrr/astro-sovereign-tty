@@ -141,6 +141,24 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
               </>
             ))}
           </span>
+          <span class="footer-attribution">
+            design by adenyrr &amp; ai ·{' '}
+            <a
+              href="https://github.com/adenyrr/astro-sovereign-tty"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              source
+            </a>{' '}
+            ·{' '}
+            <a
+              href="https://www.npmjs.com/package/@adenyrr/astro-sovereign-tty"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              npm
+            </a>
+          </span>
           <span>
             {footer.copyright || 'Copyleft'} · {year}
           </span>
@@ -294,6 +312,13 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     text-decoration: none;
   }
   .build a:hover {
+    color: var(--accent-blue);
+  }
+  .footer-attribution a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .footer-attribution a:hover {
     color: var(--accent-blue);
   }
   @keyframes footer-cursor {
