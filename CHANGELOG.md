@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hardened the mobile drawer with `inert`, initial and trapped focus, Escape handling, focus restoration, and swap cleanup.
 - Rejected unsafe configurable links, corrected segment-aware active navigation and `basePath` handling, and added a safe unknown-icon fallback.
 - Preserved visible states in forced-colors, reduced-motion, reduced-transparency, Text Spacing, and print contexts.
+- Invoked OSV-Scanner through the absolute binary path provided by its pinned container image.
 
 ### Security
 

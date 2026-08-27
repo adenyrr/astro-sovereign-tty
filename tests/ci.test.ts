@@ -34,6 +34,7 @@ describe('release pipeline contract', () => {
     expect(quality.match(/extends: \.browser-job/gu)).toHaveLength(2);
     expect(security).toContain('zricethezav/gitleaks:v8.30.1');
     expect(security).toContain('ghcr.io/google/osv-scanner:v2.5.1');
+    expect(security).toContain('/root/osv-scanner scan source --recursive .');
     expect(security).toContain('renovate/renovate:44.46.0');
     expect(security).toContain('$CI_PIPELINE_SOURCE == "schedule" && $RUN_RENOVATE == "true"');
   });
