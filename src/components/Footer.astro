@@ -121,16 +121,32 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
         </div>
 
         <div class="footer-status">
-          <span class="shell-prompt">
-            <b aria-hidden="true">{footer.shellPrompt}</b>:~$ <i aria-hidden="true" />
-          </span>
-          <span class="branch">
-            <GitBranch size={13} /> {footer.branch}{' '}
-            <>
-              <span class="sync-mark" aria-hidden="true" />
-              <span class="sr-only">{labels.branchUpToDate}</span>
-            </>
-          </span>
+          <div class="footer-context">
+            <span class="branch">
+              <GitBranch size={13} /> {footer.branch}{' '}
+              <>
+                <span class="sync-mark" aria-hidden="true" />
+                <span class="sr-only">{labels.branchUpToDate}</span>
+              </>
+            </span>
+            <span class="shell-prompt">
+              <b aria-hidden="true">{footer.shellPrompt}</b>:~$ <i aria-hidden="true" />
+            </span>
+          </div>
+          <div class="footer-site-meta">
+            {footer.poweredBy?.map((item, index) => (
+              <>
+                {index > 0 && ' · '}
+                <a href={safeHref(item.url)} target="_blank" rel="noopener noreferrer">
+                  {item.label}
+                </a>
+              </>
+            ))}
+            {footer.poweredBy?.length ? ' · ' : null}
+            <span>
+              {footer.copyright || 'Copyleft'} · {year}
+            </span>
+          </div>
           <span class="footer-attribution">
             design by adenyrr &amp; ai ·{' '}
             <a
@@ -148,19 +164,6 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
             >
               npm
             </a>
-          </span>
-          <span class="build">
-            {footer.poweredBy?.map((item, index) => (
-              <>
-                {index > 0 && ' · '}
-                <a href={safeHref(item.url)} target="_blank" rel="noopener noreferrer">
-                  {item.label}
-                </a>
-              </>
-            ))}
-          </span>
-          <span>
-            {footer.copyright || 'Copyleft'} · {year}
           </span>
         </div>
       </div>
@@ -266,8 +269,8 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     display: none;
   }
   .footer-status {
-    position: relative;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;
     gap: 1rem;
     min-height: 42px;
@@ -276,6 +279,12 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     border-top: 1px solid var(--glass-border);
     background: color-mix(in srgb, var(--bg-1) 80%, transparent);
     font: 0.62rem var(--font-code);
+  }
+  .footer-context {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
   }
   .shell-prompt {
     color: var(--text-secondary);
@@ -305,14 +314,15 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     border-radius: 50%;
     background: var(--accent-teal);
   }
-  .build {
-    margin-left: auto;
+  .footer-site-meta {
+    justify-self: center;
+    white-space: nowrap;
   }
-  .build a {
+  .footer-site-meta a {
     color: inherit;
     text-decoration: none;
   }
-  .build a:hover {
+  .footer-site-meta a:hover {
     color: var(--accent-blue);
   }
   .footer-attribution a {
@@ -323,17 +333,8 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     color: var(--accent-blue);
   }
   .footer-attribution {
-    position: absolute;
-    left: 50%;
+    justify-self: end;
     white-space: nowrap;
-    transform: translateX(-50%);
-  }
-  @media (max-width: 960px) {
-    .footer-attribution {
-      position: static;
-      width: 100%;
-      transform: none;
-    }
   }
   @keyframes footer-cursor {
     50% {
@@ -352,11 +353,12 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
       align-self: end;
     }
     .footer-status {
-      flex-wrap: wrap;
-      gap: 0.5rem 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
     }
-    .build {
-      margin-left: 0;
+    .footer-site-meta,
+    .footer-attribution {
+      justify-self: start;
     }
   }
   @media (max-width: 460px) {
