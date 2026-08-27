@@ -26,7 +26,7 @@ osv:
   before_script: []
   cache: []
   script:
-    - /root/osv-scanner scan source --recursive .
+    - /osv-scanner scan source --recursive .
 
 sbom:
   stage: security
