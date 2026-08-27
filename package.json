@@ -1,6 +1,6 @@
 {
   "name": "@adenyrr/astro-sovereign-tty",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "Accessible sovereign terminal-style UI components and themes for Astro",
   "type": "module",
   "scripts": {

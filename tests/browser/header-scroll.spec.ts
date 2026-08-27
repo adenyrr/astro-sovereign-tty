@@ -7,6 +7,7 @@ test.describe('hide-on-scroll header', () => {
     const header = page.locator('#site-header');
     await page.evaluate(() => window.scrollTo(0, 700));
     await expect(header).toHaveAttribute('data-scroll-state', 'hidden');
+    await page.waitForTimeout(300);
     expect((await header.boundingBox())?.y).toBeLessThan(0);
     await page.evaluate(() => window.scrollBy(0, -160));
     await expect(header).toHaveAttribute('data-scroll-state', 'visible');
@@ -39,11 +40,16 @@ test.describe('hide-on-scroll header', () => {
     expect(target?.y).toBeGreaterThanOrEqual(headerHeight);
   });
 
-  test('mobile mode never hides on desktop', async ({ page }, testInfo) => {
+  test('default header hides on desktop and returns upward', async ({ page }, testInfo) => {
     test.skip(testInfo.project.name !== 'chromium-desktop');
     await page.goto('/');
+    const header = page.locator('#site-header');
     await page.evaluate(() => window.scrollTo(0, 700));
-    await expect(page.locator('#site-header')).toHaveAttribute('data-scroll-state', 'visible');
+    await expect(header).toHaveAttribute('data-scroll-state', 'hidden');
+    await page.waitForTimeout(300);
+    expect((await header.boundingBox())?.y).toBeLessThan(0);
+    await page.evaluate(() => window.scrollBy(0, -160));
+    await expect(header).toHaveAttribute('data-scroll-state', 'visible');
   });
 
   test('true hides on desktop and false never hides', async ({ page }, testInfo) => {

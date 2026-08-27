@@ -19,7 +19,7 @@ const navItems = (config.header?.navigation || []).filter(
 );
 const socialLinks = (config.header?.socialLinks || []).filter((link) => link.enabled !== false);
 const githubLink = socialLinks.find((link) => link.label.toLowerCase() === 'github');
-const hideOnScroll = config.header.hideOnScroll ?? 'mobile';
+const hideOnScroll = config.header.hideOnScroll ?? true;
 const labels = resolveChromeLabels(config);
 const homeHref = safeHref(config.header.homeUrl || '/');
 const labelHome = labels.homeAriaLabel.replace('{brand}', config.header.brandName);

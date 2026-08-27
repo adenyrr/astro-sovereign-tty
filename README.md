@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/%40adenyrr%2Fastro-sovereign-tty)](https://www.npmjs.com/package/@adenyrr/astro-sovereign-tty)
 [![Pipeline](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml)
-[![Release v2.0.3](https://img.shields.io/badge/Release-v2.0.3-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.3)
+[![Release v2.1.0](https://img.shields.io/badge/Release-v2.1.0-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](LICENSE)
 
@@ -11,7 +11,7 @@ Shared visual chrome for Astro sites built around the adenyrr workstation shell.
 This package provides a reusable global layout for website headers, footers, light/dark theme tokens, reading mode, ambient background, motion accents, and a coherent typography system. It is designed to be consumed by Astro applications that want a consistent brand layer without duplicating the same UI scaffolding across multiple sites.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.0.3/preview.svg" alt="Apercu de @adenyrr/astro-sovereign-tty : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
+  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.1.0/preview.svg" alt="Apercu de @adenyrr/astro-sovereign-tty : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
 </p>
 
 ## Features
@@ -78,7 +78,7 @@ const config: SiteChromeConfig = {
     brandName: 'adenyrr',
     brandHost: '@home',
     homeUrl: '/',
-    hideOnScroll: 'mobile',
+    hideOnScroll: true,
     basePath: '/',
     navigation: [
       { label: 'Blog', route: '/blog', enabled: true },
@@ -202,7 +202,7 @@ npm run verify
 
 ## Versioning and release
 
-Current release: `v2.0.3`
+Current release: `v2.1.0`
 
 Stable tags are published as the public scoped npm package `@adenyrr/astro-sovereign-tty`. The release pipeline expects a protected, masked `NPM_TOKEN` permitted to publish this package to `registry.npmjs.org`.
 
