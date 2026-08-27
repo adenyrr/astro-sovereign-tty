@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.1] - 2026-08-27
+
+### Fixed
+
+- Corrected the first public npm release to the public scoped package `@adenyrr/astro-sovereign-tty` and configured publication through `registry.npmjs.org`.
+- Added the public GitHub verification workflow and its README status badge.
+
 ## [2.0.0] - 2026-08-26
 
 ### Added
@@ -19,7 +26,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Breaking:** renamed the public package from `@adenyrr/astro-ui` to the public scoped `@adenyrr/astro-sovereign-tty` package and moved its canonical metadata to GitHub.
 - **Breaking:** require Astro `^6.2.0 || ^7.0.0`; consumers must configure native Astro Fonts and render `ThemeScript` and `Fonts` in `<head>`.
 - Split the default CSS into `astro-ui.tokens`, `astro-ui.base`, and `astro-ui.components` layers; Tailwind, vaul compatibility, and print rules are now opt-in exports.
 - Reduced the unminified default CSS source from 42,369 bytes to 35,334 bytes (−16.6%) by removing optional Tailwind and vaul rules from `styles.css`.
@@ -90,3 +96,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.1.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v1.1.0
 [1.2.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v1.2.0
 [2.0.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.0
+[2.0.1]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.1
