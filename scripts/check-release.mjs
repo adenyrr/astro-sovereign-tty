@@ -9,6 +9,9 @@ const packageJson = JSON.parse(await readFile(new URL('../package.json', import.
 const changelog = await readFile(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
 const version = tag.slice(1);
 
+if (packageJson.name !== 'astro-sovereign-tty') {
+  throw new Error(`Unexpected public package name: ${packageJson.name}`);
+}
 if (packageJson.version !== version) {
   throw new Error(`Tag ${tag} does not match package version ${packageJson.version}`);
 }

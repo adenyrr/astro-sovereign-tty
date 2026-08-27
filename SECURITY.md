@@ -6,7 +6,7 @@ Only the latest stable 2.x release receives security fixes. Consumers should upd
 
 ## Reporting a vulnerability
 
-Do not open a public issue. Create a confidential issue in the [Forge project](https://forge.massivedynamics.be/aboutme/astro-ui/-/issues/new) with:
+Do not open a public issue. Use [GitHub private vulnerability reporting](https://github.com/adenyrr/astro-sovereign-tty/security/advisories/new) with:
 
 - the affected version and consumer;
 - a minimal reproduction or proof of concept;

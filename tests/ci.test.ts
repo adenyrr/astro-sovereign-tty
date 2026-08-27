@@ -56,5 +56,9 @@ describe('release pipeline contract', () => {
     ]) {
       expect(release).toContain(`    - ${job}\n`);
     }
+    expect(release).toContain('//registry.npmjs.org/:_authToken "$NPM_TOKEN"');
+    expect(release).toContain('npm publish --access public');
+    expect(release).not.toContain('CI_API_V4_URL');
+    expect(release).not.toContain('CI_JOB_TOKEN');
   });
 });

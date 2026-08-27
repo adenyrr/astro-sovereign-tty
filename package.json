@@ -1,7 +1,7 @@
 {
-  "name": "@adenyrr/astro-ui",
+  "name": "astro-sovereign-tty",
   "version": "2.0.0",
-  "description": "Shared Astro workstation interface for adenyrr.me",
+  "description": "Accessible sovereign terminal-style UI components and themes for Astro",
   "type": "module",
   "scripts": {
     "check": "astro check && tsc --noEmit",
@@ -88,13 +88,14 @@
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
-    "url": "git+https://forge.massivedynamics.be/aboutme/astro-ui.git"
+    "url": "git+https://github.com/adenyrr/astro-sovereign-tty.git"
   },
-  "homepage": "https://forge.massivedynamics.be/aboutme/astro-ui",
+  "homepage": "https://github.com/adenyrr/astro-sovereign-tty#readme",
   "bugs": {
-    "url": "https://forge.massivedynamics.be/aboutme/astro-ui/-/issues"
+    "url": "https://github.com/adenyrr/astro-sovereign-tty/issues"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

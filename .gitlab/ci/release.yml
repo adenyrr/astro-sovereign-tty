@@ -25,8 +25,8 @@ publish:
   resource_group: npm-publish
   script:
     - node scripts/check-release.mjs "$CI_COMMIT_TAG"
-    - npm config set @adenyrr:registry "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
-    - npm config set "${CI_API_V4_URL#https:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken" "$CI_JOB_TOKEN"
-    - npm publish
+    - test -n "$NPM_TOKEN"
+    - npm config set //registry.npmjs.org/:_authToken "$NPM_TOKEN"
+    - npm publish --access public
   rules:
     - if: '$CI_COMMIT_TAG =~ /^v(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)$/'

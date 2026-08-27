@@ -2,12 +2,14 @@
 
 Version 2 keeps the workstation chrome and the `styles.css` compatibility entry, but makes font delivery and early preference restoration explicit.
 
+The public package is now named `astro-sovereign-tty`. Replace imports from the former `@adenyrr/astro-ui` package while following the steps below.
+
 ## 1. Upgrade Astro and the package
 
 Use Node 22.12 or later and Astro `^6.2.0 || ^7.0.0`, then install version 2:
 
 ```sh
-npm install astro@^7.0.0 @adenyrr/astro-ui@^2.0.0
+npm install astro@^7.0.0 astro-sovereign-tty@^2.0.0
 ```
 
 Astro 6 consumers can retain their supported major by installing `astro@^6.2.0` instead.
@@ -20,8 +22,8 @@ Render both head components before application styles:
 
 ```astro
 ---
-import Fonts from '@adenyrr/astro-ui/Fonts.astro';
-import ThemeScript from '@adenyrr/astro-ui/ThemeScript.astro';
+import Fonts from 'astro-sovereign-tty/Fonts.astro';
+import ThemeScript from 'astro-sovereign-tty/ThemeScript.astro';
 ---
 
 <head>
@@ -39,8 +41,8 @@ Keep the autonomous default entry and load one static brand contract after it:
 
 ```astro
 ---
-import '@adenyrr/astro-ui/styles.css';
-import '@adenyrr/astro-ui/themes/adenyrr.css';
+import 'astro-sovereign-tty/styles.css';
+import 'astro-sovereign-tty/themes/adenyrr.css';
 ---
 ```
 
@@ -48,9 +50,9 @@ The default barrel no longer imports Tailwind, shadcn utilities, vaul compatibil
 
 ```astro
 ---
-import '@adenyrr/astro-ui/tailwind.css'; // optional Tailwind peer required
-import '@adenyrr/astro-ui/compat.css'; // legacy vaul contract
-import '@adenyrr/astro-ui/print.css'; // explicit print behavior
+import 'astro-sovereign-tty/tailwind.css'; // optional Tailwind peer required
+import 'astro-sovereign-tty/compat.css'; // legacy vaul contract
+import 'astro-sovereign-tty/print.css'; // explicit print behavior
 ---
 ```
 

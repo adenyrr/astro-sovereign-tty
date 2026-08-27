@@ -23,6 +23,6 @@ Add focused unit or browser coverage with every behavior change. Do not weaken a
 - Keep commits focused and use Conventional Commit messages.
 - Document public API, token, migration, CSP, and accessibility changes.
 - Never commit credentials, generated browser reports, package archives, or registry configuration.
-- Use the merge request template and wait for CODEOWNERS review.
+- Use the pull request template and wait for CODEOWNERS review.
 
 Security reports follow [SECURITY.md](SECURITY.md), not the public contribution flow.

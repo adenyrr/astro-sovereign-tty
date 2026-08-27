@@ -1,6 +1,6 @@
 # Content Security Policy
 
-`@adenyrr/astro-ui` is compatible with Astro's native CSP generation available in Astro 6 and 7. Enable it in every consumer's `astro.config.mjs`; the package cannot set response policy for a host application.
+`astro-sovereign-tty` is compatible with Astro's native CSP generation available in Astro 6 and 7. Enable it in every consumer's `astro.config.mjs`; the package cannot set response policy for a host application.
 
 ```js
 import { defineConfig } from 'astro/config';
