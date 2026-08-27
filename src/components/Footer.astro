@@ -131,16 +131,6 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
               <span class="sr-only">{labels.branchUpToDate}</span>
             </>
           </span>
-          <span class="build">
-            {footer.poweredBy?.map((item, index) => (
-              <>
-                {index > 0 && ' · '}
-                <a href={safeHref(item.url)} target="_blank" rel="noopener noreferrer">
-                  {item.label}
-                </a>
-              </>
-            ))}
-          </span>
           <span class="footer-attribution">
             design by adenyrr &amp; ai ·{' '}
             <a
@@ -158,6 +148,16 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
             >
               npm
             </a>
+          </span>
+          <span class="build">
+            {footer.poweredBy?.map((item, index) => (
+              <>
+                {index > 0 && ' · '}
+                <a href={safeHref(item.url)} target="_blank" rel="noopener noreferrer">
+                  {item.label}
+                </a>
+              </>
+            ))}
           </span>
           <span>
             {footer.copyright || 'Copyleft'} · {year}
@@ -266,6 +266,7 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
     display: none;
   }
   .footer-status {
+    position: relative;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -320,6 +321,19 @@ const isBrandIcon = (icon: string): icon is BrandIconName => brandIcons.has(icon
   }
   .footer-attribution a:hover {
     color: var(--accent-blue);
+  }
+  .footer-attribution {
+    position: absolute;
+    left: 50%;
+    white-space: nowrap;
+    transform: translateX(-50%);
+  }
+  @media (max-width: 960px) {
+    .footer-attribution {
+      position: static;
+      width: 100%;
+      transform: none;
+    }
   }
   @keyframes footer-cursor {
     50% {
