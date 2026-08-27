@@ -1,6 +1,7 @@
 # astro-sovereign-tty
 
 [![npm version](https://img.shields.io/npm/v/astro-sovereign-tty)](https://www.npmjs.com/package/astro-sovereign-tty)
+[![Pipeline](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml)
 [![Release v2.0.0](https://img.shields.io/badge/Release-v2.0.0-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](LICENSE)

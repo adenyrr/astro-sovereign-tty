@@ -14,6 +14,7 @@ const packageJson = JSON.parse(read('package.json')) as {
 };
 const readme = read('README.md');
 const changelog = read('CHANGELOG.md');
+const workflow = read('.github/workflows/verify.yml');
 
 describe('2.0.0 release contract', () => {
   it('aligns the package, changelog and documented release', () => {
@@ -24,6 +25,11 @@ describe('2.0.0 release contract', () => {
     expect(readme).toContain(
       'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.0.0/preview.svg"',
     );
+    expect(readme).toContain(
+      'https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main',
+    );
+    expect(workflow).toContain('name: Pipeline');
+    expect(workflow).toContain('node-version: 22.12.0');
   });
 
   it('publishes publicly from the canonical GitHub repository', () => {
