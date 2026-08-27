@@ -7,8 +7,7 @@ test.describe('hide-on-scroll header', () => {
     const header = page.locator('#site-header');
     await page.evaluate(() => window.scrollTo(0, 700));
     await expect(header).toHaveAttribute('data-scroll-state', 'hidden');
-    await page.waitForTimeout(300);
-    expect((await header.boundingBox())?.y).toBeLessThan(0);
+    await expect.poll(async () => (await header.boundingBox())?.y ?? 0).toBeLessThan(0);
     await page.evaluate(() => window.scrollBy(0, -160));
     await expect(header).toHaveAttribute('data-scroll-state', 'visible');
   });
@@ -46,8 +45,7 @@ test.describe('hide-on-scroll header', () => {
     const header = page.locator('#site-header');
     await page.evaluate(() => window.scrollTo(0, 700));
     await expect(header).toHaveAttribute('data-scroll-state', 'hidden');
-    await page.waitForTimeout(300);
-    expect((await header.boundingBox())?.y).toBeLessThan(0);
+    await expect.poll(async () => (await header.boundingBox())?.y ?? 0).toBeLessThan(0);
     await page.evaluate(() => window.scrollBy(0, -160));
     await expect(header).toHaveAttribute('data-scroll-state', 'visible');
   });
