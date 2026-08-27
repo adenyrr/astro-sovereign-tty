@@ -8,7 +8,7 @@ const result = spawnSync('npm', ['pack', '--dry-run', '--json'], {
 if (result.status !== 0) throw new Error(result.stderr || 'npm pack --dry-run failed');
 
 const report = JSON.parse(result.stdout);
-if (report[0]?.name !== 'astro-sovereign-tty') {
+if (report[0]?.name !== '@adenyrr/astro-sovereign-tty') {
   throw new Error(`Unexpected package name: ${report[0]?.name ?? '(missing)'}`);
 }
 const files = report[0]?.files?.map(({ path }) => path) ?? [];

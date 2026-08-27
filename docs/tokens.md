@@ -6,12 +6,12 @@ The custom properties in `tokens.css` are a public SemVer API. Removing or renam
 
 ```css
 /* Default, autonomous contract */
-@import 'astro-sovereign-tty/styles.css';
+@import '@adenyrr/astro-sovereign-tty/styles.css';
 
 /* Optional consumer bridges */
-@import 'astro-sovereign-tty/tailwind.css'; /* requires optional Tailwind peer */
-@import 'astro-sovereign-tty/compat.css'; /* legacy vaul/mobile drawer only */
-@import 'astro-sovereign-tty/print.css'; /* explicit print support */
+@import '@adenyrr/astro-sovereign-tty/tailwind.css'; /* requires optional Tailwind peer */
+@import '@adenyrr/astro-sovereign-tty/compat.css'; /* legacy vaul/mobile drawer only */
+@import '@adenyrr/astro-sovereign-tty/print.css'; /* explicit print support */
 ```
 
 `styles.css` declares the ordered layers `astro-ui.tokens`, `astro-ui.base`, and `astro-ui.components`. The three underlying files are also exported for consumers that need to position each layer in a larger cascade.

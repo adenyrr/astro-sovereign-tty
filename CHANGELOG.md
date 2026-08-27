@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Breaking:** renamed the public package from `@adenyrr/astro-ui` to the unscoped `astro-sovereign-tty` package and moved its canonical metadata to GitHub.
+- **Breaking:** renamed the public package from `@adenyrr/astro-ui` to the public scoped `@adenyrr/astro-sovereign-tty` package and moved its canonical metadata to GitHub.
 - **Breaking:** require Astro `^6.2.0 || ^7.0.0`; consumers must configure native Astro Fonts and render `ThemeScript` and `Fonts` in `<head>`.
 - Split the default CSS into `astro-ui.tokens`, `astro-ui.base`, and `astro-ui.components` layers; Tailwind, vaul compatibility, and print rules are now opt-in exports.
 - Reduced the unminified default CSS source from 42,369 bytes to 35,334 bytes (−16.6%) by removing optional Tailwind and vaul rules from `styles.css`.

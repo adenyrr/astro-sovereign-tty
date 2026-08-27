@@ -18,13 +18,14 @@ const workflow = read('.github/workflows/verify.yml');
 
 describe('2.0.0 release contract', () => {
   it('aligns the package, changelog and documented release', () => {
-    expect(packageJson.name).toBe('astro-sovereign-tty');
+    expect(packageJson.name).toBe('@adenyrr/astro-sovereign-tty');
     expect(packageJson.version).toBe('2.0.0');
     expect(changelog).toContain('## [2.0.0] - 2026-08-26');
     expect(readme).toContain('Current release: `v2.0.0`');
     expect(readme).toContain(
       'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.0.0/preview.svg"',
     );
+    expect(readme).toContain('npm install @adenyrr/astro-sovereign-tty');
     expect(readme).toContain(
       'https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main',
     );

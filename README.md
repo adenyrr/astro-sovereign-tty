@@ -1,6 +1,6 @@
-# astro-sovereign-tty
+# @adenyrr/astro-sovereign-tty
 
-[![npm version](https://img.shields.io/npm/v/astro-sovereign-tty)](https://www.npmjs.com/package/astro-sovereign-tty)
+[![npm version](https://img.shields.io/npm/v/%40adenyrr%2Fastro-sovereign-tty)](https://www.npmjs.com/package/@adenyrr/astro-sovereign-tty)
 [![Pipeline](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml)
 [![Release v2.0.0](https://img.shields.io/badge/Release-v2.0.0-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
@@ -11,7 +11,7 @@ Shared visual chrome for Astro sites built around the adenyrr workstation shell.
 This package provides a reusable global layout for website headers, footers, light/dark theme tokens, reading mode, ambient background, motion accents, and a coherent typography system. It is designed to be consumed by Astro applications that want a consistent brand layer without duplicating the same UI scaffolding across multiple sites.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.0.0/preview.svg" alt="Apercu de astro-sovereign-tty : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
+  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.0.0/preview.svg" alt="Apercu de @adenyrr/astro-sovereign-tty : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
 </p>
 
 ## Features
@@ -35,7 +35,7 @@ This package provides a reusable global layout for website headers, footers, lig
 Install the package in your Astro app:
 
 ```bash
-npm install astro-sovereign-tty
+npm install @adenyrr/astro-sovereign-tty
 ```
 
 ## Dependencies
@@ -58,12 +58,12 @@ Import the global theme stylesheet once in your Astro layout or app root:
 
 ```astro
 ---
-import 'astro-sovereign-tty/styles.css';
-import Header from 'astro-sovereign-tty/Header.astro';
-import Footer from 'astro-sovereign-tty/Footer.astro';
-import Fonts from 'astro-sovereign-tty/Fonts.astro';
-import ThemeScript from 'astro-sovereign-tty/ThemeScript.astro';
-import type { SiteChromeConfig } from 'astro-sovereign-tty';
+import '@adenyrr/astro-sovereign-tty/styles.css';
+import Header from '@adenyrr/astro-sovereign-tty/Header.astro';
+import Footer from '@adenyrr/astro-sovereign-tty/Footer.astro';
+import Fonts from '@adenyrr/astro-sovereign-tty/Fonts.astro';
+import ThemeScript from '@adenyrr/astro-sovereign-tty/ThemeScript.astro';
+import type { SiteChromeConfig } from '@adenyrr/astro-sovereign-tty';
 
 const config: SiteChromeConfig = {
   locale: 'fr', // default; use `en` or override individual `labels`
@@ -126,28 +126,28 @@ const config: SiteChromeConfig = {
 
 The package exposes the following entry points:
 
-- `astro-sovereign-tty`
-- `astro-sovereign-tty/i18n`
-- `astro-sovereign-tty/navigation`
-- `astro-sovereign-tty/safe-href`
-- `astro-sovereign-tty/styles.css`
-- `astro-sovereign-tty/tokens.css`
-- `astro-sovereign-tty/base.css`
-- `astro-sovereign-tty/components.css`
-- `astro-sovereign-tty/tailwind.css` (optional)
-- `astro-sovereign-tty/compat.css` (legacy vaul styles)
-- `astro-sovereign-tty/print.css` (opt-in)
-- `astro-sovereign-tty/themes/adenyrr.css`
-- `astro-sovereign-tty/themes/docu.css`
-- `astro-sovereign-tty/themes/train.css`
-- `astro-sovereign-tty/Header.astro`
-- `astro-sovereign-tty/Footer.astro`
-- `astro-sovereign-tty/ThemeToggle.astro`
-- `astro-sovereign-tty/ThemeScript.astro`
-- `astro-sovereign-tty/Fonts.astro`
-- `astro-sovereign-tty/ReadingModeToggle.astro`
-- `astro-sovereign-tty/AmbientBackground.astro`
-- `astro-sovereign-tty/Animations.astro`
+- `@adenyrr/astro-sovereign-tty`
+- `@adenyrr/astro-sovereign-tty/i18n`
+- `@adenyrr/astro-sovereign-tty/navigation`
+- `@adenyrr/astro-sovereign-tty/safe-href`
+- `@adenyrr/astro-sovereign-tty/styles.css`
+- `@adenyrr/astro-sovereign-tty/tokens.css`
+- `@adenyrr/astro-sovereign-tty/base.css`
+- `@adenyrr/astro-sovereign-tty/components.css`
+- `@adenyrr/astro-sovereign-tty/tailwind.css` (optional)
+- `@adenyrr/astro-sovereign-tty/compat.css` (legacy vaul styles)
+- `@adenyrr/astro-sovereign-tty/print.css` (opt-in)
+- `@adenyrr/astro-sovereign-tty/themes/adenyrr.css`
+- `@adenyrr/astro-sovereign-tty/themes/docu.css`
+- `@adenyrr/astro-sovereign-tty/themes/train.css`
+- `@adenyrr/astro-sovereign-tty/Header.astro`
+- `@adenyrr/astro-sovereign-tty/Footer.astro`
+- `@adenyrr/astro-sovereign-tty/ThemeToggle.astro`
+- `@adenyrr/astro-sovereign-tty/ThemeScript.astro`
+- `@adenyrr/astro-sovereign-tty/Fonts.astro`
+- `@adenyrr/astro-sovereign-tty/ReadingModeToggle.astro`
+- `@adenyrr/astro-sovereign-tty/AmbientBackground.astro`
+- `@adenyrr/astro-sovereign-tty/Animations.astro`
 
 ## Best practices
 
@@ -170,14 +170,14 @@ Load one static brand contract after `styles.css`; no runtime class or JavaScrip
 
 ```astro
 ---
-import 'astro-sovereign-tty/styles.css';
-import 'astro-sovereign-tty/themes/train.css';
+import '@adenyrr/astro-sovereign-tty/styles.css';
+import '@adenyrr/astro-sovereign-tty/themes/train.css';
 ---
 ```
 
-| astro-sovereign-tty | Astro      | adenyrr.me           | docu              | training           |
-| ------------------- | ---------- | -------------------- | ----------------- | ------------------ |
-| 2.x                 | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
+| @adenyrr/astro-sovereign-tty | Astro      | adenyrr.me           | docu              | training           |
+| ---------------------------- | ---------- | -------------------- | ----------------- | ------------------ |
+| 2.x                          | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
 
 ### Migrating from 1.x
 
@@ -204,7 +204,7 @@ npm run verify
 
 Current release: `v2.0.0`
 
-Stable tags are published as the public, unscoped npm package `astro-sovereign-tty`. The release pipeline expects a protected, masked `NPM_TOKEN` permitted to publish this package to `registry.npmjs.org`.
+Stable tags are published as the public scoped npm package `@adenyrr/astro-sovereign-tty`. The release pipeline expects a protected, masked `NPM_TOKEN` permitted to publish this package to `registry.npmjs.org`.
 
 ## License
 
