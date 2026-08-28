@@ -58,9 +58,9 @@ export interface SiteChromeConfig {
     brandName: string;
     brandHost: string;
     homeUrl?: string;
-    /** Préfixe de déploiement retiré avant de comparer les routes. */
+    /** Deployment prefix removed before routes are compared. */
     basePath?: string;
-    /** `mobile` masque sous 820px, `true` partout et `false` jamais. */
+    /** `mobile` hides below 820px, `true` everywhere, and `false` never. */
     hideOnScroll?: boolean | 'mobile';
     navigation: NavigationItem[];
     socialLinks: SocialLink[];

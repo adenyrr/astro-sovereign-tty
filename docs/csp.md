@@ -22,7 +22,13 @@ export default defineConfig({
 });
 ```
 
-Astro adds hashes for the emitted scripts and styles. Keep `<ThemeScript />` in `<head>` before styles; do not replace hashes with `'unsafe-inline'`.
+Astro adds hashes for the emitted scripts and styles. With this package, opt in to its inline-script hashes only when this configuration exists:
+
+```astro
+<ThemeScript csp />
+```
+
+Keep it in `<head>` before styles; do not replace hashes with `'unsafe-inline'`. Without Astro CSP, use `<ThemeScript />`; it deliberately emits no CSP warning.
 
 Astro's default Shiki output uses inline style attributes. Sites rendering Markdown code should select Prism (`markdown: { syntaxHighlight: 'prism' }`) or a class-based highlighter when CSP is active.
 

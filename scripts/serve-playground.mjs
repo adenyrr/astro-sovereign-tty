@@ -3,6 +3,7 @@ import { createServer } from 'node:http';
 import { extname, join, normalize } from 'node:path';
 
 const root = new URL('../playground/dist/', import.meta.url).pathname;
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 4321);
 const mime = {
   '.css': 'text/css; charset=utf-8',
   '.html': 'text/html; charset=utf-8',
@@ -27,4 +28,4 @@ createServer((request, response) => {
   }
   response.writeHead(200, { 'content-type': mime[extname(file)] ?? 'application/octet-stream' });
   createReadStream(file).pipe(response);
-}).listen(4321, '127.0.0.1', () => console.log('Playground: http://127.0.0.1:4321'));
+}).listen(port, '127.0.0.1', () => console.log(`Playground: http://127.0.0.1:${port}`));

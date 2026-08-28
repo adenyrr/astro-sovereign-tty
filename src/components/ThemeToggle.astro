@@ -1,7 +1,7 @@
 ---
-import { fr } from '../i18n';
-import { themeToggleScript } from '../scripts/inline-scripts';
-import type { ChromeLabels } from '../types';
+import { fr } from '../i18n.js';
+import { themeToggleScript } from '../scripts/inline-scripts.js';
+import type { ChromeLabels } from '../types.js';
 
 interface Props {
   labels?: Pick<ChromeLabels, 'themeToLight' | 'themeToDark'>;
@@ -10,8 +10,8 @@ interface Props {
 const { labels = fr } = Astro.props;
 ---
 
-<!-- aria-pressed reflète l'état sombre (§5.2) ; le libellé accessible est
-     mis à jour par le script pour annoncer l'action, pas seulement l'icône. -->
+<!-- aria-pressed reflects the dark state (§5.2); the script updates the
+     accessible label to announce the action rather than only the icon. -->
 <button
   id="theme-toggle"
   type="button"
@@ -22,8 +22,8 @@ const { labels = fr } = Astro.props;
   data-label-light={labels.themeToLight}
   data-label-dark={labels.themeToDark}
 >
-  <!-- Icônes en traits (§3.5) : stroke=currentColor, 1.7, bouts arrondis —
-       cohérent avec les capsules arrondies du reste du système. -->
+  <!-- Outline icons (§3.5): stroke=currentColor, 1.7, rounded caps —
+       consistent with the rounded capsules used elsewhere in the system. -->
   <svg
     id="sun-icon"
     xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,7 @@ const { labels = fr } = Astro.props;
     display: block;
     width: 18px;
     height: 18px;
-    /* Traits, pas de remplissage plein (§3.5) */
+    /* Outlines, not solid fills (§3.5). */
     fill: none;
     stroke: currentColor;
     stroke-width: 1.7;

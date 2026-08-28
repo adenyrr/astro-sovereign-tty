@@ -1,11 +1,11 @@
 <script>
   /**
-   * Animations résiduelles en JS — GSAP et Lenis ont été retirés :
-   *  - le scroll fluide est natif (html { scroll-behavior: smooth })
-   *  - les reveals sont des scroll-driven animations CSS (global.css)
-   *  - la barre de progression utilise animation-timeline: scroll() (BaseLayout)
-   * Il ne reste que le count-up des compteurs stats (.stat-value[data-target]),
-   * impossible en CSS sans attr() typé (trop récent).
+   * Remaining JavaScript animation — GSAP and Lenis were removed:
+   *  - smooth scrolling is native (html { scroll-behavior: smooth })
+   *  - reveals are CSS scroll-driven animations (global.css)
+   *  - the progress bar uses animation-timeline: scroll() (BaseLayout)
+   * Only count-up remains for stat counters (.stat-value[data-target]); CSS
+   * cannot implement it without typed attr(), which is still too new.
    */
 
   const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;

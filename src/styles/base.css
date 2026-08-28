@@ -10,13 +10,11 @@
 }
 
 html {
-  /* PAS de `scroll-behavior: smooth` global : au retour arrière, le routeur
-     d'Astro restaure la position via scrollTo() SANS `behavior: instant`
-     (contrairement à la navigation avant). Le scroll de restauration était
-     donc animé, ce qui se ressent comme une latence. Aucune ancre interne
-     n'existe sur le site — seul le skip-link en profitait, et un saut
-     instantané y est de toute façon préférable. */
-  /* Décale les cibles d'ancre pour ne pas passer sous le header fixe */
+  /* Do not set global scroll-behavior: smooth. On back navigation Astro's
+     router restores position with scrollTo() without behavior: instant, which
+     animates the restoration and feels slow. No internal anchors need it; an
+     instant jump is preferable for the skip link. */
+  /* Offset anchor targets so they remain visible below the fixed header. */
   scroll-padding-top: calc(var(--header-height) + var(--header-gap));
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,10 +32,9 @@ body {
   min-height: 100dvh;
   line-height: 1.7;
   transition: var(--transition-colors);
-  /* §3.2 — OBLIGATOIRE : le backdrop-filter ne se voit que s'il a de la
-     matière contrastée à flouter. Trois taches radiales larges et diffuses
-     (transparent 60%), jamais de formes nettes. Sans elles, les panneaux
-     ne sont que semi-transparents : ce n'est plus du frost-glass. */
+  /* §3.2 — REQUIRED: backdrop-filter needs contrasting material to blur.
+     Three wide, diffuse radial patches (60% transparent), never sharp shapes.
+     Without them, panels are merely translucent rather than frosted glass. */
   background-image:
     radial-gradient(60vmax 60vmax at 15% 10%, var(--blob-amber), transparent 60%),
     radial-gradient(55vmax 55vmax at 90% 20%, var(--blob-blue), transparent 60%),
@@ -60,9 +57,9 @@ main,
   min-width: 0;
 }
 
-/* Mode lecture — opt-in local, notamment utile aux personnes dyslexiques.
-   Il ne prétend pas convenir à tout le monde : le réglage est explicite,
-   persistant et laisse le thème de couleur indépendant. */
+/* Reading mode is a local opt-in, particularly useful for dyslexic readers.
+   It does not claim to suit everyone: the setting is explicit, persistent,
+   and independent from the colour theme. */
 :root[data-reading-mode='comfortable'] {
   --font-body: var(--font-reading);
   --text-secondary: var(--text-primary);
@@ -146,7 +143,7 @@ h6 {
   line-height: 1.25;
   color: var(--text);
   letter-spacing: -0.015em;
-  /* Évite les lignes orphelines disgracieuses dans les titres */
+  /* Avoid unattractive orphan lines in headings. */
   text-wrap: balance;
 }
 
@@ -161,7 +158,7 @@ h3 {
 }
 
 p {
-  /* Coupe les paragraphes plus proprement (évite mots seuls en fin) */
+  /* Wrap paragraphs more cleanly to avoid lone trailing words. */
   text-wrap: pretty;
 }
 

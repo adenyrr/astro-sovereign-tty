@@ -1,9 +1,10 @@
 {
   "name": "@adenyrr/astro-sovereign-tty",
-  "version": "2.1.2",
-  "description": "Accessible sovereign terminal-style UI components and themes for Astro",
+  "version": "3.0.0",
+  "description": "Accessible terminal-inspired UI components and themes for Astro",
   "type": "module",
   "scripts": {
+    "build": "tsc --project tsconfig.build.json",
     "check": "astro check && tsc --noEmit",
     "lint": "eslint . && stylelint \"src/**/*.{css,astro}\" \"playground/**/*.{css,astro}\"",
     "format": "prettier --check .",
@@ -13,23 +14,58 @@
     "test:tokens": "node scripts/check-contrast.mjs",
     "test:fonts": "node scripts/check-fonts.mjs",
     "test:performance": "node scripts/run-lighthouse.mjs",
-    "test:package": "node scripts/check-package.mjs",
+    "test:package": "npm run build && node scripts/check-package.mjs && publint run --strict && attw --pack --profile node16 --entrypoints . ./integration ./i18n ./safe-href ./navigation ./csp --ignore-rules false-cjs cjs-resolves-to-esm",
+    "test:tarball": "npm run build && node scripts/test-tarball.mjs",
     "dev": "astro dev --root \"$INIT_CWD/playground\"",
     "build:playground": "astro build --root playground",
     "preview:playground": "node scripts/serve-playground.mjs",
-    "verify": "npm run format && npm run lint && npm run check && npm run test && npm run test:tokens"
+    "verify": "npm run format && npm run lint && npm run check && npm run test && npm run test:tokens",
+    "prepack": "npm run build"
   },
   "files": [
     "src",
+    "dist",
     "docs",
     "SECURITY.md"
   ],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.astro"
+  ],
   "exports": {
-    ".": "./src/index.ts",
-    "./i18n": "./src/i18n.ts",
-    "./safe-href": "./src/utils/safe-href.ts",
-    "./navigation": "./src/utils/navigation.ts",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./integration": {
+      "types": "./dist/integration.d.ts",
+      "import": "./dist/integration.js",
+      "default": "./dist/integration.js"
+    },
+    "./i18n": {
+      "types": "./dist/i18n.d.ts",
+      "import": "./dist/i18n.js",
+      "default": "./dist/i18n.js"
+    },
+    "./safe-href": {
+      "types": "./dist/utils/safe-href.d.ts",
+      "import": "./dist/utils/safe-href.js",
+      "default": "./dist/utils/safe-href.js"
+    },
+    "./navigation": {
+      "types": "./dist/utils/navigation.d.ts",
+      "import": "./dist/utils/navigation.js",
+      "default": "./dist/utils/navigation.js"
+    },
+    "./csp": {
+      "types": "./dist/utils/csp.d.ts",
+      "import": "./dist/utils/csp.js",
+      "default": "./dist/utils/csp.js"
+    },
+    "./package.json": "./package.json",
     "./styles.css": "./src/styles/styles.css",
+    "./global.css": "./src/styles/global.css",
     "./tokens.css": "./src/styles/tokens.css",
     "./base.css": "./src/styles/base.css",
     "./components.css": "./src/styles/components.css",
@@ -61,6 +97,7 @@
     "@lucide/astro": "^1.33.0"
   },
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
     "@astrojs/check": "^0.9.6",
     "@axe-core/playwright": "4.13.0",
     "@eslint/js": "9.39.4",
@@ -72,10 +109,11 @@
     "postcss-html": "^2.0.0",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
+    "publint": "^0.3.24",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
-    "typescript": "^5.9.2",
     "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.2",
     "typescript-eslint": "8.55.0",
     "vitest": "^4.0.18"
   },
@@ -85,7 +123,18 @@
   "engines": {
     "node": ">=22.12.0"
   },
-  "license": "SEE LICENSE IN LICENSE",
+  "license": "Apache-2.0",
+  "author": "adenyrr <adenyrr@proton.me>",
+  "keywords": [
+    "astro",
+    "astro-component",
+    "design-system",
+    "accessibility",
+    "wcag",
+    "theme",
+    "terminal",
+    "css-tokens"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/adenyrr/astro-sovereign-tty.git"

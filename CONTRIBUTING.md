@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions must preserve the workstation/terminal identity, CC BY-NC 4.0 terms, keyboard operation, strong contrast, reduced-motion/transparency behavior, and local reading preferences.
+Contributions must preserve the workstation/terminal identity, Apache-2.0 terms, keyboard operation, strong contrast, reduced-motion/transparency behavior, and local reading preferences.
 
 ## Development
 
@@ -13,6 +13,7 @@ npm run build:playground
 npx playwright test
 npm audit --audit-level=high
 npm run test:package
+npm run test:tarball
 git diff --check
 ```
 

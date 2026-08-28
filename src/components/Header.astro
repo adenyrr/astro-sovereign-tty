@@ -3,10 +3,10 @@ import ThemeToggle from './ThemeToggle.astro';
 import ReadingModeToggle from './ReadingModeToggle.astro';
 import BrandIcon from './BrandIcon.astro';
 import { ExternalLink, Menu, Terminal, X } from '@lucide/astro';
-import { resolveChromeLabels } from '../i18n';
-import { isNavigationItemActive } from '../utils/navigation';
-import { safeHref } from '../utils/safe-href';
-import type { SiteChromeConfig } from '../types';
+import { resolveChromeLabels } from '../i18n.js';
+import { isNavigationItemActive } from '../utils/navigation.js';
+import { safeHref } from '../utils/safe-href.js';
+import type { SiteChromeConfig } from '../types.js';
 
 interface Props {
   config: SiteChromeConfig;

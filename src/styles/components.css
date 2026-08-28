@@ -10,21 +10,21 @@
 }
 
 /* ============================================================================
-   CARDS — panneaux HUD : verre dépoli + crochets de visée aux coins
-   (réticule terminal qui apparaît au survol)
+   CARDS — HUD panels: frosted glass with corner targeting brackets
+   (a terminal reticle revealed on hover)
    ============================================================================ */
 .card,
 .glass-panel {
   background: var(--glass-bg);
-  /* saturate() est essentiel : sans lui le flou « délave » les couleurs
-     derrière le verre et l'effet perd son côté vitré/coloré (§3.1). */
+  /* saturate() is essential: without it blur washes out colours behind the
+     glass and the result loses its glossy, coloured quality (§3.1). */
   backdrop-filter: blur(var(--glass-blur)) saturate(150%);
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
-  /* Le liseré interne simule un reflet en haut du panneau — discret en
-     sombre, net en clair : c'est ce détail qui évite l'effet « plat ». */
+  /* The inner rim simulates a top-panel reflection — subtle in dark mode and
+     clear in light mode — preventing a flat appearance. */
   box-shadow:
     var(--shadow-sm),
     inset 0 1px 0 var(--glint),
@@ -36,8 +36,8 @@
     box-shadow 0.35s ease;
 }
 
-/* Crochets de coin (top-left + bottom-right) dessinés en dégradés —
-   aucun pseudo-élément des pages n'utilise ::after sur .card */
+/* Top-left and bottom-right corner brackets drawn with gradients. No page
+   pseudo-element uses ::after on .card. */
 .card::after {
   content: '';
   position: absolute;
@@ -143,8 +143,8 @@
 }
 
 /* ============================================================================
-   BUTTONS — mono terminal ; le primaire porte une bordure conique animée
-   (@property --btn-angle) qui tourne en continu.
+   BUTTONS — terminal monospace; the primary button has a continuously rotating
+   animated conic border (@property --btn-angle).
    ============================================================================ */
 .btn {
   display: inline-flex;
@@ -221,7 +221,7 @@
 /* ============================================================================
    TAGS
    ============================================================================ */
-/* Tag style man-page: `[ name ]` en mono, sans pastille arrondie */
+/* Man-page tag style: `[ name ]` in monospace, without a rounded badge. */
 .tag {
   display: inline-flex;
   align-items: center;
@@ -392,9 +392,9 @@
 
 /* ============================================================================
    SCROLL-DRIVEN REVEALS — 100 % CSS natif (animation-timeline: view()),
-   remplace GSAP ScrollTrigger. Les animations sont *scrubbed* par le scroll :
-   l'élément se révèle au rythme où il entre dans le viewport.
-   Dégradation propre : sans support, tout est simplement visible.
+   replaces GSAP ScrollTrigger. Animations are scroll-scrubbed: an element is
+   revealed at the pace it enters the viewport. Without support, everything is
+   simply visible.
    ============================================================================ */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
@@ -404,7 +404,7 @@
       animation-range: entry 5% entry 80%;
     }
 
-    /* Les grilles révèlent leurs enfants individuellement */
+    /* Grids reveal each child individually. */
     :is(.projects-grid, .certs-grid, .nodes-grid, .vlans-grid, .services-grid, .stats-grid) > * {
       animation: reveal-pop both;
       animation-timeline: view();
@@ -473,7 +473,7 @@
   }
 }
 
-/* Stagger helpers (transitions CSS pilotées par les pages) */
+/* Stagger helpers (CSS transitions controlled by pages). */
 .stagger-1 {
   transition-delay: 0.05s;
 }
@@ -494,7 +494,7 @@
    RESPONSIVE
    ============================================================================ */
 @media (max-width: 768px) {
-  /* Les tailles de titres sont gérées par clamp() — pas d'override ici */
+  /* Heading sizes are controlled by clamp(); no override is needed here. */
   .container {
     padding: 0 1rem;
   }
@@ -516,7 +516,7 @@
 }
 
 :focus-visible {
-  /* outline-offset pour ne pas être mangé par les bords arrondis (§4) */
+  /* outline-offset prevents rounded edges from clipping it (§4). */
   outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
   border-radius: var(--radius-sm);
@@ -583,8 +583,8 @@
   transition-duration: 0ms !important;
 }
 
-/* Le fond ambiant est position:fixed et persiste entre navigations.
-   L'exclure des View Transitions évite un flash de double snapshot. */
+/* The ambient background is position: fixed and persists between navigations.
+   Excluding it from View Transitions prevents a double-snapshot flash. */
 #ambient-bg {
   view-transition-name: none;
 }
@@ -624,10 +624,10 @@
 }
 
 /* ============================================================================
-   PILULES / SEGMENTS DE VERRE (§3.3)
-   Le « signature element » du site : les segments d'invite façon powerline
-   réinterprétés en capsules de verre dépoli plutôt qu'en blocs à angles vifs.
-   Toujours en capsule complète (999px), quel que soit le rayon global.
+   PILLS / GLASS SEGMENTS (§3.3)
+   The site's signature element: powerline-style prompt segments reinterpreted
+   as frosted-glass capsules rather than sharp-cornered blocks. They always
+   remain fully rounded (999px), regardless of the global radius.
    ============================================================================ */
 .pill {
   display: inline-flex;
@@ -646,8 +646,8 @@
   -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
 }
 
-/* Variantes teintées : fond/bordure en couleur « vive » constante (non
-   textuelle → 3:1 suffit), texte en couleur « ink » qui garantit le 4.5:1. */
+/* Tinted variants use a constant "vivid" fill/border (non-textual: 3:1 is
+   sufficient) and an "ink" text colour that guarantees 4.5:1. */
 .pill--amber {
   color: var(--accent-amber);
   background: rgba(var(--amber-rgb), 0.16);
@@ -670,10 +670,10 @@
 }
 
 /* ============================================================================
-   ÉTATS / STATUTS (§3.4)
-   WCAG 1.4.1 — aucune information n'est portée par la couleur seule :
-   chaque état = couleur + icône + libellé texte. Lisible en niveaux de gris
-   comme en deutéranopie.
+   STATES / STATUS (§3.4)
+   WCAG 1.4.1 — no information is conveyed by colour alone: every state uses
+   colour, an icon, and a text label. It remains readable in grayscale and
+   with deuteranopia.
    ============================================================================ */
 .state {
   display: inline-flex;
@@ -709,11 +709,11 @@
 }
 
 /* ============================================================================
-   ACCESSIBILITÉ — media queries non négociables (§4)
+   ACCESSIBILITY — non-negotiable media queries (§4)
    ============================================================================ */
 
-/* Transparence réduite : tout le design repose sur le verre, il faut donc
-   le rendre franchement opaque plutôt que de simplement baisser le flou. */
+/* Reduced transparency: the design relies on glass, so make it clearly opaque
+   instead of merely reducing blur. */
 @media (prefers-reduced-transparency: reduce) {
   :root {
     --glass-bg: var(--bg-1);
@@ -736,8 +736,8 @@
   }
 }
 
-/* Contraste renforcé : bordures en currentColor, textes secondaires et
-   discrets remontés au niveau du texte principal. */
+/* Increased contrast: currentColor borders and secondary or muted text are
+   raised to the primary-text level. */
 @media (prefers-contrast: more) {
   :root {
     --text-secondary: var(--text-primary);
@@ -754,8 +754,8 @@
   }
 }
 
-/* Mouvement réduit : les halos cessent de dériver, le curseur cesse de
-   clignoter — le contenu reste strictement identique. */
+/* Reduced motion: glows stop drifting and the cursor stops blinking while
+   content remains strictly identical. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -786,7 +786,7 @@
   }
 }
 
-/* Cibles tactiles ≥ 40×40px sur mobile pour tout élément interactif (§4). */
+/* Touch targets ≥ 40×40px for every interactive element on mobile (§4). */
 @media (pointer: coarse) {
   .tab,
   .btn,

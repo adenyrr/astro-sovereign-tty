@@ -16,8 +16,17 @@ const forbidden = files.filter((path) =>
   /^(?:playground|tests|scripts|test-results|playwright-report|reports)\//u.test(path),
 );
 if (forbidden.length) throw new Error(`Forbidden package files: ${forbidden.join(', ')}`);
-if (!files.some((path) => path.startsWith('src/')))
-  throw new Error('Package contains no src files');
+for (const required of [
+  'dist/index.js',
+  'dist/index.d.ts',
+  'dist/integration.js',
+  'dist/integration.d.ts',
+  'dist/utils/csp.js',
+  'src/components/Fonts.astro',
+  'src/styles/global.css',
+]) {
+  if (!files.includes(required)) throw new Error(`Package is missing ${required}`);
+}
 
 await mkdir(new URL('../reports', import.meta.url), { recursive: true });
 await writeFile(

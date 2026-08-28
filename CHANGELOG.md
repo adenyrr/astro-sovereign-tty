@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2026-08-28
+
+### Added
+
+- Added the `sovereignTty()` Astro integration for the package font contract.
+- Added built ESM modules and declarations for Node and NodeNext consumers.
+- Added real tarball installation coverage across Astro 6/7 and Node 22/24.
+- Added publint, Are the Types Wrong, SHA-pinned GitHub CI, CodeQL, and OpenSSF Scorecard checks.
+
+### Changed
+
+- **Breaking:** changed the license to Apache-2.0 and formalized exports, component props, types, and documented tokens as SemVer contracts.
+- **Breaking:** `ThemeScript` only registers CSP hashes when rendered with `csp`; consumers using Astro CSP must use `<ThemeScript csp />`.
+- Added npm author, discovery keywords, side-effect metadata, and public `package.json`, `csp`, and deprecated `global.css` entry points.
+
 ## [2.1.2] - 2026-08-27
 
 ### Fixed
@@ -131,4 +146,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [2.0.3]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.0.3
 [2.1.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.0
 [2.1.1]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.1
+[3.0.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.0
 [2.1.2]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.2

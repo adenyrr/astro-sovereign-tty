@@ -27,9 +27,9 @@
   --color-input: var(--card-border);
   --color-ring: var(--focus-ring);
 
-  /* Rayons — adoucis vers le frost-glass (§2.5) sans perdre la densité
-     terminale : palier intermédiaire entre les 4px d'origine et les 20px
-     de la référence. Les pilules restent en capsule complète (999px). */
+  /* Radii softened toward frost glass (§2.5) without losing terminal density:
+     an intermediate step between the original 4px and reference 20px. Pills
+     remain fully rounded (999px). */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 14px;

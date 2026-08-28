@@ -1,4 +1,4 @@
-import type { ChromeLabels, ChromeLocale, SiteChromeConfig } from './types';
+import type { ChromeLabels, ChromeLocale, SiteChromeConfig } from './types.js';
 
 export const fr: Readonly<ChromeLabels> = Object.freeze({
   skipToContent: 'Aller au contenu principal',

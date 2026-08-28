@@ -1,9 +1,9 @@
 ---
 import BrandIcon from './BrandIcon.astro';
 import { ArrowUp, ExternalLink, GitBranch, Mail, MessageCircle, Rss } from '@lucide/astro';
-import { resolveChromeLabels } from '../i18n';
-import { safeHref } from '../utils/safe-href';
-import type { BrandIconName, SiteChromeConfig } from '../types';
+import { resolveChromeLabels } from '../i18n.js';
+import { safeHref } from '../utils/safe-href.js';
+import type { BrandIconName, SiteChromeConfig } from '../types.js';
 
 interface Props {
   config: SiteChromeConfig;

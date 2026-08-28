@@ -3,11 +3,19 @@ import {
   readingModeScript,
   themeBootstrapScript,
   themeToggleScript,
-} from '../scripts/inline-scripts';
-import { sha256CspHash } from '../utils/csp';
+} from '../scripts/inline-scripts.js';
+import { sha256CspHash } from '../utils/csp.js';
 
-for (const source of [themeBootstrapScript, themeToggleScript, readingModeScript]) {
-  Astro.csp?.insertScriptHash(await sha256CspHash(source));
+interface Props {
+  /** Enable only when the consumer has configured Astro native CSP. */
+  csp?: boolean;
+}
+
+const { csp = false } = Astro.props;
+if (csp) {
+  for (const source of [themeBootstrapScript, themeToggleScript, readingModeScript]) {
+    Astro.csp?.insertScriptHash(await sha256CspHash(source));
+  }
 }
 ---
 

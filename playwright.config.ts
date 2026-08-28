@@ -1,5 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 4321);
+
 export default defineConfig({
   testDir: './tests/browser',
   outputDir: './test-results',
@@ -11,13 +13,13 @@ export default defineConfig({
     ['junit', { outputFile: 'reports/playwright.xml' }],
   ],
   use: {
-    baseURL: 'http://127.0.0.1:4321',
+    baseURL: `http://127.0.0.1:${port}`,
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },
   webServer: {
     command: 'npm run preview:playground',
-    url: 'http://127.0.0.1:4321',
+    url: `http://127.0.0.1:${port}`,
     reuseExistingServer: !process.env.CI,
   },
   projects: [

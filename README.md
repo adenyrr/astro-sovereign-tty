@@ -2,16 +2,16 @@
 
 [![npm version](https://img.shields.io/npm/v/%40adenyrr%2Fastro-sovereign-tty)](https://www.npmjs.com/package/@adenyrr/astro-sovereign-tty)
 [![Pipeline](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml)
-[![Release v2.1.2](https://img.shields.io/badge/Release-v2.1.2-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.2)
+[![Release v3.0.0](https://img.shields.io/badge/Release-v3.0.0-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.0)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
-[![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey)](LICENSE)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
 
-Shared visual chrome for Astro sites built around the adenyrr workstation shell.
+Shared terminal-inspired visual chrome for Astro sites.
 
-This package provides a reusable global layout for website headers, footers, light/dark theme tokens, reading mode, ambient background, motion accents, and a coherent typography system. It is designed to be consumed by Astro applications that want a consistent brand layer without duplicating the same UI scaffolding across multiple sites.
+This package provides reusable headers, footers, light/dark tokens, reading mode, ambient backgrounds, motion accents, and typography for Astro applications. Named themes remain optional presets.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.1.2/preview.svg" alt="Apercu de @adenyrr/astro-sovereign-tty : le meme chrome workstation rendu en theme clair a gauche et en theme sombre a droite." width="1000" />
+  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.0/preview.svg" alt="Preview of @adenyrr/astro-sovereign-tty: terminal chrome rendered in light and dark themes." width="1000" />
 </p>
 
 ## Features
@@ -54,6 +54,15 @@ Development dependencies used for validation:
 
 ## Usage
 
+Add the font integration once to `astro.config.mjs`. It supplies the Astro Fonts configuration required by `<Fonts />`:
+
+```js
+import { defineConfig } from 'astro/config';
+import sovereignTty from '@adenyrr/astro-sovereign-tty/integration';
+
+export default defineConfig({ integrations: [sovereignTty()] });
+```
+
 Import the global theme stylesheet once in your Astro layout or app root:
 
 ```astro
@@ -66,7 +75,7 @@ import ThemeScript from '@adenyrr/astro-sovereign-tty/ThemeScript.astro';
 import type { SiteChromeConfig } from '@adenyrr/astro-sovereign-tty';
 
 const config: SiteChromeConfig = {
-  locale: 'fr', // default; use `en` or override individual `labels`
+  locale: 'en', // default; use `fr` or override individual `labels`
   features: {
     readingMode: true,
   },
@@ -75,36 +84,36 @@ const config: SiteChromeConfig = {
   },
   header: {
     show: true,
-    brandName: 'adenyrr',
-    brandHost: '@home',
+    brandName: 'Example',
+    brandHost: '@site',
     homeUrl: '/',
     hideOnScroll: true,
     basePath: '/',
     navigation: [
       { label: 'Blog', route: '/blog', enabled: true },
       { label: 'Projects', route: '/projects', enabled: true },
-      { label: 'GitHub', url: 'https://github.com/adenyrr', external: true, enabled: true },
+      { label: 'GitHub', url: 'https://github.com/example', external: true, enabled: true },
     ],
     socialLinks: [
-      { label: 'GitHub', icon: 'github', url: 'https://github.com/adenyrr', enabled: true },
+      { label: 'GitHub', icon: 'Github', url: 'https://github.com/example', enabled: true },
     ],
   },
   footer: {
     show: true,
-    author: 'adenyrr',
-    authorUrl: 'https://adenyrr.me',
+    author: 'Example',
+    authorUrl: 'https://example.com',
     signatureCommand: 'whoami',
     note: 'Building systems that feel like a workspace.',
     navigationLabel: 'Navigation',
     connectLabel: 'Connect',
-    backToTopLabel: 'Retour en haut',
-    shellPrompt: 'adenyrr',
+    backToTopLabel: 'Back to top',
+    shellPrompt: 'example',
     branch: 'main',
   },
 };
 ---
 
-<html lang="fr">
+<html lang="en">
   <head>
     <ThemeScript />
     <Fonts />
@@ -127,10 +136,14 @@ const config: SiteChromeConfig = {
 The package exposes the following entry points:
 
 - `@adenyrr/astro-sovereign-tty`
+- `@adenyrr/astro-sovereign-tty/integration`
 - `@adenyrr/astro-sovereign-tty/i18n`
 - `@adenyrr/astro-sovereign-tty/navigation`
 - `@adenyrr/astro-sovereign-tty/safe-href`
+- `@adenyrr/astro-sovereign-tty/csp`
+- `@adenyrr/astro-sovereign-tty/package.json`
 - `@adenyrr/astro-sovereign-tty/styles.css`
+- `@adenyrr/astro-sovereign-tty/global.css` (deprecated alias)
 - `@adenyrr/astro-sovereign-tty/tokens.css`
 - `@adenyrr/astro-sovereign-tty/base.css`
 - `@adenyrr/astro-sovereign-tty/components.css`
@@ -153,7 +166,7 @@ The package exposes the following entry points:
 
 - Import the stylesheet once at the app root, not in every page component.
 - Import Tailwind, vaul compatibility, and print contracts only where the consumer needs them; see [`docs/tokens.md`](docs/tokens.md).
-- Configure Astro Fonts exactly as documented in [`docs/fonts.md`](docs/fonts.md), then place `Fonts` in `<head>` after `ThemeScript`.
+- Add `sovereignTty()` before rendering `Fonts`; use the manual configuration in [`docs/fonts.md`](docs/fonts.md) only when replacing one of its fonts.
 - Keep `currentPath` aligned with the route you are rendering for correct active nav state.
 - Use `SiteChromeConfig` instead of ad hoc object literals when building shared layouts.
 - Respect `enabled` and feature flags to keep content and navigation context-aware.
@@ -161,7 +174,7 @@ The package exposes the following entry points:
 - Prefer semantic markup and accessible labels for navigation and actions.
 - Treat configurable links as untrusted input: the chrome applies the exported `safeHref()` guard.
 - Keep the package on the supported Astro major versions to avoid mismatched rendering behavior.
-- Enable Astro's native CSP using the autonomous baseline in [`docs/csp.md`](docs/csp.md).
+- With Astro CSP enabled, use `<ThemeScript csp />`; without CSP, the default `<ThemeScript />` is intentionally silent.
 - Follow the tested WCAG contract and consumer responsibilities in [`docs/accessibility.md`](docs/accessibility.md).
 
 ### Site themes
@@ -177,11 +190,11 @@ import '@adenyrr/astro-sovereign-tty/themes/train.css';
 
 | @adenyrr/astro-sovereign-tty | Astro      | adenyrr.me           | docu              | training           |
 | ---------------------------- | ---------- | -------------------- | ----------------- | ------------------ |
-| 2.x                          | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
+| 3.x                          | 6.2+ / 7.x | `themes/adenyrr.css` | `themes/docu.css` | `themes/train.css` |
 
-### Migrating from 1.x
+### Migrating from 1.x and 2.x
 
-Version 2 requires `ThemeScript`, explicit Astro Fonts configuration, and an intentional choice of optional CSS bridges. Follow the ordered [1.x to 2.0 migration guide](docs/migration-v2.md).
+Version 3 adds the font integration and makes CSP hashing explicit. Follow the [v3 migration guide](docs/migration-v2.md).
 
 ## Development
 
@@ -202,12 +215,14 @@ npm run verify
 
 ## Versioning and release
 
-Current release: `v2.1.2`
+Current release: `v3.0.0`
 
 Stable tags are published as the public scoped npm package `@adenyrr/astro-sovereign-tty`. The release pipeline expects a protected, masked `NPM_TOKEN` permitted to publish this package to `registry.npmjs.org`.
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) license. See [LICENSE](LICENSE) for the full text.
+This project is licensed under the [Apache License 2.0](LICENSE).
 
-You may reuse, share, and adapt this work for non-commercial purposes only, provided you give appropriate credit to adenyrr and indicate any changes.
+## Public API stability
+
+Every entry point listed above, exported TypeScript type, component prop, and token documented in [`docs/tokens.md`](docs/tokens.md) is a SemVer contract. Removing or changing one incompatibly requires a new major version. Named themes are optional presets, not a required identity layer.

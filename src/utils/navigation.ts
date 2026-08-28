@@ -1,4 +1,4 @@
-import type { NavigationItem } from '../types';
+import type { NavigationItem } from '../types.js';
 
 export function normalizePath(path = '/'): string {
   const pathname = path.split(/[?#]/u, 1)[0].replace(/\\/gu, '/');

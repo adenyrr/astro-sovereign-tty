@@ -8,9 +8,9 @@ function hasControlCharacter(value: string): boolean {
 }
 
 /**
- * Valide une URL fournie par configuration avant son insertion dans le DOM.
- * Les URL relatives et les protocoles web explicites sont acceptés ; les URL
- * ambiguës, exécutables ou dépendantes du protocole courant sont rejetées.
+ * Validates a configuration-provided URL before it is inserted into the DOM.
+ * Relative URLs and explicit web protocols are accepted; ambiguous,
+ * executable, and protocol-relative URLs are rejected.
  */
 export function safeHref(value: unknown, fallback = '#'): string {
   if (typeof value !== 'string') return fallback;

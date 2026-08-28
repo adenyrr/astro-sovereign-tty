@@ -1,22 +1,29 @@
-# Migrating from 1.x to 2.0
+# Migrating to 3.0
 
-Version 2 keeps the workstation chrome and the `styles.css` compatibility entry, but makes font delivery and early preference restoration explicit.
+Version 3 keeps the workstation chrome and the `styles.css` compatibility entry, while providing a native font integration and making CSP hashing explicit.
 
 The public package is now named `@adenyrr/astro-sovereign-tty`. Replace imports from the former `@adenyrr/astro-ui` package while following the steps below.
 
 ## 1. Upgrade Astro and the package
 
-Use Node 22.12 or later and Astro `^6.2.0 || ^7.0.0`, then install version 2:
+Use Node 22.12 or later and Astro `^6.2.0 || ^7.0.0`, then install version 3:
 
 ```sh
-npm install astro@^7.0.0 @adenyrr/astro-sovereign-tty@^2.0.0
+npm install astro@^7.0.0 @adenyrr/astro-sovereign-tty@^3.0.0
 ```
 
 Astro 6 consumers can retain their supported major by installing `astro@^6.2.0` instead.
 
 ## 2. Configure and render the fonts
 
-Remove `@fontsource-variable/inclusive-sans`, `@fontsource-variable/inter`, and `@fontsource-variable/jetbrains-mono` from the consumer. Copy the exact Astro Fonts configuration from [fonts.md](fonts.md).
+Remove `@fontsource-variable/inclusive-sans`, `@fontsource-variable/inter`, and `@fontsource-variable/jetbrains-mono` from the consumer. Add the integration in `astro.config.mjs`:
+
+```js
+import sovereignTty from '@adenyrr/astro-sovereign-tty/integration';
+export default defineConfig({ integrations: [sovereignTty()] });
+```
+
+Use the manual configuration in [fonts.md](fonts.md) only when supplying custom values for the package font variables.
 
 Render both head components before application styles:
 
@@ -64,8 +71,8 @@ The new keys are optional and preserve French defaults:
 
 ```ts
 const config = {
-  locale: 'fr',
-  labels: { backToTop: 'Retour en haut' },
+  locale: 'en',
+  labels: { backToTop: 'Back to top' },
   header: {
     basePath: '/',
     hideOnScroll: 'mobile',
@@ -73,14 +80,14 @@ const config = {
 };
 ```
 
-- `locale` accepts `fr` or `en`; individual `labels` override the selected dictionary.
+- `locale` accepts `en` or `fr`; individual `labels` override the selected dictionary.
 - `hideOnScroll` defaults to `mobile`, accepts `true` for every viewport, and `false` to disable hiding.
 - `basePath` is normalized and removed from `currentPath` before active-route comparison.
 - Configurable links now pass through `safeHref()`. Invalid or protocol-relative values are intentionally disabled; do not rely on `javascript:`, `data:`, control characters, `//host`, or backslash variants.
 
 ## 5. Enable CSP and validate
 
-Copy the native Astro CSP baseline from [csp.md](csp.md), then build and exercise every route. At minimum run:
+Copy the native Astro CSP baseline from [csp.md](csp.md), use `<ThemeScript csp />`, then build and exercise every route. Without native Astro CSP, retain `<ThemeScript />` with no prop.
 
 ```sh
 npm run verify

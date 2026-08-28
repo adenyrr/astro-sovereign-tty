@@ -1,6 +1,15 @@
 # Astro Fonts contract
 
-Version 2 uses Astro's native Fonts API. Consumers must copy this configuration into `astro.config.mjs`; the package no longer installs or imports Fontsource packages.
+Version 3 uses Astro's native Fonts API. The usual setup is one integration line; it supplies the configuration needed by `<Fonts />`.
+
+```js
+import { defineConfig } from 'astro/config';
+import sovereignTty from '@adenyrr/astro-sovereign-tty/integration';
+
+export default defineConfig({ integrations: [sovereignTty()] });
+```
+
+If a consumer needs to replace one of the three font families, do not register the integration. Copy and adapt the manual configuration below instead; the `--astro-ui-font-body`, `--astro-ui-font-code`, and `--astro-ui-font-reading` variables remain required by `<Fonts />`.
 
 ```js
 import { defineConfig, fontProviders } from 'astro/config';

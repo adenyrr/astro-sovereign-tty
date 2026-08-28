@@ -2,6 +2,7 @@ packaging:
   stage: package
   script:
     - npm run test:package
+    - npm run test:tarball
   artifacts:
     expire_in: 1 week
     paths:

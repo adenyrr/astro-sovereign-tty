@@ -16,14 +16,14 @@ const readme = read('README.md');
 const changelog = read('CHANGELOG.md');
 const workflow = read('.github/workflows/verify.yml');
 
-describe('2.1.2 release contract', () => {
+describe('3.0.0 release contract', () => {
   it('aligns the package, changelog and documented release', () => {
     expect(packageJson.name).toBe('@adenyrr/astro-sovereign-tty');
-    expect(packageJson.version).toBe('2.1.2');
-    expect(changelog).toContain('## [2.1.2] - 2026-08-27');
-    expect(readme).toContain('Current release: `v2.1.2`');
+    expect(packageJson.version).toBe('3.0.0');
+    expect(changelog).toContain('## [3.0.0] - 2026-08-28');
+    expect(readme).toContain('Current release: `v3.0.0`');
     expect(readme).toContain(
-      'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v2.1.2/preview.svg"',
+      'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.0/preview.svg"',
     );
     expect(readme).toContain('npm install @adenyrr/astro-sovereign-tty');
     expect(readme).toContain(
@@ -31,6 +31,8 @@ describe('2.1.2 release contract', () => {
     );
     expect(workflow).toContain('name: Pipeline');
     expect(workflow).toContain('node-version: 22.12.0');
+    expect(workflow).toContain('11bd71901bbe5b1630ceea73d27597364c9af683');
+    expect(workflow).toContain('npm run test:tarball');
   });
 
   it('publishes publicly from the canonical GitHub repository', () => {
@@ -44,17 +46,18 @@ describe('2.1.2 release contract', () => {
       registry: 'https://registry.npmjs.org/',
     });
     expect(changelog).toContain(
-      '[2.1.2]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v2.1.2',
+      '[3.0.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.0',
     );
     expect(read('SECURITY.md')).toContain(
       'https://github.com/adenyrr/astro-sovereign-tty/security/advisories/new',
     );
   });
 
-  it('keeps the locked license and Astro compatibility contract', () => {
-    expect(packageJson.license).toBe('SEE LICENSE IN LICENSE');
+  it('keeps the Apache license and Astro compatibility contract', () => {
+    expect(packageJson.license).toBe('Apache-2.0');
     expect(packageJson.peerDependencies.astro).toBe('^6.2.0 || ^7.0.0');
-    expect(read('LICENSE')).toContain('Attribution-NonCommercial 4.0 International');
+    expect(read('LICENSE')).toContain('Apache License');
+    expect(readme).toContain('Public API stability');
   });
 
   it('ships migration, WCAG, CSP, font and token documentation', () => {

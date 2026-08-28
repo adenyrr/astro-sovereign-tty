@@ -2,7 +2,7 @@
 
 ## Supported versions
 
-Only the latest stable 2.x release receives security fixes. Consumers should update to the newest patch before reporting an issue.
+Only the latest stable 3.x release receives security fixes. Consumers should update to the newest patch before reporting an issue.
 
 ## Reporting a vulnerability
 

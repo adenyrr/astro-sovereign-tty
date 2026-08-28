@@ -39,7 +39,7 @@ export default defineConfig({
   security: {
     csp: {
       algorithm: 'SHA-256',
-      // Hash de la feuille injectée par le test WCAG Text Spacing.
+      // Hash for the stylesheet injected by the WCAG Text Spacing test.
       styleDirective: {
         hashes: ['sha256-lhOu7j3pLsbviUTPGREJG+h/fFqOdV6bULKHhABcmCo='],
       },
