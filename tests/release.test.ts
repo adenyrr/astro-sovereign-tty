@@ -16,14 +16,14 @@ const readme = read('README.md');
 const changelog = read('CHANGELOG.md');
 const workflow = read('.github/workflows/verify.yml');
 
-describe('3.0.0 release contract', () => {
+describe('3.0.1 release contract', () => {
   it('aligns the package, changelog and documented release', () => {
     expect(packageJson.name).toBe('@adenyrr/astro-sovereign-tty');
-    expect(packageJson.version).toBe('3.0.0');
-    expect(changelog).toContain('## [3.0.0] - 2026-08-28');
-    expect(readme).toContain('Current release: `v3.0.0`');
+    expect(packageJson.version).toBe('3.0.1');
+    expect(changelog).toContain('## [3.0.1] - 2026-09-06');
+    expect(readme).toContain('Current release: `v3.0.1`');
     expect(readme).toContain(
-      'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.0/preview.svg"',
+      'src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.1/preview.svg"',
     );
     expect(readme).toContain('npm install @adenyrr/astro-sovereign-tty');
     expect(readme).toContain(
@@ -46,7 +46,7 @@ describe('3.0.0 release contract', () => {
       registry: 'https://registry.npmjs.org/',
     });
     expect(changelog).toContain(
-      '[3.0.0]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.0',
+      '[3.0.1]: https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.1',
     );
     expect(read('SECURITY.md')).toContain(
       'https://github.com/adenyrr/astro-sovereign-tty/security/advisories/new',

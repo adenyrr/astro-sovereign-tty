@@ -109,7 +109,7 @@ export const href = safeHref('/');
   const packageJson = JSON.parse(
     await readFile(join(fixture, 'node_modules/@adenyrr/astro-sovereign-tty/package.json'), 'utf8'),
   );
-  if (packageJson.version !== '3.0.0')
+  if (packageJson.version !== '3.0.1')
     throw new Error('Fixture installed an unexpected package version.');
   console.log(`Tarball consumer passed with Astro ${astroVersion}.`);
 } finally {

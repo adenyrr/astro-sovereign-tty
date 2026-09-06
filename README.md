@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/%40adenyrr%2Fastro-sovereign-tty)](https://www.npmjs.com/package/@adenyrr/astro-sovereign-tty)
 [![Pipeline](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml/badge.svg?branch=main)](https://github.com/adenyrr/astro-sovereign-tty/actions/workflows/verify.yml)
-[![Release v3.0.0](https://img.shields.io/badge/Release-v3.0.0-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.0)
+[![Release v3.0.1](https://img.shields.io/badge/Release-v3.0.1-blue)](https://github.com/adenyrr/astro-sovereign-tty/releases/tag/v3.0.1)
 [![Astro](https://img.shields.io/badge/Astro-6%20%7C%207-purple)](https://astro.build)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache--2.0-blue)](LICENSE)
 
@@ -11,7 +11,7 @@ Shared terminal-inspired visual chrome for Astro sites.
 This package provides reusable headers, footers, light/dark tokens, reading mode, ambient backgrounds, motion accents, and typography for Astro applications. Named themes remain optional presets.
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.0/preview.svg" alt="Preview of @adenyrr/astro-sovereign-tty: terminal chrome rendered in light and dark themes." width="1000" />
+  <img src="https://raw.githubusercontent.com/adenyrr/astro-sovereign-tty/v3.0.1/preview.svg" alt="Preview of @adenyrr/astro-sovereign-tty: terminal chrome rendered in light and dark themes." width="1000" />
 </p>
 
 ## Features
@@ -215,7 +215,7 @@ npm run verify
 
 ## Versioning and release
 
-Current release: `v3.0.0`
+Current release: `v3.0.1`
 
 Stable tags are published as the public scoped npm package `@adenyrr/astro-sovereign-tty`. The release pipeline expects a protected, masked `NPM_TOKEN` permitted to publish this package to `registry.npmjs.org`.
 
